@@ -8,7 +8,6 @@
 
 use Symfony\Component\Debug\ErrorHandler;
 use Symfony\Component\Debug\ExceptionHandler;
-use Symfony\Component\Translation\Loader\XliffFileLoader;
 
 // Register global error and exception handlers
 ErrorHandler::register();
@@ -30,9 +29,43 @@ $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 $app->register(new Silex\Provider\FormServiceProvider());
 
 
-// Register services
-//$app['dao.article'] = $app->share(function ($app) {
-//    return new portfolio\DAO\ArticleDAO($app['db']);
+/* Register services */
+
+/****** EM Staffs ******/
+$app['zdao.staff'] = $app->share(function ($app) {
+    return new buvette\DAO\StaffZDAO($app['zdb.configArray']);
+});
+/***** EM Unities *****/
+$app['zdao.unities'] = $app->share(function ($app) {
+    return new buvette\DAO\UnitiesZDAO($app['zdb.configArray']);
+});
+/***** EM Categories Prima Products ******/
+$app['zdao.catPrimProd'] = $app->share(function ($app) {
+    return new buvette\DAO\CatPrimaProductZDAO($app['zdb.configArray']);
+});
+/****** EM PRIMA PRODUCTS ******/
+$app['zdao.primaProduct'] = $app->share(function ($app) {
+    return new buvette\DAO\PrimaProductsZDAO($app['zdb.configArray']);
+});
+/****** EM CATEGORIES PRODUCTS ******/
+$app['zdao.catProducts'] = $app->share(function ($app) {
+    return new buvette\DAO\CatProductZDAO($app['zdb.configArray']);
+});
+/****** EM PRODUCTS ******/
+$app['zdao.products'] = $app->share(function ($app) {
+    return new buvette\DAO\ProductsZDAO($app['zdb.configArray']);
+});
+/****** EM COMBO PRODUCTS ******/
+$app['zdao.comboProducts'] = $app->share(function ($app) {
+    return new buvette\DAO\ComboProductsZDAO($app['zdb.configArray']);
+});
+/****** EM EVENTS ******/
+$app['zdao.events'] = $app->share(function ($app) {
+    return new buvette\DAO\EventsZDAO($app['zdb.configArray']);
+});
+
+
+
 
 
 // Register error handler

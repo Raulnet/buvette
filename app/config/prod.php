@@ -2,17 +2,29 @@
 /**
  * Created by PhpStorm.
  * User: XVI
- * Date: 10/03/15
- * Time: 18:55
+ * Date: 01/03/15
+ * Time: 15:53
+ * Doctrine (db)
  */
-
-// Doctrine (db)
 $app['db.options'] = array(
     'driver'   => 'pdo_mysql',
     'charset'  => 'utf8',
-    'host'     => '127.0.0.1',
+    'host'     => 'localhost',
     'port'     => '3306',
     'dbname'   => 'microcms',
-    'user'     => 'microcms_user',
-    'password' => 'secret',
+    'user'     => 'root',
+    'password' => '',
+);
+
+$app['zdb.configArray'] = array(
+    'driver'   => 'pdo_mysql',
+    'database' => 'buvette',
+    'charset'  => 'utf8',
+    'hostname' => 'localhost',
+    'port'     => '3306',
+    'username' => 'Raulnet',
+    'password' => '',
+    'options'  => array(
+        'buffer_results' => true,
+    )
 );

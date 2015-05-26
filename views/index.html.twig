@@ -2,8 +2,183 @@
 {% block title %}home{% endblock %}
 
 {% block content %} {# BLOCK CONTENT #}
+    {# ===== TITLE ===== #}
+    <div class="col-md-12">
+        <h1>Buvette</h1>
+    </div>
+    <div class="col-md-12">
+            <table class="table table-bordered">
+                <tr>
+                    <th>#</th>
+                    <th>title</th>
+                    <th>start</th>
+                    <th>end</th>
+                </tr>
+                {% for event in events %}
+                <tr>
+                    <td>{{ event.id }}</td>
+                    <td>{{ event.title }}</td>
+                    <td>{{ event.dateStart}}</td>
+                    <td>{{ event.dateEnd}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            {# ===== TABLE STAFFS ===== #}
+            <div class="col-sm-4">
+                <h3>Matière première</h3>
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>#</th>
+                        <th>title</th>
+                        <th>category</th>
+                        <th>unité</th>
+                    </tr>
+                    {% for primProd in primaProductsData %}
+                        <tr>
+                            <td>{{ primProd.id }} </td>
+                            <td>{{ primProd.title }}</td>
+                            <td>{{ primProd.catTitle }}</td>
+                            <td>{{ primProd.uniTitle }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {# ===== TABLE UNITIES ===== #}
+            <div class="col-sm-4">
+                <h3>Unities</h3>
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>#</th>
+                        <th>title</th>
+                    </tr>
+                    {% for unity in unities %}
+                        <tr>
+                            <td>{{ unity.id }} </td>
+                            <td>{{ unity.title }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {# ===== TABLE CATEGORIES PRIM PRODUCTS ===== #}
+            <div class="col-sm-4">
+                <h3>Categories Prima Products</h3>
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>#</th>
+                        <th>title</th>
+                    </tr>
+                    {% for category in catPrimProds %}
+                        <tr>
+                            <td>{{ category.id }} </td>
+                            <td>{{ category.title }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            {# ===== TABLE PRODUCTs ===== #}
+            <div class="col-sm-8">
+                <h3>Products</h3>
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>#</th>
+                        <th>category</th>
+                        <th>title</th>
+                        <th>prix</th>
+                        <th>recette</th>
+                    </tr>
+                    {% for prod in products %}
+                        <tr>
+                            <td>{{ prod.id }} </td>
+                            <td>{{ prod.catTitle }}</td>
+                            <td>{{ prod.title }}</td>
+                            <td>{{ prod.price }} €</td>
+                            <td>
+                                <ul>
+                                {% for compo in prod.recette %}
+                                <li>{{ compo.prmTitle }} {{ compo.quantity }} {{ compo.uniTitle }}</li>
+                                {% endfor %}
+                                </ul>
+                                <hr>
+                                <ul>
+                                    {% for compo in prod.option_recette %}
+                                        <li>{{ compo.prmTitle }} {{ compo.quantity }} {{ compo.uniTitle }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {# ===== TABLE MENU ===== #}
+            <div class="col-sm-4">
+                <h3>Menu</h3>
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>#</th>
+                        <th>title</th>
+                        <th>prix</th>
+                    </tr>
+                    {% for menu in menus %}
+                        <tr>
+                            <td>{{ menu.cmb_id }} </td>
+                            <td>{{ menu.cmb_title }}
+                            <ul>
+                                 {% for prod in menu.compo %}
+                                <li>{{ prod.quantity }} - {{ prod.pro_title }}</li>
+                                {% endfor %}
+                            </ul>
 
-<h1>Buvette</h1>
+                            </td>
+                            <td>{{ menu.cmb_price }} €</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+                {# ===== TABLE CATEGORIES PRODUCT ===== #}
+                <div class="col-sm-4">
+                    <h3>Categories Products</h3>
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <th>#</th>
+                            <th>title</th>
+                        </tr>
+                        {% for catProd in catProducts %}
+                            <tr>
+                                <td>{{ catProd.id }} </td>
+                                <td>{{ catProd.title }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                {# ===== TABLE STAFFS ===== #}
+                <div class="col-sm-4">
+                    <h3>Staff</h3>
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <th>#</th>
+                            <th>name</th>
+                        </tr>
+                        {% for staff in staffs %}
+                            <tr>
+                                <td>{{ staff.id }} </td>
+                                <td>{{ staff.name }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 {% endblock %}{# ENDBLOCK CONTENT #}

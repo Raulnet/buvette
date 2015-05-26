@@ -10,7 +10,7 @@
 // ===== ROUTE GLOBAL =============================================================================================== //
 
 ///* Route locale */
-//$app->get('/', "portfolio\Controller\GlobalController::localeAction");
+//$app->get('/', "buvette\Controller\GlobalController::localeAction");
 
 // ===== ROUTE PORTFOLIO ============================================================================================ //
 

@@ -1,30 +1,33 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-    <title>Buvette - {% block title %}{% endblock %}</title>
 
-    {% block stylessheets %}
-        <link href="{{ app.request.basepath }}/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+        <title>Buvette - {% block title %}{% endblock %}</title>
 
-    {% endblock %}
-</head>
-<body>
+        {% block stylessheets %}
+            <link href="{{ app.request.basepath }}/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-{% block content %}
+        {% endblock %}
+    </head>
 
-{% endblock %}
+    <body>
 
-{% block javascript %}
-    <!-- jQuery -->
-    <script src="{{ app.request.basepath }}/lib/jquery/jquery-1.11.2.min.js"></script>
-    <!-- JavaScript Boostrap plugin -->
-    <script src="{{ app.request.basepath }}/lib/bootstrap/js/bootstrap.min.js"></script>
+        <div class="container">
+            {% block content %}
 
+            {% endblock %}
+        </div>
 
-{% endblock %}
+        {% block javascript %}
+            <!-- jQuery -->
+            <script src="{{ app.request.basepath }}/lib/jquery/jquery-1.11.2.min.js"></script>
+            <!-- JavaScript Boostrap plugin -->
+            <script src="{{ app.request.basepath }}/lib/bootstrap/js/bootstrap.min.js"></script>
+        {% endblock %}
 
-</body>
+    </body>
+
 </html>
