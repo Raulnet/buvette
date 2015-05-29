@@ -3,140 +3,31 @@
 
 {% block content %} {# BLOCK CONTENT #}
     {# ===== TITLE ===== #}
-    <div class="col-md-12">
-        <h1>Buvette</h1>
+    <div class="page-header">
+        <h1>Buvette
+            <small>stock-préparation-commande</small>
+        </h1>
     </div>
-    <div class="col-md-12">
-            <table class="table table-bordered">
-                <tr>
-                    <th>#</th>
-                    <th>title</th>
-                    <th>start</th>
-                    <th>end</th>
-                </tr>
-                {% for event in events %}
-                <tr>
-                    <td>{{ event.id }}</td>
-                    <td>{{ event.title }}</td>
-                    <td>{{ event.dateStart}}</td>
-                    <td>{{ event.dateEnd}}</td>
-                </tr>
-                {% endfor %}
-            </table>
-    </div>
-    <div class="col-md-12">
-        <div class="row">
-            {# ===== TABLE STAFFS ===== #}
-            <div class="col-sm-4">
-                <h3>Matière première</h3>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                        <a href="#" class="btn btn-info btn-xs pull-right">+</a>
+                    <h3 class="panel-title">Evenement</h3>
+                </div>
                 <table class="table table-bordered table-striped">
                     <tr>
                         <th>#</th>
                         <th>title</th>
-                        <th>category</th>
-                        <th>unité</th>
+                        <th>start</th>
+                        <th>end</th>
                     </tr>
-                    {% for primProd in primaProductsData %}
+                    {% for event in events %}
                         <tr>
-                            <td>{{ primProd.id }} </td>
-                            <td>{{ primProd.title }}</td>
-                            <td>{{ primProd.catTitle }}</td>
-                            <td>{{ primProd.uniTitle }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
-            {# ===== TABLE UNITIES ===== #}
-            <div class="col-sm-4">
-                <h3>Unities</h3>
-                <table class="table table-bordered table-striped">
-                    <tr>
-                        <th>#</th>
-                        <th>title</th>
-                    </tr>
-                    {% for unity in unities %}
-                        <tr>
-                            <td>{{ unity.id }} </td>
-                            <td>{{ unity.title }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
-            {# ===== TABLE CATEGORIES PRIM PRODUCTS ===== #}
-            <div class="col-sm-4">
-                <h3>Categories Prima Products</h3>
-                <table class="table table-bordered table-striped">
-                    <tr>
-                        <th>#</th>
-                        <th>title</th>
-                    </tr>
-                    {% for category in catPrimProds %}
-                        <tr>
-                            <td>{{ category.id }} </td>
-                            <td>{{ category.title }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="row">
-            {# ===== TABLE PRODUCTs ===== #}
-            <div class="col-sm-8">
-                <h3>Products</h3>
-                <table class="table table-bordered table-striped">
-                    <tr>
-                        <th>#</th>
-                        <th>category</th>
-                        <th>title</th>
-                        <th>prix</th>
-                        <th>recette</th>
-                    </tr>
-                    {% for prod in products %}
-                        <tr>
-                            <td>{{ prod.id }} </td>
-                            <td>{{ prod.catTitle }}</td>
-                            <td>{{ prod.title }}</td>
-                            <td>{{ prod.price }} €</td>
-                            <td>
-                                <ul>
-                                {% for compo in prod.recette %}
-                                <li>{{ compo.prmTitle }} {{ compo.quantity }} {{ compo.uniTitle }}</li>
-                                {% endfor %}
-                                </ul>
-                                <hr>
-                                <ul>
-                                    {% for compo in prod.option_recette %}
-                                        <li>{{ compo.prmTitle }} {{ compo.quantity }} {{ compo.uniTitle }}</li>
-                                    {% endfor %}
-                                </ul>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
-            {# ===== TABLE MENU ===== #}
-            <div class="col-sm-4">
-                <h3>Menu</h3>
-                <table class="table table-bordered table-striped">
-                    <tr>
-                        <th>#</th>
-                        <th>title</th>
-                        <th>prix</th>
-                    </tr>
-                    {% for menu in menus %}
-                        <tr>
-                            <td>{{ menu.cmb_id }} </td>
-                            <td>{{ menu.cmb_title }}
-                            <ul>
-                                 {% for prod in menu.compo %}
-                                <li>{{ prod.quantity }} - {{ prod.pro_title }}</li>
-                                {% endfor %}
-                            </ul>
-
-                            </td>
-                            <td>{{ menu.cmb_price }} €</td>
+                            <td>{{ event.id }}</td>
+                            <td>{{ event.title }}</td>
+                            <td>{{ event.dateStart|date('d-M-y') }}</td>
+                            <td>{{ event.dateEnd|date('d-M-y') }}</td>
                         </tr>
                     {% endfor %}
                 </table>
@@ -144,41 +35,207 @@
         </div>
         <div class="col-md-12">
             <div class="row">
-                {# ===== TABLE CATEGORIES PRODUCT ===== #}
-                <div class="col-sm-4">
-                    <h3>Categories Products</h3>
-                    <table class="table table-bordered table-striped">
-                        <tr>
-                            <th>#</th>
-                            <th>title</th>
-                        </tr>
-                        {% for catProd in catProducts %}
-                            <tr>
-                                <td>{{ catProd.id }} </td>
-                                <td>{{ catProd.title }}</td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </div>
                 {# ===== TABLE STAFFS ===== #}
-                <div class="col-sm-4">
-                    <h3>Staff</h3>
-                    <table class="table table-bordered table-striped">
-                        <tr>
-                            <th>#</th>
-                            <th>name</th>
-                        </tr>
-                        {% for staff in staffs %}
+                <div class="col-sm-6">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Matière première</h3>
+                        </div>
+                        <table class="table table-bordered table-striped">
                             <tr>
-                                <td>{{ staff.id }} </td>
-                                <td>{{ staff.name }}</td>
+                                <th>#</th>
+                                <th>title</th>
+                                <th>category</th>
+                                <th>unité</th>
                             </tr>
-                        {% endfor %}
-                    </table>
+                            {% for primProd in primaProductsData %}
+                                <tr class="title">
+                                    <td>{{ primProd.id }} </td>
+                                    <td>{{ primProd.title }}</td>
+                                    <td>{{ primProd.catTitle }}</td>
+                                    <td>{{ primProd.uniTitle }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+                {# ===== TABLE UNITIES ===== #}
+                <div class="col-sm-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Unities</h3>
+                        </div>
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <th>#</th>
+                                <th>title</th>
+                            </tr>
+                            {% for unity in unities %}
+                                <tr>
+                                    <td>{{ unity.id }} </td>
+                                    <td>{{ unity.title }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+                {# ===== TABLE CATEGORIES PRIM PRODUCTS ===== #}
+                <div class="col-sm-4">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Categories Prima Products</h3>
+                        </div>
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <th>#</th>
+                                <th>title</th>
+                            </tr>
+                            {% for category in catPrimProds %}
+                                <tr>
+                                    <td>{{ category.id }} </td>
+                                    <td>{{ category.title }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+                {# ===== TABLE PRODUCTs ===== #}
+                <div class="col-sm-8">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Products</h3>
+                        </div>
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <th>#</th>
+                                <th>category</th>
+                                <th>title</th>
+                                <th>prix</th>
+                                <th>recette</th>
+                            </tr>
+                            {% for prod in products %}
+                                <tr>
+                                    <td>{{ prod.id }} </td>
+                                    <td>{{ prod.catTitle }}</td>
+                                    <td>{{ prod.title }}</td>
+                                    <td>{{ prod.price }} €</td>
+                                    <td>
+                                        <ul>
+                                            {% for compo in prod.recette %}
+                                                <li>{{ compo.prmTitle }} {{ compo.quantity }} {{ compo.uniTitle }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                        <hr>
+                                        <ul>
+                                            {% for compo in prod.option_recette %}
+                                                <li>{{ compo.prmTitle }} {{ compo.quantity }} {{ compo.uniTitle }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+                {# ===== TABLE MENU ===== #}
+                <div class="col-sm-4">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Formule</h3>
+                        </div>
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <th>#</th>
+                                <th>title</th>
+                                <th>prix</th>
+                            </tr>
+                            {% for menu in menus %}
+                                <tr>
+                                    <td>{{ menu.cmb_id }} </td>
+                                    <td>{{ menu.cmb_title }}
+                                        <ul>
+                                            {% for prod in menu.compo %}
+                                                <li>{{ prod.quantity }} - {{ prod.pro_title }}</li>
+                                            {% endfor %}
+                                        </ul>
+
+                                    </td>
+                                    <td>{{ menu.cmb_price }} €</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    {# ===== TABLE CATEGORIES PRODUCT ===== #}
+                    <div class="col-sm-4">
+                        <h3>Categories Products</h3>
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <th>#</th>
+                                <th>title</th>
+                            </tr>
+                            {% for catProd in catProducts %}
+                                <tr>
+                                    <td>{{ catProd.id }} </td>
+                                    <td>{{ catProd.title }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    {# ===== TABLE STAFFS ===== #}
+                    <div class="col-sm-4">
+                        <h3>Staff</h3>
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <th>#</th>
+                                <th>name</th>
+                            </tr>
+                            {% for staff in staffs %}
+                                <tr>
+                                    <td>{{ staff.id }} </td>
+                                    <td>{{ staff.name }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-
 {% endblock %}{# ENDBLOCK CONTENT #}
+{% block extendScript %}
+    <script>
+
+        $('.title').click(function () {
+//var data = $(this).text();
+//
+//       alert(data);
+
+
+            var id = 5;
+            var title = 'paple';
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ path('ajaxRq') }}',
+                data: 'id=' + id + '&title=' + title,
+                success: function (reponse) {
+
+
+                    alert(reponse);
+                }
+            })
+
+        });
+
+    </script>
+{% endblock %}

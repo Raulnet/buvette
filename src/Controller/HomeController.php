@@ -9,6 +9,8 @@
 namespace buvette\Controller;
 
 use Silex\Application;
+use Symfony\Component\HttpFoundation\Request;
+
 
 class HomeController
 {
@@ -30,6 +32,8 @@ class HomeController
         $comboProds = $app['zdao.comboProducts']->getFullSet();
         $events = $app['zdao.events']->findAll();
 
+
+
         return $app['twig']->render('index.html.twig', array(
             'staffs'            => $staffs,
             'unities'           => $unities,
@@ -40,9 +44,22 @@ class HomeController
             'menus'             => $comboProds,
             'events'            => $events,
 
-
         ));
     }
 
+    /**
+     * Ajax ActionController
+     *
+     * @return string reponse
+     */
+    public function ajaxRqAction(Request $request)
+    {
 
+        $id = $request->get('id');
+        $title = $request->get('title');
+
+        $reponse = array($id, $title);
+
+        return json_encode($reponse);
+    }
 } 

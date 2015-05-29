@@ -10,7 +10,8 @@
     "symfony/translation": "~2.4",
     "zendframework/zend-db": "2.*",
     "zendframework/zend-stdlib": "2.*",
-    "zendframework\/zend-eventmanager": "~2.2"
+    "zendframework\/zend-eventmanager": "~2.2",
+    "doctrine/orm": "*"
   },
   "autoload": {
     "psr-4": {"buvette\\": "src"}
