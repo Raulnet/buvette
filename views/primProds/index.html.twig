@@ -1,0 +1,35 @@
+{% extends "./layout.html.twig" %}
+{% block title %}Matière Première{% endblock %}
+
+
+{% block navbar %}
+    {% include "navbar/navbar.html.twig" %}
+{% endblock %}
+
+{% set primProdMenu = true %}
+
+{% block content %} {# BLOCK CONTENT #}
+
+    <div class="col-md-12">
+        <a class="btn btn-primary btn-sm" href="{{ path('addPrimProd') }}">add</a>
+        <table class="table table-bordered table-striped">
+            <tr>
+                <td>#</td>
+                <td>title</td>
+                <td>category</td>
+                <td>untié</td>
+                <td>Action</td>
+            </tr>
+            {% for prod in primProds %}
+                <tr>
+                    <td>{{ prod.id }}</td>
+                    <td>{{ prod.title }}</td>
+                    <td>{{ prod.catTitle }}</td>
+                    <td>{{ prod.uniTitle }}</td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %} {# END BLOCK CONTENT #}

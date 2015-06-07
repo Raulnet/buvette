@@ -1,0 +1,29 @@
+{% extends "./layout.html.twig" %}
+{% block title %}Matière Première{% endblock %}
+
+
+{% block navbar %}
+    {% include "navbar/navbar.html.twig" %}
+{% endblock %}
+
+{% set catPrimProdsMenu = true %}
+
+{% block content %} {# BLOCK CONTENT #}
+
+    <div class="col-md-12">
+        <a class="btn btn-primary btn-sm" href="{{ path('addCatPrimProds') }}">add</a>
+        <table class="table table-bordered table-striped">
+            <tr>
+                <td>title</td>
+                <td>Action</td>
+            </tr>
+            {% for cat in catPrimProds %}
+                <tr>
+                    <td>{{ cat.title }}</td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %} {# END BLOCK CONTENT#}

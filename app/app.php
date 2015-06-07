@@ -27,6 +27,9 @@ $app->register(new Silex\Provider\ValidatorServiceProvider());
 $app->register(new Silex\Provider\SessionServiceProvider());
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 $app->register(new Silex\Provider\FormServiceProvider());
+$app->register(new Silex\Provider\TranslationServiceProvider(), array(
+    'locale_fallbacks' => array('fr'),
+));
 
 
 /* Register services */
@@ -40,7 +43,7 @@ $app['zdao.unities'] = $app->share(function ($app) {
     return new buvette\DAO\UnitiesZDAO($app['zdb.configArray']);
 });
 /***** EM Categories Prima Products ******/
-$app['zdao.catPrimProd'] = $app->share(function ($app) {
+$app['zdao.catPrimProds'] = $app->share(function ($app) {
     return new buvette\DAO\CatPrimaProductZDAO($app['zdb.configArray']);
 });
 /****** EM PRIMA PRODUCTS ******/

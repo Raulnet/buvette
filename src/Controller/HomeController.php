@@ -25,14 +25,12 @@ class HomeController
 
         $staffs = $app['zdao.staff']->findAll();
         $unities = $app['zdao.unities']->findAll();
-        $catPrimProds = $app['zdao.catPrimProd']->findAll();
+        $catPrimProds = $app['zdao.catPrimProds']->findAll();
         $DataPrimaProducts = $app['zdao.primaProduct']->findAllData();
         $catProducts = $app['zdao.catProducts']->findAll();
         $products = $app['zdao.products']->getFullSetAll();
         $comboProds = $app['zdao.comboProducts']->getFullSet();
         $events = $app['zdao.events']->findAll();
-
-
 
         return $app['twig']->render('index.html.twig', array(
             'staffs'            => $staffs,
@@ -46,6 +44,8 @@ class HomeController
 
         ));
     }
+
+
 
     /**
      * Ajax ActionController

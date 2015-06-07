@@ -1,0 +1,83 @@
+{% extends "./layout.html.twig" %}
+{% block title %}unities{% endblock %}
+
+
+{% block navbar %}
+    {% include "navbar/navbar.html.twig" %}
+{% endblock %}
+
+{% set unitiesMenu = true %}
+
+{% block content %} {# BLOCK CONTENT #}
+
+    <div class="col-md-4, col-sm-6 well">
+        <h3>Create an unity</h3>
+        {{ form_start(unityForm) }}
+        {{ form_errors(unityForm) }}
+        <div class="form-group">
+            <label for="title_of_event">{{ form_label(unityForm.title, 'titre : ') }}</label>
+            {{ form_widget(unityForm.title, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+        <a href="{{ path('unities') }}" class="btn btn-danger">Annuler</a>
+        {{ form_end(unityForm) }}
+    </div>
+    <div class="col-md-8, col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">unities</h4>
+            </div>
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <td>title</td>
+                    <td>action</td>
+                </tr>
+                {% for unity in unities %}
+                    <tr>
+                        <td>{{ unity.title }}</td>
+                        <td>
+                            <!-- ===== BUTTON EDIT UNITY ================================================== -->
+                            <a href="#"
+                               class="btn btn-primary btn-xs"
+                               title="Edit"><span class="glyphicon glyphicon-time"></span></a>
+                            <!-- ===== END BUTTON EDIT UNITY ============================================== -->
+                            <!-- ===== BUTTON DELET UNITY  ================================================= -->
+                            <button type="button" class="btn btn-danger btn-xs" title="Delete"
+                                    data-toggle="modal" data-target="#unityDialog{{ unity.id }}"><span
+                                        class="glyphicon glyphicon-remove"></span>
+                            </button>
+                            <!-- ===== END BUTTON DELET UNITY  ============================================= -->
+                            <!-- ===== START MODAL UNITY  ================================================== -->
+                            <div class="modal fade" id="unityDialog{{ unity.id }}" tabindex="-1" role="dialog"
+                                 aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">Confirmation needed</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            Do you really want to delete this unity
+                                            <b>{{ unity.title }}</b>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                Cancel
+                                            </button>
+                                            <a href="{{ path('deleteUnity', {'unityId': unity.id }) }}"
+                                               class="btn btn-danger">Confirm</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ===== END MODAL UNITY  ==================================================== -->
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+
+{% endblock %} {# ENDBLOCK CONTENT #}

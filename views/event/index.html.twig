@@ -1,0 +1,34 @@
+{% extends "./layout.html.twig" %}
+{% block title %}event{% endblock %}
+
+
+{% block navbar %}
+    {% include "navbar/navbar.html.twig" %}
+{% endblock %}
+
+{% set eventMenu = true %}
+
+{% block content %} {# BLOCK CONTENT #}
+
+
+<div class="col-md-12">
+    <a class="btn btn-primary btn-sm" href="{{ path('addEvent') }}">add</a>
+    <table class="table table-bordered table-striped">
+        <tr>
+            <td>#</td>
+            <td>title</td>
+            <td>Action</td>
+        </tr>
+        {% for event in events %}
+            <tr>
+                <td>{{ event.id }}</td>
+                <td>{{ event.title }}</td>
+                <td></td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+
+
+
+{% endblock %} {# END BLOCK CONTENT#}

@@ -1,0 +1,96 @@
+{% extends "./layout.html.twig" %}
+{% block title %}Matière Première{% endblock %}
+
+
+{% block navbar %}
+    {% include "navbar/navbar.html.twig" %}
+{% endblock %}
+
+{% set primProdMenu = true %}
+
+{% block content %} {# BLOCK CONTENT #}
+
+    <div class="col-md-4, col-sm-6 well">
+        <h3>Create a Prima product</h3>
+        {{ form_start(primProdForm) }}
+        {{ form_errors(primProdForm) }}
+        <div class="form-group">
+            <label for="title_of_event">{{ form_label(primProdForm.title, 'titre : ') }}</label>
+            {{ form_widget(primProdForm.title, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            <label for="title_of_category">{{ form_label(primProdForm.title, 'Category : ') }}</label>
+            {{ form_widget(primProdForm.categoryId) }}
+        </div><div class="form-group">
+            <label for="title_of_unity">{{ form_label(primProdForm.title, 'Unity : ') }}</label>
+            {{ form_widget(primProdForm.unityId) }}
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+        <a href="{{ path('primProds') }}" class="btn btn-danger">Annuler</a>
+        {{ form_end(primProdForm) }}
+    </div>
+
+    <div class="col-md-8, col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">MAtière Première</h4>
+            </div>
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <td>#</td>
+                    <td>title</td>
+                    <td>category</td>
+                    <td>untié</td>
+                    <td>Action</td>
+                </tr>
+                {% for prod in primProds %}
+                    <tr>
+                        <td>{{ prod.id }}</td>
+                        <td>{{ prod.title }}</td>
+                        <td>{{ prod.catTitle }}</td>
+                        <td>{{ prod.uniTitle }}</td>
+                        <td>
+                            <!-- ===== BUTTON EDIT PRIMA PRODUCT ================================================== -->
+                            <a href="#"
+                               class="btn btn-primary btn-xs"
+                               title="Edit"><span class="glyphicon glyphicon-time"></span></a>
+                            <!-- ===== END BUTTON EDIT PRIMA PRODUCT ============================================== -->
+                            <!-- ===== BUTTON DELET PRIMA PRODUCT ================================================= -->
+                            <button type="button" class="btn btn-danger btn-xs" title="Delete"
+                                    data-toggle="modal" data-target="#primProdDialog{{ prod.id }}"><span
+                                        class="glyphicon glyphicon-remove"></span>
+                            </button>
+                            <!-- ===== END BUTTON DELET PRIMA PRODUCT ============================================= -->
+                            <!-- ===== START MODAL PRIMA PRODUCT ================================================== -->
+                            <div class="modal fade" id="primProdDialog{{ prod.id }}" tabindex="-1" role="dialog"
+                                 aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">Confirmation needed</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            Do you really want to delete this event
+                                            <b>{{ prod.title }}</b> ?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                Cancel
+                                            </button>
+                                            <a href="{{ path('deletePrimProd', {'primProdId': prod.id }) }}"
+                                               class="btn btn-danger">Confirm</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ===== END MODAL PRIMA PRODUCT ==================================================== -->
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+{% endblock %} {# END BLOCK CONTENT #}

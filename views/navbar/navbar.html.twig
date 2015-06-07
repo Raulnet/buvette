@@ -1,0 +1,26 @@
+<nav class="navbar navbar-inverse">
+    <div class="container">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{ path('home') }}">Pump-Room</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav ">
+                    <li class="{% if eventMenu is defined %}active{% endif %}"><a href="{{ path('event') }}">Event <span class="sr-only">(current)</span></a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Matières Première<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="{% if catPrimProdsMenu is defined %}active{% endif %}"><a href="{{ path('catPrimProds') }}">Categories</a></li>
+                            <li class="{% if unitiesMenu is defined %}active{% endif %}"><a href="{{ path('unities') }}">Unités</a></li>
+                            <li class="{% if primProdMenu is defined %}active{% endif %}"><a href="{{ path('primProds') }}">Matières Premières</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>

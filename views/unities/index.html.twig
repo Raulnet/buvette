@@ -1,0 +1,32 @@
+{% extends "./layout.html.twig" %}
+{% block title %}unities{% endblock %}
+
+
+{% block navbar %}
+    {% include "navbar/navbar.html.twig" %}
+{% endblock %}
+
+{% set unitiesMenu = true %}
+
+{% block content %} {# BLOCK CONTENT #}
+    <a class="btn btn-primary btn-sm" href="{{ path('addUnity') }}">add</a>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+               <h4 class="panel-title">unités</h4>
+        </div>
+        <table class="table table-bordered table-striped">
+            <tr>
+                <td>title</td>
+                <td>action</td>
+            </tr>
+            {% for unity in unities %}
+                <tr>
+                    <td>{{ unity.title }}</td>
+                    <td>
+                        <a class="btn btn-info btn-xs" href="#">info</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %} {# ENDBLOCK CONTENT #}

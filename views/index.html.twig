@@ -5,15 +5,14 @@
     {# ===== TITLE ===== #}
     <div class="page-header">
         <h1>Buvette
-            <small>stock-préparation-commande</small>
+            <small>stock-préparation-commande <a href="{{ form }}">form</a> </small>
         </h1>
     </div>
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                        <a href="#" class="btn btn-info btn-xs pull-right">+</a>
-                    <h3 class="panel-title">Evenement</h3>
+                    <h3 class="panel-title"><a href="{{ path('event') }}">Evenements</a> </h3>
                 </div>
                 <table class="table table-bordered table-striped">
                     <tr>
@@ -63,7 +62,7 @@
                 <div class="col-sm-2">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Unities</h3>
+                            <h3 class="panel-title"><a href="{{ path('unities') }}">Unities</a></h3>
                         </div>
                         <table class="table table-bordered table-striped">
                             <tr>
@@ -83,7 +82,7 @@
                 <div class="col-sm-4">
                     <div class="panel panel-success">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Categories Prima Products</h3>
+                            <h3 class="panel-title"><a href="{{ path('catPrimProds') }}">Categories Prima Products</a></h3>
                         </div>
                         <table class="table table-bordered table-striped">
                             <tr>
@@ -115,7 +114,6 @@
                                 <th>#</th>
                                 <th>category</th>
                                 <th>title</th>
-                                <th>prix</th>
                                 <th>recette</th>
                             </tr>
                             {% for prod in products %}
@@ -123,7 +121,6 @@
                                     <td>{{ prod.id }} </td>
                                     <td>{{ prod.catTitle }}</td>
                                     <td>{{ prod.title }}</td>
-                                    <td>{{ prod.price }} €</td>
                                     <td>
                                         <ul>
                                             {% for compo in prod.recette %}

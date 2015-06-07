@@ -1,0 +1,99 @@
+{% extends "./layout.html.twig" %}
+{% block title %}add-event{% endblock %}
+
+
+{% block navbar %}
+    {% include "navbar/navbar.html.twig" %}
+{% endblock %}
+
+{% block content %} {# BLOCK CONTENT #}
+    <div class="col-md-4, col-sm-6 well">
+
+        {{ form(eventForm) }}
+
+        {{ form_start(eventForm) }}
+        {{ form_row(eventForm.title) }}
+        {{ form_end(eventForm) }}
+
+        <h3>Create an event</h3>
+        {{ form_start(eventForm) }}
+
+        <div class="form-group">
+            <label for="title_of_event">{{ form_label(eventForm.title, 'titre : ') }}</label>
+            {{ form_widget(eventForm.title, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(eventForm.title) }}
+        </div>
+        <div class="form-group">
+            <label for="start_of_event">{{ form_label(eventForm.date_start, 'debut : ') }}</label>
+            {{ form_widget(eventForm.date_start) }}
+        </div>
+        <div class="form-group">
+            <label for="end_of_event">{{ form_label(eventForm.date_end, 'fin : ') }}</label>
+            {{ form_widget(eventForm.date_end) }}
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+        <a href="{{ path('event') }}" class="btn btn-danger">Annuler</a>
+        {{ form_end(eventForm) }}
+    </div>
+    <div class="col-md-8, col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">events</h4>
+            </div>
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <td>title</td>
+                    <td>date</td>
+                    <td>Action</td>
+                </tr>
+                {% for event in events %}
+                    <tr>
+                        <td>{{ event.title }}</td>
+                        <td>
+                            {{ event.dateStart|date('d-M-y') }}<br />
+                            {{ event.dateEnd|date('d-M-y') }}<br />
+                        </td>
+                        <td>
+                            <!-- ===== BUTTON EDIT EVENT ================================================== -->
+                            <a href="#"
+                               class="btn btn-primary btn-xs"
+                               title="Edit"><span class="glyphicon glyphicon-time"></span></a>
+                            <!-- ===== END BUTTON EDIT EVENT ============================================== -->
+                            <!-- ===== BUTTON DELET EVENT  ================================================= -->
+                            <button type="button" class="btn btn-danger btn-xs" title="Delete"
+                                    data-toggle="modal" data-target="#eventDialog{{ event.id }}"><span
+                                        class="glyphicon glyphicon-remove"></span>
+                            </button>
+                            <!-- ===== END BUTTON DELET EVENT  ============================================= -->
+                            <!-- ===== START MODAL EVENT  ================================================== -->
+                            <div class="modal fade" id="eventDialog{{ event.id }}" tabindex="-1" role="dialog"
+                                 aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">Confirmation needed</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            Do you really want to delete this event
+                                            <b>{{ event.title }}</b>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                Cancel
+                                            </button>
+                                            <a href="{{ path('deleteEvent', {'eventId': event.id }) }}"
+                                               class="btn btn-danger">Confirm</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ===== END MODAL EVENT  ==================================================== -->
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %} {# END BLOCK CONTENT#}
