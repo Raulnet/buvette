@@ -1,0 +1,30 @@
+{%- block form_row -%}
+    <div class="form-group">
+        {{- form_label(form) -}}
+        {{- form_errors(form) -}}
+        {{- form_widget(form) -}}
+    </div>
+{%- endblock form_row -%}
+
+{%- block form_widget_simple -%}
+    {%- set type = type|default('text') -%}
+    <input class="form-control" type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+{%- endblock form_widget_simple -%}
+
+{%- block textarea_widget -%}
+    <textarea class="form-control" {{ block('widget_attributes') }}>{{ value }}</textarea>
+{%- endblock textarea_widget -%}
+
+{# form texty Perso #}
+
+{%- block _test_area_textarea_widget -%}
+    <div class="col-xs-6">
+        <textarea class="form-control" {{ block('widget_attributes') }}>{{ value }}</textarea>
+    </div>
+{%- endblock _test_area_textarea_widget -%}
+
+{% block _test_perso_widget %}
+    <div class="col-xs-6">
+        {{ block('form_widget_simple') }}
+    </div>
+{% endblock %}

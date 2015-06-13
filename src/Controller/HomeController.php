@@ -10,6 +10,7 @@ namespace buvette\Controller;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
+use buvette\Form\Type\FormType;
 
 
 class HomeController
@@ -43,6 +44,22 @@ class HomeController
             'events'            => $events,
 
         ));
+    }
+
+    /**
+     * @param Application $app
+     *
+     * @return mixed
+     */
+    public function formAction(Application $app){
+
+        $form = $app['form.factory']->create(new FormType());
+
+        return $app['twig']->render('form.html.twig', array(
+            'form' => $form->createView(),
+
+        ));
+
     }
 
 

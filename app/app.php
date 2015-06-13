@@ -46,7 +46,10 @@ $app['zdao.unities'] = $app->share(function ($app) {
 $app['zdao.catPrimProds'] = $app->share(function ($app) {
     return new buvette\DAO\CatPrimaProductZDAO($app['zdb.configArray']);
 });
-/****** EM PRIMA PRODUCTS ******/
+
+/**
+ * @return \buvette\DAO\PrimaProductsZDAO
+ */
 $app['zdao.primaProduct'] = $app->share(function ($app) {
     return new buvette\DAO\PrimaProductsZDAO($app['zdb.configArray']);
 });
