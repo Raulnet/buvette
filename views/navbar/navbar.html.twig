@@ -17,6 +17,13 @@
                             <li class="{% if primProdMenu is defined %}active{% endif %}"><a href="{{ path('primProds') }}">Matières Premières</a></li>
                         </ul>
                     </li>
+                    <li class="{% if productsNav is defined %}active{% endif %}" class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Produits<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="{% if catProdsMenu is defined %}active{% endif %}"><a href="{{ path('catProds') }}">Categories</a></li>
+                            <li class="{% if productsMenu is defined %}active{% endif %}"><a href="{{ path('products') }}">Produits</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

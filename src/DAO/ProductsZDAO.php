@@ -82,7 +82,7 @@ class ProductsZDAO extends ZDAO
     public function updateEntity(Products $prod)
     {
         if ($prod->getId()) {
-            $where = array('stf_id' => $prod->getId());
+            $where = array('pro_id' => $prod->getId());
             $this->update($prod->getArray(), $where);
 
             return true;
@@ -101,7 +101,7 @@ class ProductsZDAO extends ZDAO
     public function deleteEntity(Products $prod)
     {
         if ($prod->getId()) {
-            $where = array('stf_id' => $prod->getId());
+            $where = array('pro_id' => $prod->getId());
             $this->delete($where);
 
             return true;
@@ -113,7 +113,7 @@ class ProductsZDAO extends ZDAO
     /**
      * @return array
      */
-    public function getFullSetAll()
+    public function findAllFullStack()
     {
         $select = $this->sql->select();
         $select->columns(array(
@@ -134,8 +134,6 @@ class ProductsZDAO extends ZDAO
 
             $results[] =$product;
         }
-
-
         return $results;
     }
 

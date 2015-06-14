@@ -57,13 +57,11 @@ class CatProductZDAO extends ZDAO {
     }
 
     /**
-     * Create a new Entity
-     *
-     * @param CatProduct $catProd
+     * @param CategoriesProduct $catProd
      *
      * @return bool
      */
-    public function createEntity(CatProduct $catProd)
+    public function createEntity(CategoriesProduct $catProd)
     {
         if (!$catProd->getId()) {
             $this->insert($catProd->getArray());
@@ -75,14 +73,14 @@ class CatProductZDAO extends ZDAO {
     /**
      * Update Entity
      *
-     * @param CatProduct $catProd
+     * @param CategoriesProduct $catProd
      *
      * @return bool
      */
-    public function updateEntity(CatProduct $catProd)
+    public function updateEntity(CategoriesProduct $catProd)
     {
         if ($catProd->getId()) {
-            $where = array('stf_id' => $catProd->getId());
+            $where = array('cat_id' => $catProd->getId());
             $this->update($catProd->getArray(), $where);
             return true;
         }
@@ -92,14 +90,14 @@ class CatProductZDAO extends ZDAO {
     /**
      * Delete Player Entity
      *
-     * @param CatProduct $catProd
+     * @param CategoriesProduct $catProd
      *
      * @return bool
      */
-    public function deleteEntity(CatProduct $catProd)
+    public function deleteEntity(CategoriesProduct $catProd)
     {
         if ($catProd->getId()) {
-            $where = array('stf_id' => $catProd->getId());
+            $where = array('cat_id' => $catProd->getId());
             $this->delete($where);
             return true;
         }

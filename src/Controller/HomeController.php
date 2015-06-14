@@ -29,7 +29,7 @@ class HomeController
         $catPrimProds = $app['zdao.catPrimProds']->findAll();
         $DataPrimaProducts = $app['zdao.primaProduct']->findAllData();
         $catProducts = $app['zdao.catProducts']->findAll();
-        $products = $app['zdao.products']->getFullSetAll();
+        $products = $app['zdao.products']->findAllFullStack();
         $comboProds = $app['zdao.comboProducts']->getFullSet();
         $events = $app['zdao.events']->findAll();
 

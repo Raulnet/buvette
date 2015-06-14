@@ -27,6 +27,11 @@ $app->mount('/categorie_prima_product', include 'routes/categories_prima_product
 // ===== ROUTE PRIMA PRODUCTS =================================================================================== //
 $app->mount('/prima_products', include 'routes/prima_products_routes.php');
 
+// ===== ROUTE PRODUCTS ========================================================================================= //
+$app->mount('/products', include 'routes/products_routes.php');
+
+// ===== ROUTE CATEGORIES PRODUCTS ============================================================================== //
+$app->mount('/catProducts', include 'routes/categories_products_routes.php');
 
 // ===== ROUTE API ============================================================================================== //
 

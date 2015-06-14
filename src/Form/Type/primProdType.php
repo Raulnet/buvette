@@ -39,9 +39,7 @@ class PrimProdType extends AbstractType {
             ->add('unityId', 'choice', array(
                 'choices' => $this->getUnityChoice(),
                 'expanded' => false,
-            ))
-
-        ;
+            ));
     }
 
     /**

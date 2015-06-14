@@ -43,6 +43,26 @@ class PrimaProductsZDAO extends ZDAO{
     }
 
     /**
+     * @param array $where
+     *
+     * @return array Entities
+     */
+    public function find(array $where)
+    {
+
+        $select = $this->sql->select();
+        $select->where($where);
+        $result = $this->selectWith($select)->toArray();
+
+        $entities = array();
+        foreach ($result as $row) {
+            $entities[] = $this->buildZDomainObject($row);
+        }
+
+        return $entities;
+    }
+
+    /**
      * @param $id
      * @return PrimaProducts
      */
@@ -134,10 +154,9 @@ class PrimaProductsZDAO extends ZDAO{
 
         $result = $this->selectWith($select)->toArray();
 
-
         return $result;
-
-
     }
+
+
 
 }
