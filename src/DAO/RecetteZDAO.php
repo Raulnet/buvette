@@ -44,16 +44,20 @@ class RecetteZDAO extends ZDAO {
     }
 
     /**
-     * @param $id
+     * @param $productId
+     * @param $prmProdId
+     *
      * @return Recette
      */
-    public function findOneById($id)
+    public function findOneById($productId, $prmProdId)
     {
         $select = $this->sql->select();
-        $select->where(array('re_pro_id' => $id));
+        $select->where(array('re_pro_id' => $productId, 're_prm_id' => $prmProdId ));
         $row = $this->selectWith($select)->current();
-
-        return $this->buildZDomainObject($row);
+        if($row){
+            return $this->buildZDomainObject($row);
+        }
+        return false;
     }
 
     /**
@@ -74,15 +78,15 @@ class RecetteZDAO extends ZDAO {
     /**
      * Update Entity
      *
-     * @param Recette $recette
+     * @param Recette $recipe
      *
      * @return bool
      */
-    public function updateEntity(Recette $recette)
+    public function updateEntity(Recette $recipe)
     {
-        if ($recette->getProductId()) {
-            $where = array('re_pro_id' => $recette->getProductId());
-            $this->update($recette->getArray(), $where);
+        if ($recipe->getProductId() && $recipe->getPrimProdId()) {
+            $where = array('re_pro_id' => $recipe->getProductId(), 're_prm_id' => $recipe->getPrimProdId());
+            $this->update($recipe->getArray(), $where);
             return true;
         }
         return false;
@@ -91,14 +95,14 @@ class RecetteZDAO extends ZDAO {
     /**
      * Delete Player Entity
      *
-     * @param Recette $recette
+     * @param Recette $recipe
      *
      * @return bool
      */
-    public function deleteEntity(Recette $recette)
+    public function deleteEntity(Recette $recipe)
     {
-        if ($recette->getProductId()) {
-            $where = array('re_pro_id' => $recette->getProductId());
+        if ($recipe->getProductId()) {
+            $where = array('re_pro_id' => $recipe->getProductId(), 're_prm_id' => $recipe->getPrimProdId());
             $this->delete($where);
             return true;
         }
@@ -107,7 +111,7 @@ class RecetteZDAO extends ZDAO {
 
     /**
      * @param $row
-     * @return Staff
+     * @return Recette
      */
     protected function buildZDomainObject($row)
     {

@@ -1,7 +1,6 @@
 {% extends "./layout.html.twig" %}
 {% block title %}ajouter une categorie{% endblock %}
 
-
 {% block navbar %}
     {% include "navbar/navbar.html.twig" %}
     {% include "flashMessage/message.html.twig" %}
@@ -10,7 +9,15 @@
 {% set productsMenu = true %}
 
 {% block content %}
-    {# ===== TITLE PRODUCT ==== #}
+    {# ========== BREADSCRUMB ========== #}
+    <div class="col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{{ path('home') }}">Home</a></li>
+            <li><a href="{{ path('products') }}">produits</a></li>
+            <li class="active">{{ product.title }}</li>
+        </ol>
+    </div>
+    {# =========== TITLE PRODUCT ========== #}
     <div class="col-xs-6">
         <h3>{{ product.title }}</h3>
     </div>
@@ -23,18 +30,23 @@
         {% if recipeForm is defined %}
             {{ form_start(recipeForm) }}
             <div class="form-group">
-                {{ form_row(recipeForm.quantity) }}
+                {{ form_row(recipeForm.quantity, {'label': 'Quantité de : '~primProd.title~' en '~primProd.uniTitle ,'attr': {'placeholder': 'nombre de : '~primProd.uniTitle} }) }}
             </div>
             <div class="form-group">
                 {{ form_row(recipeForm.enregistrer) }}
             </div>
             {{ form_end(recipeForm) }}
         {% endif %}
-        <ul class="list-group">
-            {% for compo in recipe %}
-                <li class="list-group-item">{{ compo.prmTitle }} <span class="badge">{{ compo.quantity }} {{ compo.uniTitle }}</span></li>
-            {% endfor %}
-        </ul>
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4 class="panel-title">Recette :</h4></div>
+            <ul class="list-group">
+                {% for compo in recipe %}
+                    {% if compo.prm_id %}
+                        <a href="{{ path('editPrimProdToProduct', {'productId': product.id, 'primProdId': compo.prm_id}) }}" class="list-group-item">{{ compo.prmTitle }} <span class="badge">{{ compo.quantity }} {{ compo.uniTitle }}</span></a>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
     </div>
     {# ===== PANEL PRIMA PRODUCTS ====== #}
     <div class="col-xs-6">

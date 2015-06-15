@@ -31,23 +31,55 @@ class recetteController {
         $primProds = $this->getPrimProdsByCategories($app);
 
         /** ===== FORM =====**/
-        $recipeForm = $this->getRecetteForm($app, $productId, $primProdId);
-        $recipeForm->handleRequest($request);
-        if($recipeForm->isSubmitted() && $recipeForm->isValid()){
-            $this->getRecette($app)->createEntity($recipeForm->getData());
-            $app['session']->getFlashBag()->add('success', 'The product was successfully added.');
-        }
+        $recipeForm = $this->getRecipeForm($app, $productId, $primProdId);
+        $recipeForm = $this->requestRecipeFormAction($request, $app, $recipeForm);
         /** ===== END FORM ===== */
+
+        $primProd = $this->getPrimProds($app)->findOneFullStackById($primProdId);
+
         $recipe = $this->getProducts($app)->getRecetteByIdProduct($productId);
+
         return $app['twig']->render('products/recette.html.twig', array(
             'product'   => $product,
+            'primProd'  => $primProd,
             'recipe'    => $recipe,
             'primProds' => $primProds,
             'recipeForm' => $recipeForm->createView()
         ));
     }
 
-    /** ======== MODEL ======== **/
+    /**
+     * @param Request     $request
+     * @param Application $app
+     * @param             $productId
+     * @param             $primProdId
+     *
+     * @return mixed
+     */
+    public function editPrimProdToProductAction(Request $request, Application $app, $productId, $primProdId){
+
+        $product = $this->getProducts($app)->findOneById($productId);
+        $primProds = $this->getPrimProdsByCategories($app);
+
+        /** ===== FORM =====**/
+        $recipeForm = $this->getRecipeForm($app, $productId, $primProdId);
+        $recipeForm = $this->requestRecipeFormAction($request, $app, $recipeForm, true);
+        /** ===== END FORM ===== */
+
+        $primProd = $this->getPrimProds($app)->findOneFullStackById($primProdId);
+
+        $recipe = $this->getProducts($app)->getRecetteByIdProduct($productId);
+
+        return $app['twig']->render('products/recette.html.twig', array(
+            'product'   => $product,
+            'primProd'  => $primProd,
+            'recipe'    => $recipe,
+            'primProds' => $primProds,
+            'recipeForm' => $recipeForm->createView()
+        ));
+    }
+
+    /** ======== METHOD ======== **/
 
     /**
      * @param Application $app
@@ -56,15 +88,19 @@ class recetteController {
      *
      * @return Form
      */
-    private function getRecetteForm(Application $app, $productId, $primProId){
+    private function getRecipeForm(Application $app, $productId, $primProId){
 
-        $recette = new Recette();
-        $recette->setProductId($productId);
-        $recette->setPrimProdId($primProId);
+        $recipe = $this->getRecette($app)->findOneById($productId, $primProId);
 
-        $recetteForm = $app['form.factory']->create(new RecetteType(), $recette);
+        if(!$recipe){
+            $recipe = new Recette();
+            $recipe->setProductId($productId);
+            $recipe->setPrimProdId($primProId);
+        }
 
-        return $recetteForm;
+        $recipeForm = $app['form.factory']->create(new RecetteType(), $recipe);
+
+        return $recipeForm;
     }
 
     /**
@@ -89,6 +125,33 @@ class recetteController {
 
         return $data;
     }
+
+    /**
+     * @param Request     $request
+     * @param Application $app
+     * @param Form        $recipeForm
+     * @param bool        $action false = create || true = update
+     *
+     * @return Form
+     */
+    private function requestRecipeFormAction(Request $request, Application $app, Form $recipeForm, $action = false){
+
+        $recipeForm->handleRequest($request);
+
+        // if action = false create a new entity
+        if($recipeForm->isSubmitted() && $recipeForm->isValid() && $action === false){
+            $this->getRecette($app)->createEntity($recipeForm->getData());
+            $app['session']->getFlashBag()->add('success', 'The product was successfully added.');
+        }
+        // if action = true update the Entity
+        if($recipeForm->isSubmitted() && $recipeForm->isValid() && $action === true){
+            $this->getRecette($app)->updateEntity($recipeForm->getData());
+            $app['session']->getFlashBag()->add('success', 'The product was successfully updated.');
+        }
+
+        return $recipeForm;
+    }
+
 
     /** ======== SERVICE ======== */
     /**

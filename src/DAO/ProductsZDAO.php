@@ -147,7 +147,7 @@ class ProductsZDAO extends ZDAO
         $select = $this->sql->select();
         $select->columns(array('id' => 'pro_id'));
         $select->join(array('re' => 'recette'), 're.re_pro_id =pro_id', array('quantity' => 're_prm_quantity'), $select::JOIN_LEFT);
-        $select->join(array('prm' => 'prima_products'), 'prm.prm_id = re.re_prm_id', array('prmTitle' => 'prm_title'), $select::JOIN_LEFT);
+        $select->join(array('prm' => 'prima_products'), 'prm.prm_id = re.re_prm_id', array('prm_id' => 'prm_id', 'prmTitle' => 'prm_title'), $select::JOIN_LEFT);
         $select->join(array('uni' => 'unities'), 'uni.uni_id = prm_uni_id', array('uniTitle' => 'uni_title'), $select::JOIN_LEFT);
         $select->join(array('cpp' => 'categories_prima_products'), 'cpp.cpp_id = prm.prm_category', array('cppTitle' => 'cpp_title'), $select::JOIN_LEFT);
 

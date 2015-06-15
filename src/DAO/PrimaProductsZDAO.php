@@ -142,6 +142,9 @@ class PrimaProductsZDAO extends ZDAO{
         return $primProd;
     }
 
+    /**
+     * @return array
+     */
     public function findAllData() {
 
         $select = $this->sql->select();
@@ -155,6 +158,22 @@ class PrimaProductsZDAO extends ZDAO{
         $result = $this->selectWith($select)->toArray();
 
         return $result;
+    }
+
+    /**
+     * @param $id
+     *
+     * @return mixed
+     */
+    public function findOneFullStackById($id){
+        $select = $this->sql->select();
+        $select->columns(array('id' => 'prm_id',
+                               'title' => 'prm_title'))
+            ->join(array('cpp' => 'categories_prima_products'), 'cpp.cpp_id = prima_products.prm_category', array('catTitle' => 'cpp_title'), $select::JOIN_LEFT )
+            ->join(array('uni' => 'unities'), 'uni.uni_id = prima_products.prm_uni_id', array('uniTitle' => 'uni_title'), $select::JOIN_LEFT )
+            ->where(array('prm_id' => $id));
+
+        return $this->selectWith($select)->current();
     }
 
 

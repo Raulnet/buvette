@@ -24,6 +24,8 @@ $products->match('/recette/{productId}', "buvette\Controller\ProductsController:
 
 /* Route Recette Product */
 $products->match('/recette/add/{productId}/{primProdId}', "buvette\Controller\RecetteController::addPrimProdToProductAction")->bind('addPrimProdToProduct');
+/* Route Recette Product */
+$products->match('/recette/edit/{productId}/{primProdId}', "buvette\Controller\RecetteController::editPrimProdToProductAction")->bind('editPrimProdToProduct');
 
 
 
