@@ -13,7 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Silex\Application;
 
-class RecetteType extends AbstractType {
+class RecipeType extends AbstractType {
 
     /**
      * @param FormBuilderInterface $builder
@@ -34,7 +34,7 @@ class RecetteType extends AbstractType {
      */
     public function getName()
     {
-        return 'recette';
+        return 'recipe';
     }
 
 }

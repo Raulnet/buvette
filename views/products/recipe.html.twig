@@ -33,6 +33,10 @@
                 {{ form_row(recipeForm.quantity, {'label': 'Quantité de : '~primProd.title~' en '~primProd.uniTitle ,'attr': {'placeholder': 'nombre de : '~primProd.uniTitle} }) }}
             </div>
             <div class="form-group">
+                <div class="btn-group pull-right">
+                    <a href="{{ path('recipeProduct', {'productId': product.id}) }}" class="btn btn-default">annuler</a>
+                    <a href="{{ path('removePrimProdToProduct', {'productId': product.id, 'primProdId': primProd.id}) }}" class="btn btn-danger">supprimer</a>
+                </div>
                 {{ form_row(recipeForm.enregistrer) }}
             </div>
             {{ form_end(recipeForm) }}

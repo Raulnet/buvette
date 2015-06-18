@@ -18,96 +18,16 @@ class ProductsZDAO extends ZDAO
     protected $table = 'products';
 
     /**
+     * @var string
+     */
+    protected $primaryKey = 'pro_id';
+
+    /**
      * @param $configArray
      */
     function __construct($configArray)
     {
         parent::__construct($configArray);
-    }
-
-    /**
-     * @return array Entities
-     */
-    public function findAll()
-    {
-        $select = $this->sql->select();
-        $result = $this->selectWith($select)->toArray();
-        $entities = array();
-        foreach ($result as $row) {
-            $entities[] = $this->buildZDomainObject($row);
-        }
-
-        return $entities;
-    }
-
-    /**
-     * @param $id
-     *
-     * @return CatProduct
-     */
-    public function findOneById($id)
-    {
-        $select = $this->sql->select();
-        $select->where(array('pro_id' => $id));
-        $row = $this->selectWith($select)->current();
-
-        return $this->buildZDomainObject($row);
-    }
-
-    /**
-     * Create a new Entity
-     *
-     * @param Products $prod
-     *
-     * @return bool
-     */
-    public function createEntity(Products $prod)
-    {
-        if (!$prod->getId()) {
-            $this->insert($prod->getArray());
-
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Update Entity
-     *
-     * @param Products $prod
-     *
-     * @return bool
-     */
-    public function updateEntity(Products $prod)
-    {
-        if ($prod->getId()) {
-            $where = array('pro_id' => $prod->getId());
-            $this->update($prod->getArray(), $where);
-
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Delete Product Entity
-     *
-     * @param Products $prod
-     *
-     * @return bool
-     */
-    public function deleteEntity(Products $prod)
-    {
-        if ($prod->getId()) {
-            $where = array('pro_id' => $prod->getId());
-            $this->delete($where);
-
-            return true;
-        }
-
-        return false;
     }
 
     /**
@@ -126,11 +46,11 @@ class ProductsZDAO extends ZDAO
 
         $results = array();
         foreach($products as $product){
-            $compo = $this->getRecetteByIdProduct($product['id']);
-            $product['recette'] = $compo;
-            $optionCompo = $this->getOptionRecetteByIdProduct($product['id']);
+            $compo = $this->getRecipeByIdProduct($product['id']);
+            $product['recipe'] = $compo;
+            $optionCompo = $this->getOptionRecipeByIdProduct($product['id']);
 
-            $product['option_recette'] = $optionCompo;
+            $product['option_recipe'] = $optionCompo;
 
             $results[] =$product;
         }
@@ -142,7 +62,7 @@ class ProductsZDAO extends ZDAO
      *
      * @return mixed
      */
-    public function getRecetteByIdProduct($id)
+    public function getRecipeByIdProduct($id)
     {
         $select = $this->sql->select();
         $select->columns(array('id' => 'pro_id'));
@@ -162,7 +82,7 @@ class ProductsZDAO extends ZDAO
      *
      * @return mixed
      */
-    public function getOptionRecetteByIdProduct($id){
+    public function getOptionRecipeByIdProduct($id){
 
         $select = $this->sql->select();
         $select->columns(array('id' => 'pro_id'));

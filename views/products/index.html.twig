@@ -24,7 +24,7 @@
                     <td>#</td>
                     <td>Catégories</td>
                     <td>Produits</td>
-                    <td>recette</td>
+                    <td>recipe</td>
                     <td>Action</td>
                 </tr>
                 {% for product in products %}
@@ -34,9 +34,9 @@
                         <td>{{ product.title }}</td>
                         <td>
                             {# ===== BUTTON MODAL RECETTE ===== #}
-                            <a class="btn btn-info btn-xs" data-toggle="modal" data-target="#recette{{ product.id }}"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
+                            <a class="btn btn-info btn-xs" data-toggle="modal" data-target="#recipe{{ product.id }}"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
                             {# ===== MODAL RECETTE ===== #}
-                            <div class="modal fade" id="recette{{ product.id }}" tabindex="-1" role="dialog" aria-labelledby="category" aria-hidden="true">
+                            <div class="modal fade" id="recipe{{ product.id }}" tabindex="-1" role="dialog" aria-labelledby="category" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -47,11 +47,11 @@
                                             <div class="col-xs-6">
                                                 <h4>Recette :</h4>
                                                 <ul class="list-group">
-                                                    {% for compo in product.recette %}
+                                                    {% for compo in product.recipe %}
                                                         {% if compo.prmTitle %}
                                                             <a href="{{ path('editPrimProdToProduct', {'productId': product.id, 'primProdId': compo.prm_id}) }}" class="list-group-item">{{ compo.prmTitle }} <span class="badge">{{ compo.quantity }} {{ compo.uniTitle }}</span></a>
                                                         {% else %}
-                                                            <a href="{{ path('recetteProduct', {'productId': product.id}) }}" type="button" class="btn btn-default">not registered !!!</a>
+                                                            <a href="{{ path('recipeProduct', {'productId': product.id}) }}" type="button" class="btn btn-default">not registered !!!</a>
                                                         {% endif %}
                                                     {% endfor %}
                                                 </ul>
@@ -60,7 +60,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <a href="{{ path('recetteProduct', {'productId': product.id}) }}" type="button" class="btn btn-info">editer</a>
+                                            <a href="{{ path('recipeProduct', {'productId': product.id}) }}" type="button" class="btn btn-info">editer</a>
                                         </div>
                                     </div>
                                 </div>

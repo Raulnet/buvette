@@ -10,12 +10,12 @@ namespace buvette\Controller;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
-use buvette\Form\Type\RecetteType;
-use buvette\Domain\Recette;
+use buvette\Form\Type\RecipeType;
+use buvette\Domain\Recipe;
 use Symfony\Component\Form\Form;
 
 
-class recetteController {
+class RecipeController {
 
     /**
      * @param Request     $request
@@ -32,14 +32,17 @@ class recetteController {
 
         /** ===== FORM =====**/
         $recipeForm = $this->getRecipeForm($app, $productId, $primProdId);
-        $recipeForm = $this->requestRecipeFormAction($request, $app, $recipeForm);
+        $reponse = $this->requestRecipeFormAction($request, $app, $recipeForm);
         /** ===== END FORM ===== */
-
+        // if form is submit & valid redirect
+        if($reponse){
+            return $app->redirect($app['url_generator']->generate('recipeProduct', array('productId' => $productId)));
+        }
         $primProd = $this->getPrimProds($app)->findOneFullStackById($primProdId);
 
-        $recipe = $this->getProducts($app)->getRecetteByIdProduct($productId);
+        $recipe = $this->getProducts($app)->getRecipeByIdProduct($productId);
 
-        return $app['twig']->render('products/recette.html.twig', array(
+        return $app['twig']->render('products/recipe.html.twig', array(
             'product'   => $product,
             'primProd'  => $primProd,
             'recipe'    => $recipe,
@@ -63,20 +66,44 @@ class recetteController {
 
         /** ===== FORM =====**/
         $recipeForm = $this->getRecipeForm($app, $productId, $primProdId);
-        $recipeForm = $this->requestRecipeFormAction($request, $app, $recipeForm, true);
+        $reponse = $this->requestRecipeFormAction($request, $app, $recipeForm, true);
         /** ===== END FORM ===== */
+        // if form is submit & valid redirect
+        if($reponse){
+            return $app->redirect($app['url_generator']->generate('recipeProduct', array('productId' => $productId)));
+        }
 
         $primProd = $this->getPrimProds($app)->findOneFullStackById($primProdId);
 
-        $recipe = $this->getProducts($app)->getRecetteByIdProduct($productId);
+        $recipe = $this->getProducts($app)->getRecipeByIdProduct($productId);
 
-        return $app['twig']->render('products/recette.html.twig', array(
+        return $app['twig']->render('products/recipe.html.twig', array(
             'product'   => $product,
             'primProd'  => $primProd,
             'recipe'    => $recipe,
             'primProds' => $primProds,
             'recipeForm' => $recipeForm->createView()
         ));
+    }
+
+    /**
+     * @param Application $app
+     * @param             $productId
+     * @param             $primProdId
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function removePrimProdToProductAction(Application $app, $productId, $primProdId)
+    {
+        $recipe = $this->getRecipe($app)->findOneById($productId, $primProdId);
+        if($recipe){
+            $this->getRecipe($app)->deleteEntity($recipe);
+            $app['session']->getFlashBag()->add('success', 'The prima - product successfully removed');
+            return $app->redirect($app['url_generator']->generate('recipeProduct', array('productId' => $productId)));
+        }
+        $app['session']->getFlashBag()->add('warning', 'The prima - product was not removed !!!');
+        return $app->redirect($app['url_generator']->generate('recipeProduct', array('productId' => $productId)));
+
     }
 
     /** ======== METHOD ======== **/
@@ -90,15 +117,15 @@ class recetteController {
      */
     private function getRecipeForm(Application $app, $productId, $primProId){
 
-        $recipe = $this->getRecette($app)->findOneById($productId, $primProId);
+        $recipe = $this->getRecipe($app)->findOneById($productId, $primProId);
 
         if(!$recipe){
-            $recipe = new Recette();
+            $recipe = new Recipe();
             $recipe->setProductId($productId);
             $recipe->setPrimProdId($primProId);
         }
 
-        $recipeForm = $app['form.factory']->create(new RecetteType(), $recipe);
+        $recipeForm = $app['form.factory']->create(new RecipeType(), $recipe);
 
         return $recipeForm;
     }
@@ -130,26 +157,28 @@ class recetteController {
      * @param Request     $request
      * @param Application $app
      * @param Form        $recipeForm
-     * @param bool        $action false = create || true = update
      *
-     * @return Form
+     * @return bool
      */
     private function requestRecipeFormAction(Request $request, Application $app, Form $recipeForm, $action = false){
 
         $recipeForm->handleRequest($request);
 
-        // if action = false create a new entity
         if($recipeForm->isSubmitted() && $recipeForm->isValid() && $action === false){
-            $this->getRecette($app)->createEntity($recipeForm->getData());
-            $app['session']->getFlashBag()->add('success', 'The product was successfully added.');
-        }
-        // if action = true update the Entity
-        if($recipeForm->isSubmitted() && $recipeForm->isValid() && $action === true){
-            $this->getRecette($app)->updateEntity($recipeForm->getData());
-            $app['session']->getFlashBag()->add('success', 'The product was successfully updated.');
-        }
+            $this->getRecipe($app)->createEntity($recipeForm->getData());
 
-        return $recipeForm;
+            $app['session']->getFlashBag()->add('success', 'The product was successfully added.');
+            return true;
+        }
+        if($recipeForm->isSubmitted() && $recipeForm->isValid() && $action === true){
+
+         //   exit(var_dump($recipeForm->getData()));
+            $this->getRecipe($app)->updateEntity($recipeForm->getData());
+
+            $app['session']->getFlashBag()->add('success', 'The product was successfully added.');
+            return true;
+        }
+        return false;
     }
 
 
@@ -157,11 +186,11 @@ class recetteController {
     /**
      * @param Application $app
      *
-     * @return \buvette\DAO\RecetteZDAO
+     * @return \buvette\DAO\RecipeZDAO
      */
-    private function getRecette(Application $app){
+    private function getRecipe(Application $app){
 
-        return $app['zdao.recette'];
+        return $app['zdao.recipe'];
     }
 
     /**

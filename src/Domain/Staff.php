@@ -9,7 +9,7 @@
 namespace buvette\Domain;
 
 
-class Staff {
+class Staff implements Entity {
 
     /**
      * @var int

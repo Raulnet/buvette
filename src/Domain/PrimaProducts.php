@@ -8,7 +8,7 @@
 
 namespace buvette\Domain;
 
-class PrimaProducts {
+class PrimaProducts implements Entity {
 
     /**
      * @var int

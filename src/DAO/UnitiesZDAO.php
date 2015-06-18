@@ -18,90 +18,16 @@ class UnitiesZDAO extends ZDAO{
     protected $table = 'unities';
 
     /**
+     * @var string
+     */
+    protected $primaryKey = 'uni_id';
+
+    /**
      * @param $configArray
      */
     function __construct($configArray)
     {
         parent::__construct($configArray);
-    }
-
-    /**
-     * @return array Entities
-     */
-    public function findAll()
-    {
-        $select = $this->sql->select();
-
-        $result = $this->selectWith($select)->toArray();
-
-        $entities = array();
-        foreach ($result as $row) {
-            $entities[] = $this->buildZDomainObject($row);
-        }
-
-        return $entities;
-    }
-
-    /**
-     * @param $id
-     * @return Player
-     */
-    public function findOneById($id)
-    {
-
-        $select = $this->sql->select();
-        $select->where(array('uni_id' => $id));
-        $row = $this->selectWith($select)->current();
-
-        return $this->buildZDomainObject($row);
-    }
-
-    /**
-     * Create a new Entity
-     *
-     * @param Unities $unities
-     *
-     * @return bool
-     */
-    public function createEntity(Unities $unities)
-    {
-        if (!$unities->getId()) {
-            $this->insert($unities->getArray());
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Update Entity
-     *
-     * @param Unities $unities
-     * @return bool
-     */
-    public function updateEntity(Unities $unities)
-    {
-        if ($unities->getId()) {
-            $where = array('uni_id' => $unities->getId());
-            $this->update($unities->getArray(), $where);
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Delete Unities Entity
-     *
-     * @param Unities $unities
-     * @return bool
-     */
-    public function deleteEntity(Unities $unities)
-    {
-        if ($unities->getId()) {
-            $where = array('uni_id' => $unities->getId());
-            $this->delete($where);
-            return true;
-        }
-        return false;
     }
 
     /**
@@ -118,8 +44,4 @@ class UnitiesZDAO extends ZDAO{
         return $unities;
     }
 
-
-
-
-
-} // END CLASS !!!
+}

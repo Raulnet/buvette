@@ -9,7 +9,7 @@
 namespace buvette\Domain;
 
 
-class Recette {
+class Recipe implements Entity {
 
     /**
      * @var

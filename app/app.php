@@ -69,9 +69,9 @@ $app['zdao.comboProducts'] = $app->share(function ($app) {
 $app['zdao.events'] = $app->share(function ($app) {
     return new buvette\DAO\EventsZDAO($app['zdb.configArray']);
 });
-/****** EM RECETTE ******/
-$app['zdao.recette'] = $app->share(function ($app) {
-    return new buvette\DAO\RecetteZDAO($app['zdb.configArray']);
+/****** EM RECIPE ******/
+$app['zdao.recipe'] = $app->share(function ($app) {
+    return new buvette\DAO\RecipeZDAO($app['zdb.configArray']);
 });
 
 

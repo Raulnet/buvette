@@ -19,13 +19,15 @@ $products->get('/delete/{productId}', "buvette\Controller\ProductsController::de
 
 /* ========== RECETTE =========== */
 
-/* Route Recette Product */
-$products->match('/recette/{productId}', "buvette\Controller\ProductsController::recetteAction")->bind('recetteProduct');
+/* Route Recipe Product */
+$products->match('/recipe/{productId}', "buvette\Controller\ProductsController::recipeAction")->bind('recipeProduct');
 
-/* Route Recette Product */
-$products->match('/recette/add/{productId}/{primProdId}', "buvette\Controller\RecetteController::addPrimProdToProductAction")->bind('addPrimProdToProduct');
-/* Route Recette Product */
-$products->match('/recette/edit/{productId}/{primProdId}', "buvette\Controller\RecetteController::editPrimProdToProductAction")->bind('editPrimProdToProduct');
+/* Route Recipe addPrimProduct */
+$products->match('/recipe/add/{productId}/{primProdId}', "buvette\Controller\RecipeController::addPrimProdToProductAction")->bind('addPrimProdToProduct');
+/* Route Recipe editPrimProduct */
+$products->match('/recipe/edit/{productId}/{primProdId}', "buvette\Controller\RecipeController::editPrimProdToProductAction")->bind('editPrimProdToProduct');
+/* Route Recipe removeProduct */
+$products->get('/recipe/remove/{productId}/{primProdId}', "buvette\Controller\RecipeController::removePrimProdToProductAction")->bind('removePrimProdToProduct');
 
 
 

@@ -9,7 +9,7 @@
 namespace buvette\Domain;
 
 
-class Unities {
+class Unities implements Entity {
 
     /**
      * @var int

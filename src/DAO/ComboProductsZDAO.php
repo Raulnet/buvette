@@ -18,96 +18,16 @@ class ComboProductsZDAO extends ZDAO
     protected $table = 'combo_products';
 
     /**
+     * @var string
+     */
+    protected $primaryKey = 'cmb_id';
+
+    /**
      * @param $configArray
      */
     function __construct($configArray)
     {
         parent::__construct($configArray);
-    }
-
-    /**
-     * @return array Entities
-     */
-    public function findAll()
-    {
-        $select = $this->sql->select();
-        $result = $this->selectWith($select)->toArray();
-        $entities = array();
-        foreach ($result as $row) {
-            $entities[] = $this->buildZDomainObject($row);
-        }
-
-        return $entities;
-    }
-
-    /**
-     * @param $id
-     *
-     * @return Player
-     */
-    public function findOneById($id)
-    {
-        $select = $this->sql->select();
-        $select->where(array('cmb_id' => $id));
-        $row = $this->selectWith($select)->current();
-
-        return $this->buildZDomainObject($row);
-    }
-
-    /**
-     * Create a new Entity
-     *
-     * @param ComboProducts $cmbProd
-     *
-     * @return bool
-     */
-    public function createEntity(ComboProducts $cmbProd)
-    {
-        if (!$cmbProd->getId()) {
-            $this->insert($cmbProd->getArray());
-
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Update Entity
-     *
-     * @param ComboProducts $cmbProd
-     *
-     * @return bool
-     */
-    public function updateEntity(ComboProducts $cmbProd)
-    {
-        if ($cmbProd->getId()) {
-            $where = array('stf_id' => $cmbProd->getId());
-            $this->update($cmbProd->getArray(), $where);
-
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Delete Player Entity
-     *
-     * @param ComboProducts $cmbProd
-     *
-     * @return bool
-     */
-    public function deleteEntity(ComboProducts $cmbProd)
-    {
-        if ($cmbProd->getId()) {
-            $where = array('cmb_id' => $cmbProd->getId());
-            $this->delete($where);
-
-            return true;
-        }
-
-        return false;
     }
 
     /**
@@ -139,7 +59,6 @@ class ComboProductsZDAO extends ZDAO
         $results = $this->selectWith($select)->toArray();
 
         return$results;
-
     }
 
     /**
@@ -157,4 +76,4 @@ class ComboProductsZDAO extends ZDAO
         return $cmbProd;
     }
 
-} //END CLASS !!!
+}

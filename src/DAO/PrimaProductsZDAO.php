@@ -18,112 +18,16 @@ class PrimaProductsZDAO extends ZDAO{
     protected $table = 'prima_products';
 
     /**
+     * @var string
+     */
+    protected $primaryKey = 'prm_id';
+
+    /**
      * @param $configArray
      */
     function __construct($configArray)
     {
         parent::__construct($configArray);
-    }
-
-    /**
-     * @return array Entities
-     */
-    public function findAll()
-    {
-        $select = $this->sql->select();
-
-        $result = $this->selectWith($select)->toArray();
-
-        $entities = array();
-        foreach ($result as $row) {
-            $entities[] = $this->buildZDomainObject($row);
-        }
-
-        return $entities;
-    }
-
-    /**
-     * @param array $where
-     *
-     * @return array Entities
-     */
-    public function find(array $where)
-    {
-
-        $select = $this->sql->select();
-        $select->where($where);
-        $result = $this->selectWith($select)->toArray();
-
-        $entities = array();
-        foreach ($result as $row) {
-            $entities[] = $this->buildZDomainObject($row);
-        }
-
-        return $entities;
-    }
-
-    /**
-     * @param $id
-     * @return PrimaProducts
-     */
-    public function findOneById($id)
-    {
-
-        $select = $this->sql->select();
-        $select->where(array('prm_id' => $id));
-        $row = $this->selectWith($select)->current();
-
-        return $this->buildZDomainObject($row);
-    }
-
-    /**
-     * Create a new Entity
-     *
-     * @param PrimaProducts $primProd
-     *
-     * @return bool
-     */
-    public function createEntity(PrimaProducts $primProd)
-    {
-        if (!$primProd->getId()) {
-            $this->insert($primProd->getArray());
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Update Entity
-     *
-     * @param PrimaProducts $primProd
-     *
-     * @return bool
-     */
-    public function updateEntity(PrimaProducts $primProd)
-    {
-        if ($primProd->getId()) {
-            $where = array('prm_id' => $primProd->getId());
-            $this->update($primProd->getArray(), $where);
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Delete Player Entity
-     *
-     * @param PrimaProducts $primProd
-     *
-     * @return bool
-     */
-    public function deleteEntity(PrimaProducts $primProd)
-    {
-        if ($primProd->getId()) {
-            $where = array('prm_id' => $primProd->getId());
-            $this->delete($where);
-            return true;
-        }
-        return false;
     }
 
     /**

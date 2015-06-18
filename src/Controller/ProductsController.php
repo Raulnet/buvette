@@ -119,14 +119,14 @@ class ProductsController {
      *
      * @return \Twig_Environment
      */
-    public function recetteAction(Application $app, $productId){
+    public function recipeAction(Application $app, $productId){
 
         $product = $this->getProducts($app)->findOneById($productId);
-        $recipe = $this->getProducts($app)->getRecetteByIdProduct($productId);
+        $recipe = $this->getProducts($app)->getRecipeByIdProduct($productId);
 
         $primProds = $this->getPrimProdsByCategories($app);
 
-        return $app['twig']->render('products/recette.html.twig', array(
+        return $app['twig']->render('products/recipe.html.twig', array(
             'product'   => $product,
             'recipe'    => $recipe,
             'primProds' => $primProds

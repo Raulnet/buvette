@@ -9,7 +9,7 @@
 namespace buvette\Domain;
 
 
-class CategoriesProduct {
+class CategoriesProduct implements Entity {
 
     /**
      * @var int

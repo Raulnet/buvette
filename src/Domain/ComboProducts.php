@@ -9,7 +9,7 @@
 namespace buvette\Domain;
 
 
-class ComboProducts {
+class ComboProducts implements Entity {
 
     /**
      * @var int

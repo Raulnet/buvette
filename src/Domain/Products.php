@@ -9,7 +9,7 @@
 namespace buvette\Domain;
 
 
-class Products {
+class Products implements Entity {
 
     /**
      * @var int
@@ -86,4 +86,4 @@ class Products {
         );
     }
 
-} // END CLASS !!!!
+}

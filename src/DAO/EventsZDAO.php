@@ -18,93 +18,16 @@ class EventsZDAO extends ZDAO {
     protected $table = 'event';
 
     /**
+     * @var string
+     */
+    protected $primaryKey = 'evn_id';
+
+    /**
      * @param $configArray
      */
     function __construct($configArray)
     {
         parent::__construct($configArray);
-    }
-
-    /**
-     * @return array Entities
-     */
-    public function findAll()
-    {
-        $select = $this->sql->select();
-
-        $result = $this->selectWith($select)->toArray();
-
-        $entities = array();
-        foreach ($result as $row) {
-            $entities[] = $this->buildZDomainObject($row);
-        }
-
-        return $entities;
-    }
-
-    /**
-     * @param $id
-     * @return Events
-     */
-    public function findOneById($id)
-    {
-
-        $select = $this->sql->select();
-        $select->where(array('evn_id' => $id));
-        $row = $this->selectWith($select)->current();
-
-        return $this->buildZDomainObject($row);
-    }
-
-    /**
-     * Create a new Entity
-     *
-     * @param Events $event
-     *
-     * @return bool
-     */
-    public function createEntity(Events $event)
-    {
-        if (!$event->getId()) {
-            $this->insert($event->getArray());
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Update Entity
-     *
-     * @param Events $event
-     *
-     * @return bool
-     */
-    public function updateEntity(Events $event)
-    {
-        if ($event->getId()) {
-            $where = array('evn_id' => $event->getId());
-            $this->update($event->getArray(), $where);
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Delete Player Entity
-     *
-     * @param Events $event
-     *
-     * @return bool
-     */
-    public function deleteEntity(Events $event)
-    {
-
-        if ($event->getId()) {
-            $where = array('evn_id' => $event->getId());
-            $this->delete($where);
-            return true;
-        }
-        return false;
     }
 
     /**
