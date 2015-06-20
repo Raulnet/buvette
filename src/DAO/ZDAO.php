@@ -61,7 +61,7 @@ abstract class ZDAO extends AbstractTableGateway
     protected function setWhere($data, $data2 = null)
     {
         // if is an Object set to array
-        if (is_object($data)) {
+        if ($data instanceof Entity) {
 
             $data = $data->getArray();
         }

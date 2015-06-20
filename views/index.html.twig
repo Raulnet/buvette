@@ -123,13 +123,13 @@
                                     <td>{{ prod.title }}</td>
                                     <td>
                                         <ul>
-                                            {% for compo in prod.recette %}
+                                            {% for compo in prod.recipe %}
                                                 <li>{{ compo.prmTitle }} {{ compo.quantity }} {{ compo.uniTitle }}</li>
                                             {% endfor %}
                                         </ul>
                                         <hr>
                                         <ul>
-                                            {% for compo in prod.option_recette %}
+                                            {% for compo in prod.option_recipe %}
                                                 <li>{{ compo.prmTitle }} {{ compo.quantity }} {{ compo.uniTitle }}</li>
                                             {% endfor %}
                                         </ul>

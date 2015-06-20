@@ -1,0 +1,8 @@
+# Composer PHAR
+/composer.phar
+
+# Managed by Composer
+/vendor/
+
+# Config
+/app/config/*

@@ -36,7 +36,6 @@ class UnitiesZDAO extends ZDAO{
      */
     protected function buildZDomainObject($row)
     {
-
         $unities = new Unities;
         $unities->setId($row['uni_id']);
         $unities->setTitle($row['uni_title']);
