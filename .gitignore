@@ -1,9 +1,9 @@
-### Pump_room template
-# config (pump_room)
-/app/*
+### silex template
+# phpStorm
+/.idea
 
-# Managed by Composer
-/vendor/*
+# config (pump_room)
+/app/config/*
 
 # Composer PHAR
 /composer.phar
