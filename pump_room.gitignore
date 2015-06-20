@@ -2,7 +2,7 @@
 /composer.phar
 
 # Managed by Composer
-/vendor/
+/vendor/*
 
 # Config
 /app/config/*
