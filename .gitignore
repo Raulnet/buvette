@@ -1,9 +1,11 @@
-# Composer PHAR
-/composer.phar
+### Pump_room template
+# config (pump_room)
+/app/*
 
 # Managed by Composer
 /vendor/*
 
-# Config
-/app/config/*
+# Composer PHAR
+/composer.phar
+
 
