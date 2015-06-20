@@ -65,7 +65,7 @@ class RecipeController {
         $primProds = $this->getPrimProdsByCategories($app);
 
         /** ===== FORM =====**/
-        $recipeForm = $this->getRecipeForm($app, $productId, $primProdId);
+        $recipeForm = $this->getRecipeForm($app, $primProdId, $productId);
         $reponse = $this->requestRecipeFormAction($request, $app, $recipeForm, true);
         /** ===== END FORM ===== */
         // if form is submit & valid redirect
@@ -95,7 +95,7 @@ class RecipeController {
      */
     public function removePrimProdToProductAction(Application $app, $productId, $primProdId)
     {
-        $recipe = $this->getRecipe($app)->findOneById($productId, $primProdId);
+        $recipe = $this->getRecipe($app)->findOneById($primProdId, $productId);
         if($recipe){
             $this->getRecipe($app)->deleteEntity($recipe);
             $app['session']->getFlashBag()->add('success', 'The prima - product successfully removed');

@@ -21,7 +21,7 @@ class CatPrimaProductZDAO extends ZDAO{
     /**
      * @var string
      */
-    protected $primaryKey = 'ccp_id';
+    protected $primaryKey = 'cpp_id';
 
     /**
      * @param $configArray

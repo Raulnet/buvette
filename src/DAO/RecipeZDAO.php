@@ -20,12 +20,12 @@ class RecipeZDAO extends ZDAO {
     /**
      * @var string
      */
-    protected $foreignKey1 = 're_pro_id';
+    protected $secondaryKey = 're_pro_id';
 
     /**
      * @var string
      */
-    protected $foreignKey2 = 're_prm_id';
+    protected $primaryKey = 're_prm_id';
 
     /**
      * @param $configArray

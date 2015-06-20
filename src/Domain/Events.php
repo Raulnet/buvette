@@ -272,14 +272,23 @@ class Events implements Entity
         $entity = array(
             'evn_id'           => $this->id,
             'evn_title'        => $this->title,
-            'evn_start'        => date_format($this->dateStart, 'Y-m-d H:i:s'),
-            'evn_end'          => date_format($this->dateEnd, 'Y-m-d H:i:s'),
+            'evn_start'        => $this->dateStart,
+            'evn_end'          => $this->dateEnd,
             'evn_stf_id_creat' => $this->staffIdCreate,
-            'evn_date_created' => date_format($this->dateCreated, 'Y-m-d H:i:s'),
+            'evn_date_created' => $this->dateCreated,
             'evn_deleted'      => $this->deleted,
             'evn_stf_id_delet' => $this->staffIdDeleted,
             'evn_stf_id_modif' => $this->staffIdModified
         );
+        if($this->dateStart instanceof \DateTime){
+            $entity['evn_start'] = date_format($this->dateStart, 'Y-m-d H:i:s');
+        }
+        if($this->dateEnd instanceof \DateTime){
+            $entity['evn_end'] = date_format($this->dateEnd, 'Y-m-d H:i:s');
+        }
+        if($this->dateCreated instanceof \DateTime){
+            $entity['evn_date_created'] = date_format($this->dateCreated, 'Y-m-d H:i:s');
+        }
         if ($this->dateDeleted != null) {
             $entity['evn_date_deleted'] = date_format($this->dateDeleted, 'Y-m-d H:i:s');
         }

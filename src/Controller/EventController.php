@@ -34,6 +34,7 @@ class EventController {
     }
 
     /**
+     * @param Request     $request
      * @param Application $app
      *
      * @return mixed
@@ -45,14 +46,7 @@ class EventController {
 
         $eventForm->handleRequest($request);
 
-        $errors = $this->getValidator($app)->validate($eventForm->getData());
-
-        $errors = new FormError($errors, array());
-
-        $eventForm->addError($errors);
-
         if ($eventForm->isSubmitted() && $eventForm->isValid()) {
-
 
             $eventForm->getData()->setStaffIdCreate(4);
 

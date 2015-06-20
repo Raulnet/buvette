@@ -28,12 +28,7 @@ abstract class ZDAO extends AbstractTableGateway
     /**
      * @var string
      */
-    protected $foreignKey1 = null;
-
-    /**
-     * @var string
-     */
-    protected $foreignKey2 = null;
+    protected $secondaryKey = null;
 
     /**
      * @param $configArray
@@ -60,7 +55,7 @@ abstract class ZDAO extends AbstractTableGateway
      */
     protected function setWhere($data, $data2 = null)
     {
-        // if is an Object set to array
+        // if is an instance of Entity Object set to array
         if ($data instanceof Entity) {
 
             $data = $data->getArray();
@@ -68,33 +63,37 @@ abstract class ZDAO extends AbstractTableGateway
         // if is an array
         if (is_array($data)) {
             if (array_key_exists($this->primaryKey, $data)) {
-                $this->where = array(
-                    $this->primaryKey => $data[$this->primaryKey]);
-                return true;
+                $this->where[$this->primaryKey] = $data[$this->primaryKey];
             }
-            if (array_key_exists($this->foreignKey1, $data)) {
-                $this->where = array(
-                    $this->foreignKey1 =>$data[$this->foreignKey1],
-                    $this->foreignKey2 =>$data[$this->foreignKey2] );
+            if (array_key_exists($this->secondaryKey, $data)) {
+                $this->where[$this->secondaryKey] =$data[$this->secondaryKey];
+            }
+            if($this->where){
                 return true;
             }
             return false;
         }
-        // filter to INT
-        $data = filter_var($data, FILTER_VALIDATE_INT);
-        // if is int
-        if ($data !== null && $data2 === null) {
-            $this->where = array($this->primaryKey => $data);
+        if(is_numeric($data)){
+            // filter to INT
+            $data = filter_var($data, FILTER_VALIDATE_INT);
+            $this->where[$this->primaryKey] = $data;
+        }
+        if(ctype_alnum($data)){
+            // filter to INT
+            $this->where[$this->primaryKey] = $data;
+        }
+        if(is_numeric($data2)){
+            // filter to INT
+            $data2 = filter_var($data2, FILTER_VALIDATE_INT);
+            $this->where[$this->secondaryKey] = $data2;
+        }
+        if(ctype_alnum($data2)){
+            // filter to INT
+            $this->where[$this->secondaryKey] = $data2;
+        }
+        if($this->where){
             return true;
         }
-        // filter to INT
-        $data2 = filter_var($data2, FILTER_VALIDATE_INT);
-        // if is int
-        if ($data !== null && $data2 !== null) {
-            $this->where = array($this->foreignKey1 => $data, $this->foreignKey2 => $data2);
-            return true;
-        }
-
         return false;
     }
 
@@ -141,7 +140,6 @@ abstract class ZDAO extends AbstractTableGateway
     {
         $this->setWhere($data, $data2);
 
-
         $select = $this->sql->select();
         $select->where($this->where);
         $row = $this->selectWith($select)->current();
@@ -162,17 +160,21 @@ abstract class ZDAO extends AbstractTableGateway
     {
         if ($data instanceof Entity) {
             $data = $data->getArray();
-        }
-        if (array_key_exists($this->primaryKey, $data)) {
-            $this->insert($data);
-            return true;
-        }
-        if ($data[$this->foreignKey1] && $data[$this->foreignKey2]) {
-            if(!$this->findOneById($data[$this->foreignKey1], $data[$this->foreignKey2])){
-                $this->insert($data);
-                return true;
+            if ($data[$this->primaryKey] == null) {
+                if($this->insert($data)){
+                    return true;
+                };
+                return false;
             }
-            return false;
+            if ($data[$this->secondaryKey] && $data[$this->primaryKey]) {
+                if(!$this->findOneById($data[$this->secondaryKey], $data[$this->primaryKey])){
+                    if($this->insert($data)){
+                        return true;
+                    };
+                    return false;
+                }
+                return false;
+            }
         }
         return false;
     }
@@ -186,28 +188,22 @@ abstract class ZDAO extends AbstractTableGateway
      */
     public function updateEntity($data)
     {
-        if ($data instanceof Entity)  {
+        if($data instanceof Entity){
             $data = $data->getArray();
         }
-        $this->setWhere($data);
-        if (array_key_exists($this->primaryKey, $data)) {
-            $this->update($data, $this->where);
-            return true;
-        }
-        if ($data[$this->foreignKey1] && $data[$this->foreignKey2]) {
-            if($this->findOneById($data[$this->foreignKey1], $data[$this->foreignKey2])){
-                $this->update($data, $this->where);
-                return true;
+
+        if ($this->setWhere($data))  {
+                if($this->update($data, $this->where)){
+                    return true;
+                };
             }
-            return false;
-        }
         return false;
     }
 
     /**
      * Delete Entity
      *
-     * @param array $data | Entity $data
+     * @param Entity $data
      *
      * @return bool
      */
