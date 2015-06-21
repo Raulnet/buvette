@@ -299,4 +299,4 @@ class Events implements Entity
     }
 
 
-} // END CLASS !!!!
+}

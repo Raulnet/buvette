@@ -1,7 +1,8 @@
 #!/usr/bin/env php
 <?php
+//$ touch app/console && chmod +x app/console
 
-date_default_timezone_set('UTC');
+date_default_timezone_set('Europe/Paris');
 
 set_time_limit(0);
 
