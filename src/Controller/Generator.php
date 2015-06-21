@@ -7,18 +7,27 @@
  */
 namespace buvette\Controller;
 
-use Silex\Application;
-
 use PDO;
 
 class Generator
 {
 
+    /**
+     * @var PDO
+     */
+    private $bdd;
 
-    public function indexAction(Application $app)
+    function __construct()
     {
-        $bdd     = new PDO('mysql:host=127.0.0.1;dbname=buvette;charset=utf8', 'Raulnet', '');
-        $tables  = $bdd->query('SHOW TABLES FROM buvette');
+        $this->bdd = new PDO('mysql:host=127.0.0.1;dbname=buvette;charset=utf8', 'Raulnet', '');
+    }
+
+    /**
+     * @return string
+     */
+    public function indexAction()
+    {
+        $tables  = $this->bdd->query('SHOW TABLES FROM buvette');
         $schemas = array();
         foreach ($tables as $table) {
             $schemas[$table['Tables_in_buvette']] = array('title' => $table['Tables_in_buvette']);
@@ -27,7 +36,7 @@ class Generator
         foreach ($schemas as $table) {
             $title       = $table['title'];
             $constraints = $this->getConstraint($title);
-            $columns = $bdd->query("SHOW COLUMNS FROM " . $title . "");
+            $columns = $this->bdd->query("SHOW COLUMNS FROM " . $title . "");
             $column  = array();
             if ($columns) {
                 foreach ($columns as $data) {
@@ -49,14 +58,27 @@ class Generator
                 );
             }
         }
+
+        // ===== Generate Entity =====
         $rootFolder = __DIR__ . '/../Entity/Generated/';
         echo '<pre>';
         print_r($schema);
         if (!file_exists($rootFolder)) {
             mkdir($rootFolder, 0777, true);
         }
+
+        $this->saveFileInterfaceEntity($rootFolder);
+
         foreach ($schema as $table) {
             $this->saveFileEntity($rootFolder, $table);
+        }
+        // Generate DAO =====
+        $rootFolder = __DIR__ . '/../DAO/Generated/';
+        if (!file_exists($rootFolder)) {
+            mkdir($rootFolder, 0777, true);
+        }
+        foreach ($schema as $table) {
+            $this->saveFileDao($rootFolder, $table);
         }
 
         return 'ok';
@@ -69,8 +91,7 @@ class Generator
      */
     private function getConstraint($table)
     {
-        $bdd         = new PDO('mysql:host=127.0.0.1;dbname=buvette;charset=utf8', 'Raulnet', '');
-        $cons        = $bdd->query('select *
+        $cons        = $this->bdd->query('select *
                               from information_schema.table_constraints
                               where table_schema = schema()
                               and table_name = "' . $table . '"');
@@ -79,7 +100,7 @@ class Generator
             {
                 $constraintName = $row['CONSTRAINT_NAME'];
                 if ($constraintName !== 'PRIMARY') {
-                    $constraint                        = $bdd->query("select * from information_schema.key_column_usage
+                    $constraint = $this->bdd->query("select * from information_schema.key_column_usage
                                                 where  table_schema = schema()
                                                 and table_name = '" . $table . "'
                                                 and constraint_name = '" . $constraintName . "'");
@@ -99,6 +120,21 @@ class Generator
 
     /**
      * @param $rootFolder
+     *
+     * @return bool
+     */
+    private function saveFileInterfaceEntity($rootFolder)
+    {
+
+        $file = fopen($rootFolder.'Entity.php', 'w+');
+        fputs($file, $this->getContentInterfaceEntityFile());
+        fclose($file);
+
+        return true;
+    }
+
+    /**
+     * @param $rootFolder
      * @param $table
      *
      * @return bool
@@ -108,6 +144,22 @@ class Generator
         $title = $this->getTitleToCamelCase($table['title']);
         $file = fopen($rootFolder . $title . '.php', 'w+');
         fputs($file, $this->getContentEntityFile($table));
+        fclose($file);
+
+        return true;
+    }
+
+    /**
+     * @param $rootFolder
+     * @param $table
+     *
+     * @return bool
+     */
+    private function saveFileDao($rootFolder, $table)
+    {
+        $title = $this->getTitleToCamelCase($table['title']);
+        $file = fopen($rootFolder . $title . '.php', 'w+');
+        fputs($file, $this->getContentDaoFile($table));
         fclose($file);
 
         return true;
@@ -164,6 +216,11 @@ class Generator
         return $constraint;
     }
 
+    /**
+     * @param $constraint
+     *
+     * @return array
+     */
     private function getAssert($constraint){
 
         $assert = array();
@@ -190,8 +247,9 @@ class Generator
         $dateTime = false;
 
         $content ='<?php'."\n";
+        $content .= $this->getStartEntityCommentFile($table['title']);
         // add namespace
-        $content .= 'namespace buvette\Entity;'."\n"."\n";
+        $content .= 'namespace buvette\Entity\Generated;'."\n"."\n";
         // add assert
         $content .= 'use Symfony\Component\Validator\Mapping\ClassMetadata;'."\n";
         $content .= 'use Symfony\Component\Validator\Constraints as Assert;'."\n"."\n"."\n";
@@ -205,9 +263,9 @@ class Generator
                 $dateTime = true;
             }
             $content .= "\n".'   /**'."\n";
-            $content .= ($constraints['key'] === true ? '    * #Primary key'."\n".'    *'."\n" : null);
-            $content .= (array_key_exists('relation', $constraints) ? '    * #Relation '.$constraints['relation']."\n" : null);
-            $content .= (array_key_exists('table_target', $constraints) ? '    * #Table '.$constraints['table_target'].' '. $constraints['column_target'] ."\n".'     *'."\n" : null);
+            $content .= ($constraints['key'] === true ? '    * Primary key'."\n".'    *'."\n" : null);
+            $content .= (array_key_exists('relation', $constraints) ? '    * Relation '.$constraints['relation']."\n" : null);
+            $content .= (array_key_exists('table_target', $constraints) ? '    * Table-target '.$constraints['table_target'].' '. $constraints['column_target'] ."\n".'    *'."\n" : null);
             $content .= '    * @var '. $constraints['type'] ."\n";
             $content .= '    */' ."\n";
             $content .= '   private $'.lcfirst($this->getTitleToCamelCase($var['title'])) .' = null;' ."\n";
@@ -291,4 +349,119 @@ class Generator
         return $content;
     }
 
+    /**
+     * CREATE INTERFACE ENTITY
+     *
+     * @return string
+     */
+    private function getContentInterfaceEntityFile()
+    {
+        // start file.php
+        $content = '<?php'."\n";
+        $content .= $this->getStartEntityCommentFile();
+        $content .= 'namespace buvette\Entity;'."\n\n\n";
+        $content .= 'interface Entity {'."\n\n";
+        $content .= '    /**'."\n";
+        $content .= '     * @return array'."\n";
+        $content .= '     */'."\n";
+        $content .= '    public function getArray();'."\n";
+
+        // Close Entity file
+        $content .= "\n".'}';
+
+
+        return $content;
+    }
+
+    /**
+     * @param string $title
+     *
+     * @return string
+     */
+    private function getStartEntityCommentFile($title = 'Interface'){
+
+        $date = new \DateTime('now');
+        $comment = '';
+        $comment .='/**'."\n";
+        $comment .=' * Entity '.$this->getTitleToCamelCase($title)."\n";
+        $comment .=' * Auto Generate :'.date_format($date, "Y-m-d H:i:s")."\n";
+        $comment .=' * '.$title."\n";
+        $comment .=' */'."\n";
+
+        return $comment;
+    }
+
+    /**
+     * @param string $title
+     *
+     * @return string
+     */
+    private function getStartDaoCommentFile($title = 'Interface'){
+
+        $date = new \DateTime('now');
+        $comment = '';
+        $comment .='/**'."\n";
+        $comment .=' * Data Access Object DAO '.$this->getTitleToCamelCase($title)."\n";
+        $comment .=' * Auto Generate :'.date_format($date, "Y-m-d H:i:s")."\n";
+        $comment .=' * '.$title."\n";
+        $comment .=' */'."\n";
+
+        return $comment;
+    }
+
+    // ================================================================================
+    // ================================================================================
+    // ================================================================================
+
+    private function getContentDaoFile($table){
+        // start file.php
+        $content = '';
+        $content .= '<?php'."\n";
+        $content .= $this->getStartDaoCommentFile($table['title']);
+        $content .= 'namespace buvette\DAO\Generated;'."\n\n";
+        $content .= 'use buvette\Entity\Generated\\'.$this->getTitleToCamelCase($table['title']).';'."\n\n";
+        $content .= 'class '.$this->getTitleToCamelCase($table['title']).'ZDAO extends ZDAO {'."\n\n";
+        // Add var Table
+        $content .= '    /**'."\n";
+        $content .= '     * @var string table Entity'."\n";
+        $content .= '     */'."\n";
+        $content .= '    protected $table = "'.$table['title'].'";'."\n\n";
+        // Add var Primary Key
+            $iPos = 0;
+            $primaryKey = array('$primaryKey', '$secondaryKey');
+            foreach($table['columns'] as $var){
+                if($var['Key'] === 'PRI' && $iPos < 2){
+                    $content .= '    /**'."\n";
+                    $content .= '     * @var string '.$primaryKey[$iPos]."\n";
+                    $content .= '     */'."\n";
+                    $content .= '    protected '.$primaryKey[$iPos].' = "'.$var['title'].'";'."\n\n";
+                    $iPos++;
+                }
+            }
+        // Add construct
+        $content .= '    /**'."\n";
+        $content .= '     * @param $configArray'."\n";
+        $content .= '     */'."\n";
+        $content .= '    function __construct($configArray)'."\n";
+        $content .= '    {'."\n";
+        $content .= '        parent::__construct($configArray);'."\n";
+        $content .= '    }'."\n\n";
+        // Add Build Entity Object
+        $content .= '    /**'."\n";
+        $content .= '     * @param $row'."\n";
+        $content .= '     * @return '.$this->getTitleToCamelCase($table['title'])."\n";
+        $content .= '     */'."\n";
+        $content .= '    protected function buildZEntityObject($row)'."\n";
+        $content .= '    {'."\n";
+        $content .= '        $entity = new '. $this->getTitleToCamelCase($table['title']).'();'."\n";
+            foreach($table['columns'] as $var){
+                $content .= '        $entity->set'.$this->getTitleToCamelCase($var['title']).'($row["'.$var['title'].'"]);'."\n";
+            }
+        $content .= '        return $entity;'."\n";
+        $content .= '    }'."\n";
+
+          // Close Entity file
+        $content .= "\n".'}';
+        return $content;
+    }
 }
