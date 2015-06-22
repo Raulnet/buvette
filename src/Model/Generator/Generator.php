@@ -1,0 +1,190 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: laurentnegre
+ * Date: 22/06/15
+ * Time: 22:18
+ */
+
+namespace buvette\Model\Generator;
+
+use buvette\Model\Generator\EntityContentGenerator;
+use buvette\Model\Generator\EntityDaoContentGenerator;
+
+use PDO;
+
+class Generator {
+
+    /**
+     * @var PDO
+     */
+    private $bdd;
+
+    /**
+     * @var array
+     */
+    private $tables;
+
+    function __construct()
+    {
+        $this->bdd = new PDO('mysql:host=127.0.0.1;dbname=buvette;charset=utf8', 'Raulnet', '');
+        $this->tables = $this->getAllTables();
+
+    }
+
+    /**
+     * @return bool
+     */
+    public function generate(){
+        // ========== Generate Entities =========
+        $entities = new EntityContentGenerator();
+        echo $entities->getRoot();
+        // Create Folder
+        if (!file_exists($entities->getRoot())) {
+            mkdir($entities->getRoot(), 0777, true);
+        }
+        // Add Entity Interface
+        $this->saveFileInterfaceEntity($entities->getRoot(), $entities);
+        //Generate entities files
+        foreach ($this->tables as $table) {
+            $this->saveFileEntity($entities, $table);
+        }
+        // ======================================
+
+        // ======= Generate EntitiesDao =========
+        $entitiesDao = new EntityDaoContentGenerator();
+        if (!file_exists($entitiesDao->getRoot())) {
+            mkdir($entitiesDao->getRoot(), 0777, true);
+        }
+        // Add DAO Abstract
+        //TODO CREER L'ABSTRACT DAO
+        // Generate EntitiesDao Fiels
+        foreach ($this->tables as $table) {
+            $this->saveFileDao($entitiesDao, $table);
+        }
+        // ======================================
+
+        return true;
+    }
+
+    /**
+     * @param $rootFolder
+     * @param EntityContentGenerator $entities
+     *
+     * @return bool
+     */
+    private function saveFileInterfaceEntity($rootFolder, EntityContentGenerator $entities)
+    {
+        $file = fopen($rootFolder.'Entity.php', 'w+');
+        fputs($file, $entities->getContentInterfaceEntityFile());
+        fclose($file);
+
+        return true;
+    }
+
+    /**
+     * @param EntityContentGenerator $entities
+     * @param $table
+     *
+     * @return bool
+     */
+    private function saveFileEntity($entities, $table)
+    {
+        $file = fopen($entities->getRoot() . $entities->getTitleFile($table) . '.php', 'w+');
+        fputs($file, $entities->getContentEntityFile($table));
+        fclose($file);
+
+        return true;
+    }
+
+    /**
+     * @param EntityDaoContentGenerator  $entitiesDao
+     * @param $table
+     *
+     * @return bool
+     */
+    private function saveFileDao($entitiesDao, $table)
+    {
+        $title = $entitiesDao->getTitleFile($table);
+        $file = fopen($entitiesDao->getRoot() . $title . '.php', 'w+');
+        fputs($file, $entitiesDao->getContentDaoFile($table));
+        fclose($file);
+
+        return true;
+    }
+
+
+    /**
+     * @return array $tables
+     */
+    private function getAllTables(){
+
+        $tables  = $this->bdd->query('SHOW TABLES FROM buvette');
+        $schemas = array();
+        foreach ($tables as $table) {
+            $schemas[$table['Tables_in_buvette']] = array('title' => $table['Tables_in_buvette']);
+        }
+        $schema = array();
+        foreach ($schemas as $table) {
+            $title       = $table['title'];
+            $constraints = $this->getConstraint($title);
+            $columns = $this->bdd->query("SHOW COLUMNS FROM " . $title . "");
+            $column  = array();
+            if ($columns) {
+                foreach ($columns as $data) {
+                    $column[$data['Field']] = array(
+                        'title'   => $data['Field'],
+                        'Type'    => $data['Type'],
+                        'Null'    => $data['Null'],
+                        'Key'     => $data['Key'],
+                        'Default' => $data['Default'],
+                        'Extra'   => $data['Extra']
+                    );
+                    if (array_key_exists($data['Field'], $constraints)) {
+                        $column[$data['Field']]['Constraint'] = $constraints[$data['Field']];
+                    }
+                }
+                $schema[$title] = array(
+                    'title'   => $title,
+                    'columns' => $column
+                );
+            }
+        }
+        return $schema;
+    }
+
+    /**
+     * @param $table
+     *
+     * @return array
+     */
+    private function getConstraint($table)
+    {
+        $cons        = $this->bdd->query('select *
+                              from information_schema.table_constraints
+                              where table_schema = schema()
+                              and table_name = "' . $table . '"');
+        $constraints = array();
+        foreach ($cons as $row) {
+            {
+                $constraintName = $row['CONSTRAINT_NAME'];
+                if ($constraintName !== 'PRIMARY') {
+                    $constraint = $this->bdd->query("select * from information_schema.key_column_usage
+                                                where  table_schema = schema()
+                                                and table_name = '" . $table . "'
+                                                and constraint_name = '" . $constraintName . "'");
+                    $data                              = $constraint->fetch();
+                    $constraints[$data['COLUMN_NAME']] = array(
+                        "column_name"            => $data['COLUMN_NAME'],
+                        "referenced_table_name"  => $data['REFERENCED_TABLE_NAME'],
+                        "referenced_column_name" => $data['REFERENCED_COLUMN_NAME'],
+                    );
+                }
+
+            }
+        }
+
+        return $constraints;
+    }
+
+}
