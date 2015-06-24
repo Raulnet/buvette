@@ -6,7 +6,7 @@
  * Time: 22:19
  */
 
-namespace buvette\Model\Generator;
+namespace buvette\Command\Generator;
 
 
 class EntityContentGenerator extends AbstractGenerator {
@@ -20,11 +20,11 @@ class EntityContentGenerator extends AbstractGenerator {
     }
 
     /**
-     * @param $table
+     * @param null $table
      *
      * @return string
      */
-    public function getTitleFile($table){
+    public function getTitleFile($table = null){
 
         return $this->getTitleToCamelCase($table['title']);
     }
@@ -202,7 +202,7 @@ class EntityContentGenerator extends AbstractGenerator {
         // start file.php
         $content = '<?php'."\n";
         $content .= $this->getStartEntityCommentFile();
-        $content .= 'namespace buvette\Entity;'."\n\n\n";
+        $content .= 'namespace buvette\Entity\Generated;'."\n\n\n";
         $content .= 'interface Entity {'."\n\n";
         $content .= '    /**'."\n";
         $content .= '     * @return array'."\n";

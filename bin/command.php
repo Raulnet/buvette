@@ -1,7 +1,7 @@
 <?php
 use Symfony\Component\Console\Application;
-use buvette\Command\TestCommand;
+use buvette\Command\GenerateEntitiesCommand;
 
 $app = new Application('Raulnet', '0.1.0');
-$app->add(new TestCommand());
+$app->add(new GenerateEntitiesCommand());
 $app->run();

@@ -5,7 +5,7 @@
  * Date: 22/06/15
  * Time: 22:30
  */
-namespace buvette\Model\Generator;
+namespace buvette\Command\Generator;
 
 abstract class AbstractGenerator
 {
@@ -16,11 +16,11 @@ abstract class AbstractGenerator
     abstract public function getRoot();
 
     /**
-     * @param $table
+     * @param null $table
      *
-     * @return string titleFile
+     * @return mixed
      */
-    abstract public function getTitleFile($table);
+    abstract public function getTitleFile($table = null);
 
     /**
      * @param $title

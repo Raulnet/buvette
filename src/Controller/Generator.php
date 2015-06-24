@@ -7,21 +7,38 @@
  */
 namespace buvette\Controller;
 
-use buvette\Model\Generator\Generator as EntityGenerator;
+use Silex\Application;
+
 
 class Generator
 {
 
     /**
-     * @return string
+     * @param Application $app
+     *
+     * @return bool
      */
-    public function indexAction()
+    public function indexAction(Application $app)
     {
-        $generator = new EntityGenerator();
-        if($generator->generate()){
-            return true;
-        }
-        return false;
+
+      var_dump($this->getEventEm($app));exit;
+        $result = $em->findOneById(13);
+        var_dump($result);
+echo'ok';
+
+      exit;
+        return true;
     }
+
+    /**
+     * @param $app
+     *
+     * @return \buvette\DAO\Generated\EventZDAO
+     */
+    private function getEventEm($app){
+        return $app['EM']->get('EventZDAO');
+    }
+
+
 
 }

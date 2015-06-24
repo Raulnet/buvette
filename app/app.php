@@ -34,49 +34,9 @@ $app->register(new Silex\Provider\TranslationServiceProvider(), array(
 
 /* Register services */
 
-/****** EM Staffs ******/
-$app['zdao.staff'] = $app->share(function ($app) {
-    return new buvette\DAO\StaffZDAO($app['zdb.configArray']);
+$app['EM'] = $app->share(function ($app) {
+    return new \buvette\Model\GetEntityManager($app['zdb.configArray']);
 });
-/***** EM Unities *****/
-$app['zdao.unities'] = $app->share(function ($app) {
-    return new buvette\DAO\UnitiesZDAO($app['zdb.configArray']);
-});
-/***** EM Categories Prima Products ******/
-$app['zdao.catPrimProds'] = $app->share(function ($app) {
-    return new buvette\DAO\CatPrimaProductZDAO($app['zdb.configArray']);
-});
-
-/**
- * @return \buvette\DAO\PrimaProductsZDAO
- */
-$app['zdao.primaProduct'] = $app->share(function ($app) {
-    return new buvette\DAO\PrimaProductsZDAO($app['zdb.configArray']);
-});
-/****** EM CATEGORIES PRODUCTS ******/
-$app['zdao.catProducts'] = $app->share(function ($app) {
-    return new buvette\DAO\CatProductZDAO($app['zdb.configArray']);
-});
-/****** EM PRODUCTS ******/
-$app['zdao.products'] = $app->share(function ($app) {
-    return new buvette\DAO\ProductsZDAO($app['zdb.configArray']);
-});
-/****** EM COMBO PRODUCTS ******/
-$app['zdao.comboProducts'] = $app->share(function ($app) {
-    return new buvette\DAO\ComboProductsZDAO($app['zdb.configArray']);
-});
-/****** EM EVENTS ******/
-$app['zdao.events'] = $app->share(function ($app) {
-    return new buvette\DAO\EventsZDAO($app['zdb.configArray']);
-});
-/****** EM RECIPE ******/
-$app['zdao.recipe'] = $app->share(function ($app) {
-    return new buvette\DAO\RecipeZDAO($app['zdb.configArray']);
-});
-
-
-
-
 
 // Register error handler
 //$app->error(function (\Exception $e, $code) use ($app) {

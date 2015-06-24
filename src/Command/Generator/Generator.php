@@ -6,10 +6,10 @@
  * Time: 22:18
  */
 
-namespace buvette\Model\Generator;
+namespace buvette\Command\Generator;
 
-use buvette\Model\Generator\EntityContentGenerator;
-use buvette\Model\Generator\EntityDaoContentGenerator;
+use buvette\Command\Generator\EntityContentGenerator;
+use buvette\Command\Generator\EntityDaoContentGenerator;
 
 use PDO;
 
@@ -36,18 +36,18 @@ class Generator {
      * @return bool
      */
     public function generate(){
+        $files = array();
         // ========== Generate Entities =========
         $entities = new EntityContentGenerator();
-        echo $entities->getRoot();
         // Create Folder
         if (!file_exists($entities->getRoot())) {
             mkdir($entities->getRoot(), 0777, true);
         }
         // Add Entity Interface
-        $this->saveFileInterfaceEntity($entities->getRoot(), $entities);
+        $files[] = $this->saveFileInterfaceEntity($entities->getRoot(), $entities);
         //Generate entities files
         foreach ($this->tables as $table) {
-            $this->saveFileEntity($entities, $table);
+            $files[] = $this->saveFileEntity($entities, $table);
         }
         // ======================================
 
@@ -57,14 +57,14 @@ class Generator {
             mkdir($entitiesDao->getRoot(), 0777, true);
         }
         // Add DAO Abstract
-        //TODO CREER L'ABSTRACT DAO
+        $files[] = $this->saveFileAbstractDao($entitiesDao->getRoot(), $entitiesDao);
         // Generate EntitiesDao Fiels
         foreach ($this->tables as $table) {
-            $this->saveFileDao($entitiesDao, $table);
+            $files[] = $this->saveFileDao($entitiesDao, $table);
         }
         // ======================================
 
-        return true;
+        return $files;
     }
 
     /**
@@ -79,7 +79,22 @@ class Generator {
         fputs($file, $entities->getContentInterfaceEntityFile());
         fclose($file);
 
-        return true;
+        return 'Entity.php';
+    }
+
+    /**
+     * @param $rootFolder
+     * @param EntityDaoContentGenerator $entitiesDao
+     *
+     * @return bool
+     */
+    private function saveFileAbstractDao($rootFolder, $entitiesDao)
+    {
+        $file = fopen($rootFolder.'ZDAO.php', 'w+');
+        fputs($file, $entitiesDao->getContentDaoAbstractFile());
+        fclose($file);
+
+        return 'ZDAO.php';
     }
 
     /**
@@ -94,7 +109,7 @@ class Generator {
         fputs($file, $entities->getContentEntityFile($table));
         fclose($file);
 
-        return true;
+        return $entities->getTitleFile($table) . '.php';
     }
 
     /**
@@ -106,11 +121,11 @@ class Generator {
     private function saveFileDao($entitiesDao, $table)
     {
         $title = $entitiesDao->getTitleFile($table);
-        $file = fopen($entitiesDao->getRoot() . $title . '.php', 'w+');
+        $file = fopen($entitiesDao->getRoot() . $title . 'ZDAO.php', 'w+');
         fputs($file, $entitiesDao->getContentDaoFile($table));
         fclose($file);
 
-        return true;
+        return $title . 'ZDAO.php';
     }
 
 
