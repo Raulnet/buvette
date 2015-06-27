@@ -20,7 +20,7 @@ class PrimProdType extends AbstractType {
      */
     private $app;
 
-    function __construct(Application $app)
+    public function __construct(Application $app)
     {
         $this->app = $app;
     }
@@ -84,9 +84,4 @@ class PrimProdType extends AbstractType {
         return $unities;
     }
 
-
-
-
-
-
-} // END CLASS !!
+}

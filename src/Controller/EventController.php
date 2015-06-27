@@ -100,7 +100,9 @@ class EventController extends AbstractController {
      */
     public function deleteEventAction(Application $app, $eventId) {
 
-        if($this->getEvent($app)->deleteEntity($eventId)){
+        $em = $this->getEvent($app);
+
+        if($this->deleteEntity($em, $eventId)){
 
             $app['session']->getFlashBag()->add('success', 'The event was succesfully removed.');
         }

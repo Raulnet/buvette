@@ -8,6 +8,7 @@
 
 namespace buvette\Controller;
 
+use buvette\ZEM\Generated\ZEM;
 use Silex\Application;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormError;
@@ -44,6 +45,48 @@ abstract class AbstractController {
     protected function getTwig(Application $app){
 
         return $app['twig'];
+    }
+
+    /**
+     * @param ZEM    $em
+     * @param Entity $entity
+     *
+     * @return bool
+     */
+    protected function addEntity(ZEM $em, Entity $entity){
+
+        if($em->createEntity($entity)){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param ZEM    $em
+     * @param Entity $entity
+     *
+     * @return bool
+     */
+    protected function updateEntity(ZEM $em, Entity $entity){
+
+        if($em->updateEntity($entity)){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param ZEM    $em
+     * @param Entity $entity| int entityId
+     *
+     * @return bool
+     */
+    protected function deleteEntity(ZEM $em, $entity){
+
+        if($em->deleteEntity($entity)){
+            return true;
+        }
+        return false;
     }
 
 

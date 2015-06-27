@@ -13,7 +13,7 @@ use buvette\Entity\Generated\CategoriesPrimProducts;
 use buvette\Form\Type\CatPrimProdsType;
 use Symfony\Component\HttpFoundation\Request;
 
-class CategoriesPrimaProductsController {
+class CategoriesPrimaProductsController extends AbstractController {
 
     /**
      * @param Application $app
@@ -24,7 +24,7 @@ class CategoriesPrimaProductsController {
 
         $catPrimProds = $this->getCatPrimProducts($app)->findAll();
 
-        return $app['twig']->render('catPrimProds/index.html.twig', array(
+        return $this->getTwig($app)->render('catPrimProds/index.html.twig', array(
             'catPrimProds' => $catPrimProds
         ));
     }
@@ -38,15 +38,46 @@ class CategoriesPrimaProductsController {
     public function addAction(Request $request, Application $app)
     {
         $catPrimProds     = new CategoriesPrimProducts();
-        $categoryForm = $app['form.factory']->create(new CatPrimProdsType(), $catPrimProds);
+        $categoryForm = $this->getFormFactory($app)->create(new CatPrimProdsType(), $catPrimProds);
+
         $categoryForm->handleRequest($request);
         if ($categoryForm->isSubmitted() && $categoryForm->isValid()) {
-            $this->getCatPrimProducts($app)->createEntity($categoryForm->getData());
-            $app['session']->getFlashBag()->add('success', 'The unity was successfully created.');
+            if( $this->getCatPrimProducts($app)->createEntity($categoryForm->getData())) {
+                $app['session']->getFlashBag()->add('success', 'The new Primary Products category was successfully created.');
+            }
              // reset form to new creating
             $catPrimProds     = new CategoriesPrimProducts();
-            $categoryForm = $app['form.factory']->create(new CatPrimProdsType(), $catPrimProds);
+            $categoryForm = $this->getFormFactory($app)->create(new CatPrimProdsType(), $catPrimProds);
         }
+        $catPrimProds = $this->getCatPrimProducts($app)->findAll();
+
+        return $app['twig']->render('catPrimProds/addCategory.html.twig', array(
+            'categoryForm' => $categoryForm->createView(),
+            'catPrimProds'   => $catPrimProds,
+        ));
+    }
+
+    /**
+     * @param Request     $request
+     * @param Application $app
+     * @param             $categoryId
+     *
+     * @return mixed
+     */
+    public function editAction(Request $request, Application $app, $categoryId)
+    {
+        //find entity will be edited
+        $catPrimProds     = $this->getCatPrimProducts($app)->findOneById($categoryId);
+
+        $categoryForm = $this->getFormFactory($app)->create(new CatPrimProdsType(), $catPrimProds);
+
+        $categoryForm->handleRequest($request);
+        if ($categoryForm->isSubmitted() && $categoryForm->isValid()) {
+            if( $this->getCatPrimProducts($app)->updateEntity($categoryForm->getData())) {
+                $app['session']->getFlashBag()->add('success', 'The Primary Products category was successfully updated.');
+            }
+        }
+
         $catPrimProds = $this->getCatPrimProducts($app)->findAll();
 
         return $app['twig']->render('catPrimProds/addCategory.html.twig', array(

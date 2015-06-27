@@ -128,20 +128,20 @@ class EntityContentGenerator extends AbstractGenerator {
             }
             $content .= '   }' ."\n";
         }
+        //TODO CONDITIONNER LES CREATIONS D'ASSERT
         // add Assert Constraint
-        $content .= "\n".'   /**'."\n";
-        $content .= '    * @param ClassMetadata $metadata'."\n";
-        $content .= '    */' ."\n";
-        $content .= '   static public function loadValidatorMetadata(ClassMetadata $metadata)' ."\n";
-        $content .= '   {'."\n";
-        foreach($table['columns'] as $var) {
-            $asserts = $this->getAssert($this->getConstraintsByColumn($var));
-            foreach($asserts as $assert){
-                $content .='       '.$assert."\n";
-            }
-        }
-
-        $content .= '   }' ."\n";
+//        $content .= "\n".'   /**'."\n";
+//        $content .= '    * @param ClassMetadata $metadata'."\n";
+//        $content .= '    */' ."\n";
+//        $content .= '   static public function loadValidatorMetadata(ClassMetadata $metadata)' ."\n";
+//        $content .= '   {'."\n";
+//        foreach($table['columns'] as $var) {
+//            $asserts = $this->getAssert($this->getConstraintsByColumn($var));
+//            foreach($asserts as $assert){
+//                $content .='       '.$assert."\n";
+//            }
+//        }
+//        $content .= '   }' ."\n";
         //add getter Setter
         foreach($table['columns'] as $var){
             $constraints = $this->getConstraintsByColumn($var);

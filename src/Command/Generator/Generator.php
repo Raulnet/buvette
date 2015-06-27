@@ -25,7 +25,7 @@ class Generator {
      */
     private $tables;
 
-    function __construct()
+    public function __construct()
     {
         $this->bdd = new PDO('mysql:host=127.0.0.1;dbname=buvette;charset=utf8', 'Raulnet', '');
         $this->tables = $this->getAllTables();

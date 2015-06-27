@@ -20,7 +20,7 @@ class ProductType extends AbstractType {
      */
     private $app;
 
-    function __construct(Application $app)
+    public function __construct(Application $app)
     {
         $this->app = $app;
     }

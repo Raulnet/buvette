@@ -12,6 +12,8 @@ $catPrimProd = $app['controllers_factory'];
 $catPrimProd->get('/', "buvette\Controller\CategoriesPrimaProductsController::indexAction")->bind('catPrimProds');
 /* Route add Event */
 $catPrimProd->match('/addCategory', "buvette\Controller\CategoriesPrimaProductsController::addAction")->bind('addCatPrimProds');
+/* Route add Event */
+$catPrimProd->match('/editCategory/{categoryId}', "buvette\Controller\CategoriesPrimaProductsController::editAction")->bind('editCatPrimProds');
 /* Route Delete Event */
 $catPrimProd->get('/deleteCategory/{categoryId}', "buvette\Controller\CategoriesPrimaProductsController::deleteCategoryAction")->bind('deleteCatPrimProds');
 

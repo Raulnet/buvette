@@ -11,7 +11,7 @@ abstract class AbstractGenerator
 {
 
     /**
-     * @return array
+     * @return string
      */
     abstract public function getRoot();
 
