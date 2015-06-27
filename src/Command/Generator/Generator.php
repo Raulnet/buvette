@@ -9,7 +9,7 @@
 namespace buvette\Command\Generator;
 
 use buvette\Command\Generator\EntityContentGenerator;
-use buvette\Command\Generator\EntityDaoContentGenerator;
+use buvette\Command\Generator\EntityZEMContentGenerator;
 
 use PDO;
 
@@ -51,16 +51,16 @@ class Generator {
         }
         // ======================================
 
-        // ======= Generate EntitiesDao =========
-        $entitiesDao = new EntityDaoContentGenerator();
-        if (!file_exists($entitiesDao->getRoot())) {
-            mkdir($entitiesDao->getRoot(), 0777, true);
+        // ======= Generate EntitiesZEM =========
+        $entitiesZEM = new EntityZEMContentGenerator();
+        if (!file_exists($entitiesZEM->getRoot())) {
+            mkdir($entitiesZEM->getRoot(), 0777, true);
         }
         // Add DAO Abstract
-        $files[] = $this->saveFileAbstractDao($entitiesDao->getRoot(), $entitiesDao);
-        // Generate EntitiesDao Fiels
+        $files[] = $this->saveFileAbstractZEM($entitiesZEM->getRoot(), $entitiesZEM);
+        // Generate EntitiesZEM Fiels
         foreach ($this->tables as $table) {
-            $files[] = $this->saveFileDao($entitiesDao, $table);
+            $files[] = $this->saveFileZEM($entitiesZEM, $table);
         }
         // ======================================
 
@@ -84,17 +84,17 @@ class Generator {
 
     /**
      * @param $rootFolder
-     * @param EntityDaoContentGenerator $entitiesDao
+     * @param EntityZEMContentGenerator $entitiesZEM
      *
      * @return bool
      */
-    private function saveFileAbstractDao($rootFolder, $entitiesDao)
+    private function saveFileAbstractZEM($rootFolder, $entitiesZEM)
     {
-        $file = fopen($rootFolder.'ZDAO.php', 'w+');
-        fputs($file, $entitiesDao->getContentDaoAbstractFile());
+        $file = fopen($rootFolder.'ZEM.php', 'w+');
+        fputs($file, $entitiesZEM->getContentZEMAbstractFile());
         fclose($file);
 
-        return 'ZDAO.php';
+        return 'ZEM.php';
     }
 
     /**
@@ -113,19 +113,19 @@ class Generator {
     }
 
     /**
-     * @param EntityDaoContentGenerator  $entitiesDao
+     * @param EntityZEMContentGenerator  $entitiesZEM
      * @param $table
      *
      * @return bool
      */
-    private function saveFileDao($entitiesDao, $table)
+    private function saveFileZEM($entitiesZEM, $table)
     {
-        $title = $entitiesDao->getTitleFile($table);
-        $file = fopen($entitiesDao->getRoot() . $title . 'ZDAO.php', 'w+');
-        fputs($file, $entitiesDao->getContentDaoFile($table));
+        $title = $entitiesZEM->getTitleFile($table);
+        $file = fopen($entitiesZEM->getRoot() . $title . 'ZEM.php', 'w+');
+        fputs($file, $entitiesZEM->getContentZEMFile($table));
         fclose($file);
 
-        return $title . 'ZDAO.php';
+        return $title . 'ZEM.php';
     }
 
 

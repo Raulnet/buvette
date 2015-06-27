@@ -11,12 +11,11 @@ namespace buvette\Controller;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use buvette\Form\Type\EventType;
-use buvette\Domain\Events;
-use Symfony\Component\Form\Form;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Validator\Validator;
+use buvette\Entity\Generated\Event;
 
-class EventController {
+class EventController extends AbstractController {
+
+    /* ========== ACTION CONTROLLER ========== **/
 
     /**
      * @param Application $app
@@ -25,9 +24,9 @@ class EventController {
      */
     public function indexAction(Application $app) {
 
-        $events = $app['zdao.events']->findAll();
+        $events = $this->getEvent($app)->findAll();
 
-        return $app['twig']->render('event/index.html.twig', array(
+        return $this->getTwig($app)->render('event/index.html.twig', array(
             'events'            => $events,
 
         ));
@@ -41,27 +40,63 @@ class EventController {
      */
     public function addAction(Request $request, Application $app) {
 
-        $event = new Events();
+        $event = new Event();
         $eventForm = $this->getFormFactory($app)->create(new EventType(), $event);
 
         $eventForm->handleRequest($request);
 
         if ($eventForm->isSubmitted() && $eventForm->isValid()) {
 
-            $eventForm->getData()->setStaffIdCreate(4);
+            $eventForm->getData()->setStfIdCreat(5);
 
 
-            $app['zdao.events']->createEntity($eventForm->getData());
+            $this->getEvent($app)->createEntity($eventForm->getData());
             $app['session']->getFlashBag()->add('success', 'The event was successfully created.');
 
             /**
              * reset form to new creating
              */
-            $event = new Events();
-            $eventForm = $app['form.factory']->create(new EventType(), $event);
+            $event = new Event();
+            $eventForm = $this->getFormFactory($app)->create(new EventType(), $event);
         }
 
-        $events = $app['zdao.events']->findAll();
+        $events = $this->getEvent($app)->findAll();
+
+        return $app['twig']->render('event/addEvent.html.twig', array(
+            'eventForm'  => $eventForm->createView(),
+            'events'     => $events,
+        ));
+    }
+
+    /**
+     * @param Request     $request
+     * @param Application $app
+     *
+     * @return mixed
+     */
+    public function editAction(Request $request, Application $app, $eventId) {
+
+        $event = $this->getEvent($app)->findOneById($eventId);
+        $eventForm = $this->getFormFactory($app)->create(new EventType(), $event);
+
+        $eventForm->handleRequest($request);
+
+        if ($eventForm->isSubmitted() && $eventForm->isValid()) {
+
+            $eventForm->getData()->setStfIdCreat(5);
+
+
+            $this->getEvent($app)->updateEntity($eventForm->getData());
+            $app['session']->getFlashBag()->add('success', 'The event was successfully updated.');
+
+            /**
+             * reset form to new creating
+             */
+            $event = new Event();
+            $eventForm = $this->getFormFactory($app)->create(new EventType(), $event);
+        }
+
+        $events = $this->getEvent($app)->findAll();
 
         return $app['twig']->render('event/addEvent.html.twig', array(
             'eventForm'  => $eventForm->createView(),
@@ -77,35 +112,32 @@ class EventController {
      */
     public function deleteEventAction(Application $app, $eventId) {
 
+        if($this->getEvent($app)->deleteEntity($eventId)){
 
-        $event = $app['zdao.events']->findOneById($eventId);
-        if($event){
-            $app['zdao.events']->deleteEntity($event);
             $app['session']->getFlashBag()->add('success', 'The event was succesfully removed.');
         }
-
+        else {
+            $app['session']->getFlashBag()->add('danger', 'The event '. $eventId.'can\'t be removed.');
+        }
         return $app->redirect('/buvette/web/event/addEvent');
 
     }
 
-    /**
-     * @param Application $app
-     *
-     * @return Form
-     */
-    private function getFormFactory(Application $app){
+    /* ========== METHOD CONTROLLER ========== **/
 
-        return $app['form.factory'];
-    }
+
+
+    /* ========== SERVICE CONTROLLER ========== **/
 
     /**
-     * @param Application $app
+     * @param $app
      *
-     * @return Validator
+     * @return \buvette\ZEM\Generated\EventZEM
      */
-    private function getValidator(Application $app) {
+    private function getEvent($app){
 
-        return $app['validator'];
+        return $app['EM']->get('EventZEM');
     }
+
 
 }

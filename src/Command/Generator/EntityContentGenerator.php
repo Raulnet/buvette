@@ -132,16 +132,16 @@ class EntityContentGenerator extends AbstractGenerator {
         $content .= "\n".'   /**'."\n";
         $content .= '    * @param ClassMetadata $metadata'."\n";
         $content .= '    */' ."\n";
-        $content .= '    static public function loadValidatorMetadata(ClassMetadata $metadata)' ."\n";
-        $content .= '    {'."\n";
+        $content .= '   static public function loadValidatorMetadata(ClassMetadata $metadata)' ."\n";
+        $content .= '   {'."\n";
         foreach($table['columns'] as $var) {
             $asserts = $this->getAssert($this->getConstraintsByColumn($var));
             foreach($asserts as $assert){
-                $content .='            '.$assert."\n";
+                $content .='       '.$assert."\n";
             }
         }
 
-        $content .= '    }' ."\n";
+        $content .= '   }' ."\n";
         //add getter Setter
         foreach($table['columns'] as $var){
             $constraints = $this->getConstraintsByColumn($var);
@@ -163,11 +163,11 @@ class EntityContentGenerator extends AbstractGenerator {
             $content .= '   }'."\n";
         }
 
-        //add getArray for Entity interface
+        //add toArray for Entity interface
         $content .= "\n".'   /**'."\n";
         $content .= '    * @return array Entity '."\n";
         $content .= '    */' ."\n";
-        $content .= '   public function getArray()'."\n";
+        $content .= '   public function toArray()'."\n";
         $content .= '   {'."\n";
         $content .= '       $entity = array('."\n";
         foreach($table['columns'] as $var){
@@ -179,7 +179,7 @@ class EntityContentGenerator extends AbstractGenerator {
             $constraints = $this->getConstraintsByColumn($var);
             if($constraints['type'] == '\DateTime'){
                 $content .= '       if($this->'.lcfirst($this->getTitleToCamelCase($var['title'])) .' instanceof \DateTime){' ."\n";
-                $content .= '           $entity["'.$var['title'] .'"] = date_format($this->dateStart, "Y-m-d H:i:s");'."\n";
+                $content .= '           $entity["'.$var['title'] .'"] = date_format($this->'.lcfirst($this->getTitleToCamelCase($var['title'])) .', "Y-m-d H:i:s");'."\n";
                 $content .= '       }'."\n";
             }
         }
@@ -207,7 +207,7 @@ class EntityContentGenerator extends AbstractGenerator {
         $content .= '    /**'."\n";
         $content .= '     * @return array'."\n";
         $content .= '     */'."\n";
-        $content .= '    public function getArray();'."\n";
+        $content .= '    public function toArray();'."\n";
 
         // Close Entity file
         $content .= "\n".'}';

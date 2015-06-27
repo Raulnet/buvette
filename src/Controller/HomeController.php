@@ -24,14 +24,14 @@ class HomeController
     public function indexAction(Application $app)
     {
 
-        $staffs = $app['zdao.staff']->findAll();
-        $unities = $app['zdao.unities']->findAll();
-        $catPrimProds = $app['zdao.catPrimProds']->findAll();
-        $DataPrimaProducts = $app['zdao.primaProduct']->findAllData();
-        $catProducts = $app['zdao.catProducts']->findAll();
-        $products = $app['zdao.products']->findAllFullStack();
-        $comboProds = $app['zdao.comboProducts']->getFullSet();
-        $events = $app['zdao.events']->findAll();
+        $staffs = array();
+        $unities = array();
+        $catPrimProds = array();
+        $DataPrimaProducts = array();
+        $catProducts = array();
+        $products = array();
+        $comboProds = array();
+        $events = array();
 
         return $app['twig']->render('index.html.twig', array(
             'staffs'            => $staffs,

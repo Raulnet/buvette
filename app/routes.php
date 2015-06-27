@@ -10,10 +10,10 @@
 // ===== ROUTE GLOBAL =========================================================================================== //
 
 ///* Route locale */
-$app->get('/', "buvette\Controller\Generator::IndexAction");
+//$app->get('/', "buvette\Controller\HomeController::IndexAction");
 
 // ===== ROUTE HOME ============================================================================================= //
-//$app->mount('/', include 'routes/home_routes.php');
+$app->mount('/', include 'routes/home_routes.php');
 
 // ===== ROUTE EVENT ============================================================================================ //
 $app->mount('/event', include 'routes/event_routes.php');

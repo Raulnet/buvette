@@ -4,6 +4,7 @@
 
 {% block navbar %}
     {% include "navbar/navbar.html.twig" %}
+    {% include "flashMessage/message.html.twig" %}
 {% endblock %}
 
 {% block content %} {# BLOCK CONTENT #}
@@ -18,12 +19,14 @@
             {{ form_errors(eventForm.title) }}
         </div>
         <div class="form-group">
-            <label for="start_of_event">{{ form_label(eventForm.date_start, 'debut : ') }}</label>
-            {{ form_widget(eventForm.date_start) }}
+            <label for="start_of_event">{{ form_label(eventForm.start, 'debut : ') }}</label>
+            {{ form_widget(eventForm.start) }}
+            {{ form_errors(eventForm.start) }}
         </div>
         <div class="form-group">
-            <label for="end_of_event">{{ form_label(eventForm.date_end, 'fin : ') }}</label>
-            {{ form_widget(eventForm.date_end) }}
+            <label for="end_of_event">{{ form_label(eventForm.end, 'fin : ') }}</label>
+            {{ form_widget(eventForm.end) }}
+            {{ form_errors(eventForm.end) }}
         </div>
         <button type="submit" class="btn btn-success">Submit</button>
         <a href="{{ path('event') }}" class="btn btn-danger">Annuler</a>
@@ -44,14 +47,14 @@
                     <tr>
                         <td>{{ event.title }}</td>
                         <td>
-                            {{ event.dateStart|date('d-M-y') }}<br />
-                            {{ event.dateEnd|date('d-M-y') }}<br />
+                            {{ event.start|date('d-M-y') }}<br />
+                            {{ event.end|date('d-M-y') }}<br />
                         </td>
                         <td>
                             <!-- ===== BUTTON EDIT EVENT ================================================== -->
                             <a href="#"
-                               class="btn btn-primary btn-xs"
-                               title="Edit"><span class="glyphicon glyphicon-time"></span></a>
+                               class="btn btn-success btn-xs"
+                               title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
                             <!-- ===== END BUTTON EDIT EVENT ============================================== -->
                             <!-- ===== BUTTON DELET EVENT  ================================================= -->
                             <button type="button" class="btn btn-danger btn-xs" title="Delete"

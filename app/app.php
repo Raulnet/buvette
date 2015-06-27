@@ -33,9 +33,8 @@ $app->register(new Silex\Provider\TranslationServiceProvider(), array(
 
 
 /* Register services */
-
 $app['EM'] = $app->share(function ($app) {
-    return new \buvette\Model\GetEntityManager($app['zdb.configArray']);
+    return new \buvette\Model\GetEntityManager($app['zdb.configArray'], $app);
 });
 
 // Register error handler

@@ -8,17 +8,38 @@
 
 namespace buvette\Model;
 
+use Silex\Application;
+
 class GetEntityManager {
 
-    private $rootDao = '\buvette\DAO\\';
+    /**
+     * @var string
+     */
+    private $rootZEM = '\buvette\ZEM\\';
 
-    private $rootDaoGenerated = '\buvette\DAO\Generated\\';
+    /**
+     * @var string
+     */
+    private $rootZEMGenerated = '\buvette\ZEM\Generated\\';
 
+    /**
+     * @var array
+     */
     private $configArray = array();
 
-    function __construct($configArray)
+    /**
+     * @var
+     */
+    private $app;
+
+    /**
+     * @param array $configArray
+     * @param Application $app
+     */
+    function __construct(array $configArray, Application $app)
     {
         $this->configArray = $configArray;
+        $this->app = $app;
     }
 
     /**
@@ -28,21 +49,21 @@ class GetEntityManager {
      */
     public function get($entityManager){
 
-        if(class_exists($this->rootDao.$entityManager)){
+        if(class_exists($this->rootZEM.$entityManager)){
 
-            $obj = $this->rootDao.$entityManager;
+            $obj = $this->rootZEM.$entityManager;
 
-            return new $obj($this->configArray);
+            return new $obj($this->configArray, $this->app);
         }
 
-        if(class_exists($this->rootDaoGenerated.$entityManager)){
+        if(class_exists($this->rootZEMGenerated.$entityManager)){
 
-            $obj = $this->rootDaoGenerated.$entityManager;
+            $obj = $this->rootZEMGenerated.$entityManager;
 
-            return new $obj($this->configArray);
+            return new $obj($this->configArray, $this->app);
         }
 
-        return $this->rootDao.$entityManager;
+        return false;
     }
 
 }

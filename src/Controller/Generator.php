@@ -21,22 +21,22 @@ class Generator
     public function indexAction(Application $app)
     {
 
-      var_dump($this->getEventEm($app));exit;
-        $result = $em->findOneById(13);
-        var_dump($result);
-echo'ok';
+        $em = $this->getEventEm($app);
+        $result = $em->findAll();
 
-      exit;
+
+        var_dump($result);
+        exit;
         return true;
     }
 
     /**
      * @param $app
      *
-     * @return \buvette\DAO\Generated\EventZDAO
+     * @return \buvette\ZEM\Generated\EventZEM
      */
     private function getEventEm($app){
-        return $app['EM']->get('EventZDAO');
+        return $app['EM']->get('EventZEM');
     }
 
 

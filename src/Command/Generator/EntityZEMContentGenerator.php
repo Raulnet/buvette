@@ -9,14 +9,14 @@
 namespace buvette\Command\Generator;
 
 
-class EntityDaoContentGenerator extends AbstractGenerator{
+class EntityZEMContentGenerator extends AbstractGenerator{
 
     /**
      * @return string
      */
     public function getRoot(){
 
-        return __DIR__ . '/../../DAO/Generated/';
+        return __DIR__ . '/../../ZEM/Generated/';
     }
 
     /**
@@ -34,12 +34,12 @@ class EntityDaoContentGenerator extends AbstractGenerator{
      *
      * @return string
      */
-    private function getStartDaoCommentFile($title = 'Interface'){
+    private function getStartZemCommentFile($title = 'Interface'){
 
         $date = new \DateTime('now');
         $comment = '';
         $comment .='/**'."\n";
-        $comment .=' * Data Access Object DAO '.$this->getTitleToCamelCase($title)."\n";
+        $comment .=' * Zend Entity Manager ZEM '.$this->getTitleToCamelCase($title)."\n";
         $comment .=' * Auto Generate :'.date_format($date, "Y-m-d H:i:s")."\n";
         $comment .=' * '.$title."\n";
         $comment .=' */'."\n";
@@ -47,14 +47,14 @@ class EntityDaoContentGenerator extends AbstractGenerator{
         return $comment;
     }
 
-    public function getContentDaoFile($table){
+    public function getContentZEMFile($table){
         // start file.php
         $content = '';
         $content .= '<?php'."\n";
-        $content .= $this->getStartDaoCommentFile($table['title']);
-        $content .= 'namespace buvette\DAO\Generated;'."\n\n";
+        $content .= $this->getStartZemCommentFile($table['title']);
+        $content .= 'namespace buvette\ZEM\Generated;'."\n\n";
         $content .= 'use buvette\Entity\Generated\\'.$this->getTitleToCamelCase($table['title']).';'."\n\n";
-        $content .= 'class '.$this->getTitleToCamelCase($table['title']).'ZDAO extends ZDAO {'."\n\n";
+        $content .= 'class '.$this->getTitleToCamelCase($table['title']).'ZEM extends ZEM {'."\n\n";
         // Add var Table
         $content .= '    /**'."\n";
         $content .= '     * @var string table Entity'."\n";
@@ -75,10 +75,11 @@ class EntityDaoContentGenerator extends AbstractGenerator{
         // Add construct
         $content .= '    /**'."\n";
         $content .= '     * @param $configArray'."\n";
+        $content .= '     * @param Application $app'."\n";
         $content .= '     */'."\n";
-        $content .= '    function __construct($configArray)'."\n";
+        $content .= '    function __construct($configArray, $app)'."\n";
         $content .= '    {'."\n";
-        $content .= '        parent::__construct($configArray);'."\n";
+        $content .= '        parent::__construct($configArray, $app);'."\n";
         $content .= '    }'."\n\n";
         // Add Build Entity Object
         $content .= '    /**'."\n";
@@ -92,6 +93,15 @@ class EntityDaoContentGenerator extends AbstractGenerator{
             $content .= '        $entity->set'.$this->getTitleToCamelCase($var['title']).'($row["'.$var['title'].'"]);'."\n";
         }
         $content .= '        return $entity;'."\n";
+        $content .= '    }'."\n\n";
+        $content .= '    /**'."\n";
+        $content .= '     * @param $id primaryKey'."\n";
+        $content .= '     * @param null $id2 secondaryKey'."\n";
+        $content .= '     * '."\n";
+        $content .= '     * @return '.$this->getTitleToCamelCase($table['title'])."\n";
+        $content .= '     */'."\n";
+        $content .= '    public function findOneById($id'.($iPos > 1 ? ', $id2' : ', $id2 = null').'){'."\n\n";
+        $content .= '        return $this->findOneEntityById($id'.($iPos > 1 ? ', $id2' : ', $id2 = null').');'."\n";
         $content .= '    }'."\n";
 
         // Close Entity file
@@ -99,17 +109,17 @@ class EntityDaoContentGenerator extends AbstractGenerator{
         return $content;
     }
 
-    public function getContentDaoAbstractFile(){
+    public function getContentZEMAbstractFile(){
         // start file.php
         $content = '';
         $content .= '<?php'."\n";
-        $content .= $this->getStartDaoCommentFile('Abstract');
-        $content .= 'namespace buvette\DAO\Generated;'."\n\n";
+        $content .= $this->getStartZemCommentFile('Abstract');
+        $content .= 'namespace buvette\ZEM\Generated;'."\n\n";
         $content .= 'use Zend\Db\TableGateway\AbstractTableGateway;'."\n";
         $content .= 'use Zend\Db\Sql\Sql;'."\n";
         $content .= 'use Zend\Db\Adapter\Adapter;'."\n";
         $content .= 'use buvette\Entity\Generated\Entity;'."\n\n";
-        $content .= 'abstract class ZDAO extends AbstractTableGateway'."\n";
+        $content .= 'abstract class ZEM extends AbstractTableGateway'."\n";
         $content .= '{'."\n\n";
         $content .= '    /**'."\n";
         $content .= '     * @var array'."\n";
@@ -124,11 +134,17 @@ class EntityDaoContentGenerator extends AbstractGenerator{
         $content .= '     */'."\n";
         $content .= '    protected $secondaryKey = null;'."\n\n";
         $content .= '    /**'."\n";
+        $content .= '     * @var Application $app'."\n";
+        $content .= '     */'."\n";
+        $content .= '    protected $app = null;'."\n\n";
+        $content .= '    /**'."\n";
+        $content .= '     * @param Application $app'."\n";
         $content .= '     * @param $configArray'."\n";
         $content .= '     */'."\n";
-        $content .= '    function __construct($configArray)'."\n";
+        $content .= '    public function __construct($configArray, $app)'."\n";
         $content .= '    {'."\n";
         $content .= '        $this->adapter = new Adapter($configArray);'."\n";
+        $content .= '        $this->app     = $app;'."\n";
         $content .= '        $this->sql     = new Sql($this->adapter, $this->table);'."\n";
         $content .= '    }'."\n\n";
         $content .= '    /**'."\n";
@@ -148,7 +164,7 @@ class EntityDaoContentGenerator extends AbstractGenerator{
         $content .= '    {'."\n";
         $content .= '        // if is an instance of Entity Object set to array'."\n";
         $content .= '        if ($data instanceof Entity) {'."\n\n";
-        $content .= '            $data = $data->getArray();'."\n";
+        $content .= '            $data = $data->toArray();'."\n";
         $content .= '        }'."\n";
         $content .= '        // if is an array'."\n";
         $content .= '        if (is_array($data)) {'."\n";
@@ -221,7 +237,7 @@ class EntityDaoContentGenerator extends AbstractGenerator{
         $content .= '     * '."\n";
         $content .= '     * @return Entity'."\n";
         $content .= '     */'."\n";
-        $content .= '     public function findOneById($data, $data2 = null)'."\n";
+        $content .= '     protected function findOneEntityById($data, $data2 = null)'."\n";
         $content .= '     {'."\n";
         $content .= '         $this->setWhere($data, $data2);'."\n\n";
         $content .= '         $select = $this->sql->select();'."\n";
@@ -242,7 +258,7 @@ class EntityDaoContentGenerator extends AbstractGenerator{
         $content .= '    public function createEntity($data)'."\n";
         $content .= '    {'."\n";
         $content .= '        if ($data instanceof Entity) {'."\n";
-        $content .= '            $data = $data->getArray();'."\n";
+        $content .= '            $data = $data->toArray();'."\n";
         $content .= '            if ($data[$this->primaryKey] == null) {'."\n";
         $content .= '                if($this->insert($data)){'."\n";
         $content .= '                    return true;'."\n";
@@ -271,7 +287,7 @@ class EntityDaoContentGenerator extends AbstractGenerator{
         $content .= '    public function updateEntity($data)'."\n";
         $content .= '    {'."\n";
         $content .= '        if($data instanceof Entity){'."\n";
-        $content .= '            $data = $data->getArray();'."\n";
+        $content .= '            $data = $data->toArray();'."\n";
         $content .= '        }'."\n\n";
         $content .= '        if ($this->setWhere($data))  {'."\n";
         $content .= '            if($this->update($data, $this->where)){'."\n";
