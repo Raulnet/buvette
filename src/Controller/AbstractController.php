@@ -77,7 +77,7 @@ abstract class AbstractController {
 
     /**
      * @param ZEM    $em
-     * @param Entity $entity| int entityId
+     * @param Entity $entity | int entityId
      *
      * @return bool
      */

@@ -76,7 +76,6 @@ class EntityContentGenerator extends AbstractGenerator {
             $assert[] = '$metadata->addPropertyConstraint("'.$constraint['title'] .'", new Assert\NotBlank(array("message" => "Not null")));';
         }
 
-
         return $assert;
     }
 
@@ -159,7 +158,16 @@ class EntityContentGenerator extends AbstractGenerator {
             $content .= '    */' ."\n";
             $content .= '   public function set'.$this->getTitleToCamelCase($var['title']).'($'.lcfirst($this->getTitleToCamelCase($var['title'])).')'."\n";
             $content .= '   {'."\n"; // if param is string to dateTime add converter
-            $content .= '       $this->'.lcfirst($this->getTitleToCamelCase($var['title'])).' = '.($constraints["type"] == "\DateTime" ? "date_create_from_format('Y-m-d H:i:s', $".lcfirst($this->getTitleToCamelCase($var['title'])) .")" : "$".lcfirst($this->getTitleToCamelCase($var['title']))).';'."\n";
+                if($constraints["type"] == "\DateTime"){
+                    $content .= '       if($'.lcfirst($this->getTitleToCamelCase($var['title'])).' instanceof \\DateTime){'."\n";
+                    $content .= '           $this->'.lcfirst($this->getTitleToCamelCase($var['title'])).' = $'.lcfirst($this->getTitleToCamelCase($var['title'])).';'."\n";
+                    $content .= '       } else {'."\n";
+                }
+                // add indentation if datetime append
+            $content .= '       '.($constraints["type"] == "\DateTime" ? '    ' : null).'$this->'.lcfirst($this->getTitleToCamelCase($var['title'])).' = '.($constraints["type"] == "\DateTime" ? "date_create_from_format('Y-m-d H:i:s', $".lcfirst($this->getTitleToCamelCase($var['title'])) .")" : "$".lcfirst($this->getTitleToCamelCase($var['title']))).';'."\n";
+            if($constraints["type"] == "\DateTime"){
+              $content .= '       }'."\n";
+            }
             $content .= '   }'."\n";
         }
 

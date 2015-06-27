@@ -52,8 +52,6 @@ class EventController extends AbstractController {
             $this->getEvent($app)->createEntity($eventForm->getData());
             $app['session']->getFlashBag()->add('success', 'The event was successfully created.');
 
-             //reset form to new creating
-            $eventForm = $this->getFormFactory($app)->create(new EventType(), new Event);
         }
 
         $events = $this->getEvent($app)->findAll();
