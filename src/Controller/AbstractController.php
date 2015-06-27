@@ -19,7 +19,7 @@ abstract class AbstractController {
     /**
      * @param Application $app
      *
-     * @return Form
+     * @return FormFactory
      */
     protected function getFormFactory(Application $app){
 

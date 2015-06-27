@@ -13,6 +13,8 @@ $event = $app['controllers_factory'];
 $event->get('/', "buvette\Controller\EventController::indexAction")->bind('event');
 /* Route add Event */
 $event->match('/addEvent', "buvette\Controller\EventController::addAction")->bind('addEvent');
+/* Route edit Event */
+$event->match('/editEvent/{eventId}', "buvette\Controller\EventController::editAction")->bind('editEvent');
 /* Route Delete Event */
 $event->get('/deleteEvent/{eventId}', "buvette\Controller\EventController::deleteEventAction")->bind('deleteEvent');
 

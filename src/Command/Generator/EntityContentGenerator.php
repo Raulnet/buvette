@@ -158,8 +158,8 @@ class EntityContentGenerator extends AbstractGenerator {
             $content .= '    * @param '.$constraints['type'].' $'.lcfirst($this->getTitleToCamelCase($var['title']))."\n";
             $content .= '    */' ."\n";
             $content .= '   public function set'.$this->getTitleToCamelCase($var['title']).'($'.lcfirst($this->getTitleToCamelCase($var['title'])).')'."\n";
-            $content .= '   {'."\n";
-            $content .= '       $this->'.lcfirst($this->getTitleToCamelCase($var['title'])).' = $'.lcfirst($this->getTitleToCamelCase($var['title'])).';'."\n";
+            $content .= '   {'."\n"; // if param is string to dateTime add converter
+            $content .= '       $this->'.lcfirst($this->getTitleToCamelCase($var['title'])).' = '.($constraints["type"] == "\DateTime" ? "date_create_from_format('Y-m-d H:i:s', $".lcfirst($this->getTitleToCamelCase($var['title'])) .")" : "$".lcfirst($this->getTitleToCamelCase($var['title']))).';'."\n";
             $content .= '   }'."\n";
         }
 

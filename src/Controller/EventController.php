@@ -49,15 +49,11 @@ class EventController extends AbstractController {
 
             $eventForm->getData()->setStfIdCreat(5);
 
-
             $this->getEvent($app)->createEntity($eventForm->getData());
             $app['session']->getFlashBag()->add('success', 'The event was successfully created.');
 
-            /**
-             * reset form to new creating
-             */
-            $event = new Event();
-            $eventForm = $this->getFormFactory($app)->create(new EventType(), $event);
+             //reset form to new creating
+            $eventForm = $this->getFormFactory($app)->create(new EventType(), new Event);
         }
 
         $events = $this->getEvent($app)->findAll();
@@ -77,23 +73,15 @@ class EventController extends AbstractController {
     public function editAction(Request $request, Application $app, $eventId) {
 
         $event = $this->getEvent($app)->findOneById($eventId);
+
         $eventForm = $this->getFormFactory($app)->create(new EventType(), $event);
 
         $eventForm->handleRequest($request);
 
         if ($eventForm->isSubmitted() && $eventForm->isValid()) {
 
-            $eventForm->getData()->setStfIdCreat(5);
-
-
             $this->getEvent($app)->updateEntity($eventForm->getData());
             $app['session']->getFlashBag()->add('success', 'The event was successfully updated.');
-
-            /**
-             * reset form to new creating
-             */
-            $event = new Event();
-            $eventForm = $this->getFormFactory($app)->create(new EventType(), $event);
         }
 
         $events = $this->getEvent($app)->findAll();

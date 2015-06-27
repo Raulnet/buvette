@@ -5,76 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="53f333ab-c614-4b3b-94de-a3abaa19af15" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Controller/AbstractController.php" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/CatPrimaProductZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/CatProductZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/ComboProductsZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/EventsZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/Generated/CategoriesPrimaProductsZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/Generated/CategoriesProductsZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/Generated/ComboProductsZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/Generated/EventHasProductsZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/Generated/EventZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/Generated/ExtraHasProductsZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/Generated/ExtraZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/Generated/OptionRecetteZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/Generated/PhinxlogZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/Generated/PrimaProductsZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/Generated/ProductsHasComboZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/Generated/ProductsHasOrderZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/Generated/ProductsZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/Generated/RecetteZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/Generated/StaffZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/Generated/StockZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/Generated/UnitiesZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/Generated/ZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/PrimaProductsZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/ProductsZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/RecipeZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/StaffZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/TestDao.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/UnitiesZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/DAO/ZDAO.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Domain/CategoriesPrimaProduct.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Domain/CategoriesProduct.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Domain/ComboProducts.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Domain/Entity.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Domain/Events.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Domain/PrimaProducts.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Domain/Products.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Domain/Recipe.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Domain/Staff.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Domain/Unities.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Entity/Generated/CategoriesPrimaProducts.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Entity/Generated/CategoriesProducts.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Entity/Generated/ComboProducts.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Entity/Generated/Entity.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Entity/Generated/Event.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Entity/Generated/EventHasProducts.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Entity/Generated/Extra.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Entity/Generated/ExtraHasProducts.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Entity/Generated/OptionRecette.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Entity/Generated/Phinxlog.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Entity/Generated/PrimaProducts.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Entity/Generated/Products.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Entity/Generated/ProductsHasCombo.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Entity/Generated/ProductsHasOrder.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Entity/Generated/Recette.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Entity/Generated/Staff.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Entity/Generated/Stock.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Entity/Generated/Unities.php" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Command/Generator/EntityDaoContentGenerator.php" afterPath="$PROJECT_DIR$/src/Command/Generator/EntityZEMContentGenerator.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/AbstractController.php" afterPath="$PROJECT_DIR$/src/Controller/AbstractController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/CategoriesPrimaProductsController.php" afterPath="$PROJECT_DIR$/src/Controller/CategoriesPrimaProductsController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Command/Generator/EntityContentGenerator.php" afterPath="$PROJECT_DIR$/src/Command/Generator/EntityContentGenerator.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Command/Generator/EntityZEMContentGenerator.php" afterPath="$PROJECT_DIR$/src/Command/Generator/EntityZEMContentGenerator.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/EventController.php" afterPath="$PROJECT_DIR$/src/Controller/EventController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Form/Type/EventType.php" afterPath="$PROJECT_DIR$/src/Form/Type/EventType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Command/Generator/Generator.php" afterPath="$PROJECT_DIR$/src/Command/Generator/Generator.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Generator.php" afterPath="$PROJECT_DIR$/src/Controller/Generator.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/GetEntityManager.php" afterPath="$PROJECT_DIR$/src/Model/GetEntityManager.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/HomeController.php" afterPath="$PROJECT_DIR$/src/Controller/HomeController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/catPrimProds/addCategory.html.twig" afterPath="$PROJECT_DIR$/views/catPrimProds/addCategory.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/event/addEvent.html.twig" afterPath="$PROJECT_DIR$/views/event/addEvent.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.php" afterPath="$PROJECT_DIR$/app/app.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/index.html.twig" afterPath="$PROJECT_DIR$/views/index.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/routes.php" afterPath="$PROJECT_DIR$/app/routes.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/routes/event_routes.php" afterPath="$PROJECT_DIR$/app/routes/event_routes.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="buvette.iws" />
@@ -99,102 +37,128 @@
     <favorites_list name="buvette" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="EventController.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Controller/EventController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.3805856" vertical-offset="352" max-vertical-offset="1712">
-              <caret line="83" column="103" selection-start-line="83" selection-start-column="103" selection-end-line="83" selection-end-column="103" />
-              <folding>
-                <element signature="e#125#147#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="recipe.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/products/recipe.html.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.2" vertical-offset="0" max-vertical-offset="1984">
-              <caret line="5" column="1" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="50" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ZEM.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ZEM/Generated/ZEM.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-18.64" vertical-offset="2894" max-vertical-offset="3584">
-              <caret line="217" column="31" selection-start-line="217" selection-start-column="31" selection-end-line="217" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="addEvent.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/event/addEvent.html.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.84" vertical-offset="0" max-vertical-offset="1616">
-              <caret line="6" column="50" selection-start-line="6" selection-start-column="50" selection-end-line="6" selection-end-column="50" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EntityContentGenerator.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Command/Generator/EntityContentGenerator.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.2" vertical-offset="2500" max-vertical-offset="3792">
-              <caret line="185" column="50" selection-start-line="185" selection-start-column="50" selection-end-line="185" selection-end-column="50" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EventType.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Form/Type/EventType.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-17.92" vertical-offset="0" max-vertical-offset="544">
-              <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Event.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Entity/Generated/Event.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.32" vertical-offset="1120" max-vertical-offset="5024">
-              <caret line="87" column="0" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
-              <folding>
-                <element signature="e#114#168#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="navbar.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/navbar/navbar.html.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="608">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="event_routes.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/routes/event_routes.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="400">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.5">
+      <split-first>
+        <leaf>
+          <file leaf-file-name="Event.php" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/Entity/Generated/Event.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-15.08" vertical-offset="1399" max-vertical-offset="5184">
+                  <caret line="113" column="4" selection-start-line="113" selection-start-column="4" selection-end-line="113" selection-end-column="4" />
+                  <folding>
+                    <marker date="1435397340000" expanded="true" signature="2924:2934" placeholder="{...}" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="categories_prima_products_routes.php" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/routes/categories_prima_products_routes.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="368">
+                  <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="EventController.php" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/Controller/EventController.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-4.84" vertical-offset="7" max-vertical-offset="2096">
+                  <caret line="13" column="35" selection-start-line="13" selection-start-column="35" selection-end-line="13" selection-end-column="35" />
+                  <folding>
+                    <element signature="e#125#147#0#PHP" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="AbstractController.php" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/Controller/AbstractController.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-4.32" vertical-offset="84" max-vertical-offset="768">
+                  <caret line="21" column="26" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ZEM.php" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/ZEM/Generated/ZEM.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-7.56" vertical-offset="2051" max-vertical-offset="3680">
+                  <caret line="142" column="26" selection-start-line="142" selection-start-column="26" selection-end-line="142" selection-end-column="26" />
+                  <folding>
+                    <marker date="1435397340000" expanded="true" signature="3842:3874" placeholder="{...}" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="EntityZEMContentGenerator.php" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/Command/Generator/EntityZEMContentGenerator.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.8899371" vertical-offset="3322" max-vertical-offset="5136">
+                  <caret line="248" column="42" selection-start-line="248" selection-start-column="42" selection-end-line="248" selection-end-column="42" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="CategoriesPrimaProductsController.php" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/Controller/CategoriesPrimaProductsController.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-27.88" vertical-offset="343" max-vertical-offset="1424">
+                  <caret line="70" column="56" selection-start-line="70" selection-start-column="56" selection-end-line="70" selection-end-column="56" />
+                  <folding>
+                    <element signature="e#125#147#0#PHP" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="addCategory.html.twig" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/views/catPrimProds/addCategory.html.twig">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-15.36" vertical-offset="384" max-vertical-offset="1472">
+                  <caret line="48" column="73" selection-start-line="48" selection-start-column="73" selection-end-line="48" selection-end-column="73" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="CategoriesPrimProducts.php" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/Entity/Generated/CategoriesPrimProducts.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-16.64" vertical-offset="80" max-vertical-offset="1392">
+                  <caret line="33" column="4" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="4" />
+                  <folding>
+                    <marker date="1435397340000" expanded="true" signature="791:1017" placeholder="{...}" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="ZEM.php" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/ZEM/Generated/ZEM.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.7248428" vertical-offset="2003" max-vertical-offset="3648">
+                  <caret line="158" column="0" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
+                  <folding>
+                    <element signature="e#134#180#0#PHP" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -202,10 +166,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/migrations/20150620130834_my_new_migration.php" />
-        <option value="$PROJECT_DIR$/src/Entity/Generated/Entity.php" />
-        <option value="$PROJECT_DIR$/src/Entity/Generated/CategoriesPrimaProducts.php" />
-        <option value="$PROJECT_DIR$/src/Domain/Events.php" />
         <option value="$PROJECT_DIR$/src/Entity/Generated/EventHasProducts.php" />
         <option value="$PROJECT_DIR$/src/Entity/Generated/Recette.php" />
         <option value="$PROJECT_DIR$/src/Entity/Generated/ProductsHasOrder.php" />
@@ -244,15 +204,19 @@
         <option value="$PROJECT_DIR$/src/Controller/HomeController.php" />
         <option value="$PROJECT_DIR$/views/index.html.twig" />
         <option value="$PROJECT_DIR$/src/Controller/AbstracController.php" />
-        <option value="$PROJECT_DIR$/src/Controller/AbstractController.php" />
         <option value="$PROJECT_DIR$/app/routes.php" />
         <option value="$PROJECT_DIR$/src/Form/Type/EventType.php" />
-        <option value="$PROJECT_DIR$/src/Command/Generator/EntityZEMContentGenerator.php" />
+        <option value="$PROJECT_DIR$/app/routes/event_routes.php" />
+        <option value="$PROJECT_DIR$/views/event/addEvent.html.twig" />
         <option value="$PROJECT_DIR$/src/Command/Generator/EntityContentGenerator.php" />
         <option value="$PROJECT_DIR$/src/Entity/Generated/Event.php" />
-        <option value="$PROJECT_DIR$/src/ZEM/Generated/ZEM.php" />
-        <option value="$PROJECT_DIR$/views/event/addEvent.html.twig" />
+        <option value="$PROJECT_DIR$/src/Entity/Generated/CategoriesPrimProducts.php" />
+        <option value="$PROJECT_DIR$/src/Controller/CategoriesPrimaProductsController.php" />
+        <option value="$PROJECT_DIR$/views/catPrimProds/addCategory.html.twig" />
         <option value="$PROJECT_DIR$/src/Controller/EventController.php" />
+        <option value="$PROJECT_DIR$/src/Controller/AbstractController.php" />
+        <option value="$PROJECT_DIR$/src/Command/Generator/EntityZEMContentGenerator.php" />
+        <option value="$PROJECT_DIR$/src/ZEM/Generated/ZEM.php" />
       </list>
     </option>
   </component>
@@ -332,43 +296,15 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buvette" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buvette" />
+              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
+              <option name="myItemId" value="ZEM" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="products" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buvette" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buvette" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="event" />
+              <option name="myItemId" value="Generated" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -530,10 +466,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1883" height="990" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2182628" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2182628" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16132537" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -777,8 +713,8 @@
           <caret line="71" column="46" selection-start-line="71" selection-start-column="46" selection-end-line="71" selection-end-column="46" />
           <folding>
             <element signature="e#132#185#0#PHP" expanded="true" />
-            <marker date="1435348109000" expanded="true" signature="-1:-1" placeholder="select * fro..table_constraints..." />
-            <marker date="1435348109000" expanded="true" signature="-1:-1" placeholder="select * fro..key_column_usage..." />
+            <marker date="1435391880000" expanded="true" signature="-1:-1" placeholder="select * fro..table_constraints..." />
+            <marker date="1435391880000" expanded="true" signature="-1:-1" placeholder="select * fro..key_column_usage..." />
           </folding>
         </state>
       </provider>
@@ -791,36 +727,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/AbstractController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8710059" vertical-offset="0" max-vertical-offset="845">
-          <caret line="51" column="1" selection-start-line="51" selection-start-column="1" selection-end-line="51" selection-end-column="1" />
-          <folding>
-            <element signature="e#125#147#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Form/Type/EventType.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.92" vertical-offset="0" max-vertical-offset="544">
+        <state vertical-scroll-proportion="0.53017753" vertical-offset="0" max-vertical-offset="845">
           <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Command/Generator/EntityZEMContentGenerator.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-43.675" vertical-offset="1050" max-vertical-offset="5104">
-          <caret line="289" column="56" selection-start-line="289" selection-start-column="56" selection-end-line="289" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Command/Generator/EntityContentGenerator.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.2" vertical-offset="2500" max-vertical-offset="3792">
-          <caret line="185" column="50" selection-start-line="185" selection-start-column="50" selection-end-line="185" selection-end-column="50" />
           <folding />
         </state>
       </provider>
@@ -841,14 +751,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/event/addEvent.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.84" vertical-offset="0" max-vertical-offset="1616">
-          <caret line="6" column="50" selection-start-line="6" selection-start-column="50" selection-end-line="6" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-db/src/TableGateway/AbstractTableGateway.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33281973" vertical-offset="6232" max-vertical-offset="8240">
@@ -857,25 +759,75 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ZEM/Generated/ZEM.php">
+    <entry file="file://$PROJECT_DIR$/app/routes/event_routes.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.64" vertical-offset="2894" max-vertical-offset="3584">
-          <caret line="217" column="31" selection-start-line="217" selection-start-column="31" selection-end-line="217" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.20828402" vertical-offset="0" max-vertical-offset="845">
+          <caret line="16" column="35" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/products/recipe.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.09615385" vertical-offset="0" max-vertical-offset="1984">
+          <caret line="5" column="1" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ZEM/Generated/EventZEM.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8106509" vertical-offset="195" max-vertical-offset="1040">
+          <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/event/addEvent.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.58698225" vertical-offset="608" max-vertical-offset="1616">
+          <caret line="69" column="66" selection-start-line="69" selection-start-column="66" selection-end-line="69" selection-end-column="66" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Entity/Generated/Event.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.32" vertical-offset="1120" max-vertical-offset="5024">
-          <caret line="87" column="0" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
+        <state vertical-scroll-proportion="-15.08" vertical-offset="1399" max-vertical-offset="5184">
+          <caret line="113" column="4" selection-start-line="113" selection-start-column="4" selection-end-line="113" selection-end-column="4" />
           <folding>
-            <element signature="e#114#168#0#PHP" expanded="true" />
+            <marker date="1435397340000" expanded="true" signature="2924:2934" placeholder="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/routes/event_routes.php">
+    <entry file="file://$PROJECT_DIR$/src/Command/Generator/EntityContentGenerator.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6477987" vertical-offset="2084" max-vertical-offset="3792">
+          <caret line="161" column="230" selection-start-line="161" selection-start-column="230" selection-end-line="161" selection-end-column="230" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entity/Generated/CategoriesPrimProducts.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-16.64" vertical-offset="80" max-vertical-offset="1392">
+          <caret line="33" column="4" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="4" />
+          <folding>
+            <marker date="1435397340000" expanded="true" signature="791:1017" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/catPrimProds/addCategory.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-15.36" vertical-offset="384" max-vertical-offset="1472">
+          <caret line="48" column="73" selection-start-line="48" selection-start-column="73" selection-end-line="48" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/routes/categories_prima_products_routes.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="674">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -883,20 +835,48 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/products/recipe.html.twig">
+    <entry file="file://$PROJECT_DIR$/src/Controller/EventController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.2" vertical-offset="0" max-vertical-offset="1984">
-          <caret line="5" column="1" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="50" />
+        <state vertical-scroll-proportion="-4.84" vertical-offset="7" max-vertical-offset="2096">
+          <caret line="13" column="35" selection-start-line="13" selection-start-column="35" selection-end-line="13" selection-end-column="35" />
+          <folding>
+            <element signature="e#125#147#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/AbstractController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.32" vertical-offset="84" max-vertical-offset="768">
+          <caret line="21" column="26" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/EventController.php">
+    <entry file="file://$PROJECT_DIR$/src/Controller/CategoriesPrimaProductsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.3805856" vertical-offset="352" max-vertical-offset="1712">
-          <caret line="83" column="103" selection-start-line="83" selection-start-column="103" selection-end-line="83" selection-end-column="103" />
+        <state vertical-scroll-proportion="-27.88" vertical-offset="343" max-vertical-offset="1424">
+          <caret line="70" column="56" selection-start-line="70" selection-start-column="56" selection-end-line="70" selection-end-column="56" />
           <folding>
             <element signature="e#125#147#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Command/Generator/EntityZEMContentGenerator.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8899371" vertical-offset="3322" max-vertical-offset="5136">
+          <caret line="248" column="42" selection-start-line="248" selection-start-column="42" selection-end-line="248" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ZEM/Generated/ZEM.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7248428" vertical-offset="2003" max-vertical-offset="3648">
+          <caret line="158" column="0" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
+          <folding>
+            <element signature="e#134#180#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
