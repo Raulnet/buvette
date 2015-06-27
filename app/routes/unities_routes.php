@@ -7,13 +7,13 @@
  */
 $unities = $app['controllers_factory'];
 
-/* Route index Event */
+/* Route index Unity */
 $unities->get('/', "buvette\Controller\UnitiesController::indexAction")->bind('unities');
-/* Route add Event */
+/* Route add Unity */
 $unities->match('/addUnity', "buvette\Controller\UnitiesController::addAction")->bind('addUnity');
-/* Route add Event */
+/* Route add Unity */
 $unities->match('/editUnity/{unityId}', "buvette\Controller\UnitiesController::editAction")->bind('editUnity');
-/* Route Delete Event */
+/* Route Delete Unity */
 $unities->get('/deleteUnity/{unityId}', "buvette\Controller\UnitiesController::deleteUnityAction")->bind('deleteUnity');
 
 /**

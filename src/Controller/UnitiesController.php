@@ -38,14 +38,13 @@ class UnitiesController extends AbstractController {
      */
     public function addAction(Request $request, Application $app)
     {
+        $em = $this->getUnitiesEM($app);
+
         $unity     = new Unities();
-        $unityForm = $this->getFormFactory($app)->create(new UnityType(), $unity);
-        $unityForm->handleRequest($request);
+        $unityForm = $this->getFormUnity($app, $unity);
 
-        if($this->formRequestAction($unityForm)){
-            $this->getUnitiesEM($app)->createEntity($unityForm->getData());
+        if($this->formRequestAction($request, $em, $unityForm)){
             $app['session']->getFlashBag()->add('success', 'The unity '. $unityForm->getData()->getTitle().' was successfully created.');
-
         }
         $unities = $this->getUnitiesEM($app)->findAll();
 
@@ -64,16 +63,17 @@ class UnitiesController extends AbstractController {
      */
     public function editAction(Request $request, Application $app, $unityId){
 
-        $unity = $this->getUnitiesEM($app)->findOneById($unityId);
+        $em = $this->getUnitiesEM($app);
+
+        $unity = $em->findOneById($unityId);
 
         $unityForm = $this->getFormUnity($app, $unity);
 
-        $unityForm->handleRequest($request);
-        if($this->formRequestAction($unityForm)){
-            $this->getUnitiesEM($app)->updateEntity($unityForm->getData());
+        if($this->formRequestAction($request, $em, $unityForm)){
             $app['session']->getFlashBag()->add('success', 'The unity '. $unityForm->getData()->getTitle().' was successfully updated.');
             return $app->redirect('/buvette/web/unities/addUnity');
         }
+
         $unities = $this->getUnitiesEM($app)->findAll();
 
         return $app['twig']->render('unities/addUnities.html.twig', array(

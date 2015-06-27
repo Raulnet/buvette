@@ -10,6 +10,7 @@ namespace buvette\Controller;
 
 use buvette\ZEM\Generated\ZEM;
 use Silex\Application;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormError;
@@ -91,14 +92,19 @@ abstract class AbstractController {
     }
 
     /**
-     * @param Form $form
+     * @param Request $request
+     * @param Form    $form
+     * @param ZEM     $em
      *
      * @return bool
      */
-    protected function formRequestAction(Form $form){
+    protected function formRequestAction(Request $request, ZEM $em, Form $form){
 
+        $form->handleRequest($request);
         if ( $form->isSubmitted() &&  $form->isValid()) {
-            return true;
+            if($em->saveEntity($form->getData())){
+                return true;
+            }
         }
         return false;
     }
