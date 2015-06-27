@@ -8,14 +8,13 @@
 
 namespace buvette\Controller;
 
-use buvette\DAO\UnitiesZDAO;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
-use buvette\Domain\Unities;
+use buvette\entity\Generated\Unities;
 use buvette\Form\Type\UnityType;
 
 
-class UnitiesController {
+class UnitiesController extends AbstractController {
 
     /**
      * @param Application $app
@@ -24,7 +23,7 @@ class UnitiesController {
      */
     public function indexAction(Application $app){
 
-        $unities = $app['zdao.unities']->findAll();
+        $unities = $this->getUnitiesEM($app)->findAll();
 
         return $app['twig']->render('unities/index.html.twig', array(
             'unities' => $unities
@@ -40,18 +39,42 @@ class UnitiesController {
     public function addAction(Request $request, Application $app)
     {
         $unity     = new Unities();
-        $unityForm = $app['form.factory']->create(new UnityType(), $unity);
+        $unityForm = $this->getFormFactory($app)->create(new UnityType(), $unity);
         $unityForm->handleRequest($request);
-        if ($unityForm->isSubmitted() && $unityForm->isValid()) {
-            $app['zdao.unities']->createEntity($unityForm->getData());
-            $app['session']->getFlashBag()->add('success', 'The unity was successfully created.');
-            /**
-             * reset form to new creating
-             */
-            $unity     = new Unities();
-            $unityForm = $app['form.factory']->create(new UnityType(), $unity);
+
+        if($this->formRequestAction($unityForm)){
+            $this->getUnitiesEM($app)->createEntity($unityForm->getData());
+            $app['session']->getFlashBag()->add('success', 'The unity '. $unityForm->getData()->getTitle().' was successfully created.');
+
         }
-        $unities = $app['zdao.unities']->findAll();
+        $unities = $this->getUnitiesEM($app)->findAll();
+
+        return $app['twig']->render('unities/addUnities.html.twig', array(
+            'unityForm' => $unityForm->createView(),
+            'unities'   => $unities,
+        ));
+    }
+
+    /**
+     * @param Request     $request
+     * @param Application $app
+     * @param             $unityId
+     *
+     * @return mixed
+     */
+    public function editAction(Request $request, Application $app, $unityId){
+
+        $unity = $this->getUnitiesEM($app)->findOneById($unityId);
+
+        $unityForm = $this->getFormUnity($app, $unity);
+
+        $unityForm->handleRequest($request);
+        if($this->formRequestAction($unityForm)){
+            $this->getUnitiesEM($app)->updateEntity($unityForm->getData());
+            $app['session']->getFlashBag()->add('success', 'The unity '. $unityForm->getData()->getTitle().' was successfully updated.');
+            return $app->redirect('/buvette/web/unities/addUnity');
+        }
+        $unities = $this->getUnitiesEM($app)->findAll();
 
         return $app['twig']->render('unities/addUnities.html.twig', array(
             'unityForm' => $unityForm->createView(),
@@ -67,16 +90,38 @@ class UnitiesController {
      */
     public function deleteUnityAction(Application $app, $unityId) {
 
-
-        $unity = $app['zdao.unities']->findOneById($unityId);
+        $unity = $this->getUnitiesEM($app)->findOneById($unityId);
         if($unity){
-            $app['zdao.unities']->deleteEntity($unity);
-            $app['session']->getFlashBag()->add('success', 'The unity was succesfully removed.');
+            $this->getUnitiesEM($app)->deleteEntity($unity);
+            $app['session']->getFlashBag()->add('success', 'The unity '.$unity->getTitle().' was succesfully removed.');
         }
 
         return $app->redirect('/buvette/web/unities/addUnity');
 
     }
+    /** ========== METHOD ========= **/
+
+    /**
+     * @param Application $app
+     * @param Unities     $entity
+     *
+     * @return \Symfony\Component\Form\Form
+     */
+    public function getFormUnity(Application $app, Unities $entity){
+
+        return $this->getFormFactory($app)->create(new UnityType(), $entity);
+    }
+
+    /** ========== SERVICE ========= **/
+    /**
+     * @param $app
+     *
+     * @return \buvette\ZEM\Generated\UnitiesZEM
+     */
+    private function getUnitiesEM($app){
+
+        return $app['EM']->get('UnitiesZEM');
+    }
 
 
-} // END CLASS !!!
+}

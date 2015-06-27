@@ -10,6 +10,7 @@ namespace buvette\Controller;
 
 use buvette\ZEM\Generated\ZEM;
 use Silex\Application;
+use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Validator\Validator;
@@ -84,6 +85,19 @@ abstract class AbstractController {
     protected function deleteEntity(ZEM $em, $entity){
 
         if($em->deleteEntity($entity)){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param Form $form
+     *
+     * @return bool
+     */
+    protected function formRequestAction(Form $form){
+
+        if ( $form->isSubmitted() &&  $form->isValid()) {
             return true;
         }
         return false;
