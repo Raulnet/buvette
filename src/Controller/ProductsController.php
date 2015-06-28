@@ -36,13 +36,18 @@ class ProductsController extends AbstractController {
     /**
      * @param Request     $request
      * @param Application $app
+     * @param null        $productId
      *
      * @return mixed
      */
-    public function addAction(Request $request, Application $app){
+    public function createAction(Request $request, Application $app, $productId = null){
         // declare Entity Manager
         $productsEM = $this->getProducts($app);
         $productEntity = new Products();
+        // if id is send set it
+        if($productId){
+            $productEntity = $productsEM->findOneById($productId);
+        }
 
         $productForm = $this->getFormFactory($app)->create(new ProductType($app), $productEntity);
 
@@ -52,33 +57,6 @@ class ProductsController extends AbstractController {
 
             $productEntity = new Products();
             $productForm =  $this->getFormFactory($app)->create(new ProductType($app), $productEntity);
-        }
-
-        $products = $productsEM->getAllData();
-        return $app['twig']->render('products/products.html.twig', array(
-            'products' => $products,
-            'productForm' => $productForm->createView()
-        ));
-    }
-
-    /**
-     * @param Request     $request
-     * @param Application $app
-     * @param             $productId
-     *
-     * @return mixed
-     */
-    public function editAction(Request $request, Application $app, $productId){
-        // declare Entity Manager
-        $productsEM = $this->getProducts($app);
-        $product = $productsEM->findOneById($productId);
-
-        $productForm = $this->getFormFactory($app)->create(new ProductType($app), $product);
-        $productForm->handleRequest($request);
-
-        if ($this->formRequestAction($request, $productsEM, $productForm)) {
-
-            $this->getSession($app)->getFlashBag()->add('success', 'The product was successfully created.');
         }
 
         $products = $productsEM->getAllData();
@@ -100,7 +78,6 @@ class ProductsController extends AbstractController {
         $product = $productsEM->findOneById($productId);
 
         if ($product) {
-
             $productsEM->deleteEntity($product);
             $app['session']->getFlashBag()->add('success', 'The product was successfully Deleted.');
 

@@ -6,14 +6,15 @@
  * Time: 13:48
  */
 
+use Silex\Route;
+
 $products = $app['controllers_factory'];
 
 /* Route index Event */
 $products->get('/', "buvette\Controller\ProductsController::indexAction")->bind('products');
 /* Route add Product */
-$products->match('/addProduct', "buvette\Controller\ProductsController::addAction")->bind('addProduct');
-/* Route edit Product */
-$products->match('/edit/{productId}', "buvette\Controller\ProductsController::editAction")->bind('editProduct');
+$products->match('/createProduct/{productId}', "buvette\Controller\ProductsController::createAction")->value('productId', null)
+    ->bind('createProduct');
 /* Route Delete Product */
 $products->get('/delete/{productId}', "buvette\Controller\ProductsController::deleteAction")->bind('deleteProduct');
 

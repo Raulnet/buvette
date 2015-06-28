@@ -9,7 +9,7 @@
         <ol class="breadcrumb">
             <li><a href="{{ path('home') }}">Home</a></li>
             <li class="active">Products</li>
-            <li><a class="btn btn-default btn-xs" href="{{ path('addProduct') }}">+</a></li>
+            <li><a class="btn btn-default btn-xs" href="{{ path('createProduct') }}">+</a></li>
         </ol>
         {% include "flashMessage/message.html.twig" %}
     </div>
@@ -21,7 +21,7 @@
 {% block content %}
     {% if products %}
         <div class="panel panel-default">
-            <div class="panel-heading"><h4 class="panel-title">Produits <a class="btn btn-default btn-xs pull-right" href="{{ path('addProduct') }}">+</a></h4></div>
+            <div class="panel-heading"><h4 class="panel-title">Produits <a class="btn btn-default btn-xs pull-right" href="{{ path('createProduct') }}">+</a></h4></div>
             <table class="table table-bordered">
                 <tr>
                     <td>#</td>
@@ -71,7 +71,7 @@
                         </td>
                         <td>
                             <div class="btn-group">
-                                <a class="btn btn-success btn-xs" href="{{ path('editProduct', {'productId': product.id}) }}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                                <a class="btn btn-success btn-xs" href="{{ path('createProduct', {'productId': product.id}) }}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
                                 {# ===== BUTTON MODAL DELET ===== #}
                                 <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#category{{ product.id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
                             </div>

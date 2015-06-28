@@ -1,6 +1,6 @@
 ### silex template
 # phpStorm
-/.idea
+/.idea/*
 
 # config (pump_room)
 /app/config/*
