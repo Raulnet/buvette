@@ -38,14 +38,14 @@ class RecipeController extends AbstractController {
         if($reponse){
             return $app->redirect($app['url_generator']->generate('recipeProduct', array('productId' => $productId)));
         }
-        $primProd = $this->getPrimProds($app)->getOneAllDataById($primProdId);
+        $primProd = $this->getPrimProds($app)->getAllData($primProdId);
 
         $recipe = $this->getProducts($app)->getRecipeByProductId($productId);
 
         return $app['twig']->render('products/recipe.html.twig', array(
             'product'   => $product,
             'primProd'  => $primProd,
-            'recipe'    => $recipe,
+            'recipe'    => $recipe, 
             'primProds' => $primProds,
             'recipeForm' => $recipeForm->createView()
         ));
@@ -73,7 +73,7 @@ class RecipeController extends AbstractController {
             return $app->redirect($app['url_generator']->generate('recipeProduct', array('productId' => $productId)));
         }
 
-        $primProd = $this->getPrimProds($app)->getOneAllDataById($primProdId);
+        $primProd = $this->getPrimProds($app)->getAllData($primProdId);
 
         $recipe = $this->getProducts($app)->getRecipeByProductId($productId);
 
