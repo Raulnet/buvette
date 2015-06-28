@@ -21,8 +21,9 @@ class RecipeType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('quantity', 'integer', array(
+        $builder->add('primProductQuantity', 'number', array(
             'label' => 'quantité :',
+            'precision' => 2,
             'attr' => array('class' => 'form-control')
         ))->add('enregistrer', 'submit', array(
             'attr' => array('class' => 'btn btn-success')

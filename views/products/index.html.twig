@@ -4,27 +4,30 @@
 
 {% block navbar %}
     {% include "navbar/navbar.html.twig" %}
-    {% include "flashMessage/message.html.twig" %}
+    {# ========== BREADSCRUMB ========== #}
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="{{ path('home') }}">Home</a></li>
+            <li class="active">Products</li>
+            <li><a class="btn btn-default btn-xs" href="{{ path('addProduct') }}">+</a></li>
+        </ol>
+        {% include "flashMessage/message.html.twig" %}
+    </div>
+    {# ======== END BREADSCRUMB ======== #}
 {% endblock %}
 {% set productsNav = true %}
 {% set productsMenu = true %}
 
 {% block content %}
-    {# ========== BREADSCRUMB ========== #}
-        <ol class="breadcrumb">
-            <li><a href="{{ path('home') }}">Home</a></li>
-            <li class="active">produits</li>
-            <li><a href="{{ path('addProduct') }}">+ ajouter</a></li>
-        </ol>
     {% if products %}
-        <div class="panel panel-success">
-            <div class="panel-heading"><h4 class="panel-title">Produits</h4></div>
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4 class="panel-title">Produits <a class="btn btn-default btn-xs pull-right" href="{{ path('addProduct') }}">+</a></h4></div>
             <table class="table table-bordered">
                 <tr>
                     <td>#</td>
                     <td>Catégories</td>
                     <td>Produits</td>
-                    <td>recipe</td>
+                    <td>Recette</td>
                     <td>Action</td>
                 </tr>
                 {% for product in products %}

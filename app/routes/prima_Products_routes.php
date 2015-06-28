@@ -12,6 +12,8 @@ $primProds = $app['controllers_factory'];
 $primProds->get('/', "buvette\Controller\PrimaProductsController::indexAction")->bind('primProds');
 /* Route add Event */
 $primProds->match('/addPrimProds', "buvette\Controller\PrimaProductsController::addAction")->bind('addPrimProd');
+/* Route add Event */
+$primProds->match('/editPrimProds/{primProdId}', "buvette\Controller\PrimaProductsController::editAction")->bind('editPrimProd');
 /* Route Delete Event */
 $primProds->get('/deletePrimProd/{primProdId}', "buvette\Controller\PrimaProductsController::deleteAction")->bind('deletePrimProd');
 

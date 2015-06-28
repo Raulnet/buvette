@@ -32,11 +32,11 @@ class PrimProdType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('title', 'text')
-            ->add('categoryId', 'choice', array(
+            ->add('categoriesId', 'choice', array(
                 'choices' => $this->getCategoryChoice(),
                 'expanded' => false,
             ))
-            ->add('unityId', 'choice', array(
+            ->add('unitiesId', 'choice', array(
                 'choices' => $this->getUnityChoice(),
                 'expanded' => false,
             ));
@@ -55,7 +55,7 @@ class PrimProdType extends AbstractType {
      */
     private function getCategoryChoice(){
 
-        $data = $this->app['zdao.catPrimProds']->findAll();
+        $data = $this->app['EM']->get('CategoriesPrimProductsZEM')->findAll();
 
         $categories =array();
 
@@ -72,7 +72,7 @@ class PrimProdType extends AbstractType {
      */
     private function getUnityChoice(){
 
-        $data = $this->app['zdao.unities']->findAll();
+        $data = $this->app['EM']->get('UnitiesZEM')->findAll();
 
         $unities =array();
 

@@ -11,7 +11,7 @@ $products = $app['controllers_factory'];
 /* Route index Event */
 $products->get('/', "buvette\Controller\ProductsController::indexAction")->bind('products');
 /* Route add Product */
-$products->match('/addCatProds', "buvette\Controller\ProductsController::addAction")->bind('addProduct');
+$products->match('/addProduct', "buvette\Controller\ProductsController::addAction")->bind('addProduct');
 /* Route edit Product */
 $products->match('/edit/{productId}', "buvette\Controller\ProductsController::editAction")->bind('editProduct');
 /* Route Delete Product */

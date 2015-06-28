@@ -8,7 +8,10 @@
         <title>Buvette - {% block title %}{% endblock %}</title>
 
         {% block stylessheets %}
+            {# ===== bootstrap twitter ===== #}
             <link href="{{ app.request.basepath }}/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+            {# ===== Google Icon ===== #}
+            <link href="{{ app.request.basepath }}/lib/googledesign/icon.css" rel="stylesheet">
 
         {% endblock %}
     </head>
@@ -28,9 +31,6 @@
             <script src="{{ app.request.basepath }}/lib/jquery/jquery-1.11.2.min.js"></script>
             <!-- JavaScript Boostrap plugin -->
             <script src="{{ app.request.basepath }}/lib/bootstrap/js/bootstrap.min.js"></script>
-
-
-
 
             {% block extendScript %}
 

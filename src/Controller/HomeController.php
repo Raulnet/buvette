@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use buvette\Form\Type\FormType;
 
 
-class HomeController
+class HomeController extends AbstractController
 {
 
     /**
@@ -25,13 +25,13 @@ class HomeController
     {
 
         $staffs = array();
-        $unities = array();
-        $catPrimProds = array();
-        $DataPrimaProducts = array();
+        $unities = $app['EM']->get('UnitiesZEM')->findall();
+        $catPrimProds = $app['EM']->get('CategoriesPrimProductsZEM')->findall();
+        $DataPrimaProducts = $app['EM']->get('PrimProductsZEM')->getAllData();
         $catProducts = array();
         $products = array();
         $comboProds = array();
-        $events = array();
+        $events = $app['EM']->get('EventZEM')->findall();
 
         return $app['twig']->render('index.html.twig', array(
             'staffs'            => $staffs,

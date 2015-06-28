@@ -4,14 +4,26 @@
 
 {% block navbar %}
     {% include "navbar/navbar.html.twig" %}
+    {# ========== BREADSCRUMB ========== #}
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="{{ path('home') }}">Home</a></li>
+            <li class="active">Primary Product Categories</li>
+            <li><a class="btn btn-default btn-xs" href="{{ path('addCatPrimProds') }}">+</a></li>
+        </ol>
+    </div>
+    {# ======== END BREADSCRUMB ======== #}
+    {% include "flashMessage/message.html.twig" %}
 {% endblock %}
 
 {% set catPrimProdsMenu = true %}
 
 {% block content %} {# BLOCK CONTENT #}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Primary Product Categories <a class="btn btn-default btn-xs pull-right" href="{{ path('addCatPrimProds') }}">+</a></h4>
+        </div>
 
-    <div class="col-md-12">
-        <a class="btn btn-primary btn-sm" href="{{ path('addCatPrimProds') }}">add</a>
         <table class="table table-bordered table-striped">
             <tr>
                 <td>title</td>
@@ -20,10 +32,15 @@
             {% for cat in catPrimProds %}
                 <tr>
                     <td>{{ cat.title }}</td>
-                    <td></td>
+                    <td>
+                        <!-- ===== BUTTON EDIT CATEGORY ==================================================== -->
+                        <a href="{{ path('editCatPrimProds', {'categoryId': cat.id }) }}"
+                           class="btn btn-success btn-xs"
+                           title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+                        <!-- ===== END BUTTON EDIT CATEGORY  =============================================== -->
+                    </td>
                 </tr>
             {% endfor %}
         </table>
     </div>
-
 {% endblock %} {# END BLOCK CONTENT#}

@@ -1,9 +1,18 @@
 {% extends "./layout.html.twig" %}
 {% block title %}event{% endblock %}
 
-
 {% block navbar %}
     {% include "navbar/navbar.html.twig" %}
+    {# ========== BREADSCRUMB ========== #}
+    <div class="col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{{ path('home') }}">Home</a></li>
+            <li class="active">Evènement</li>
+        </ol>
+    </div>
+    {# ======== END BREADSCRUMB ======== #}
+    {% include "flashMessage/message.html.twig" %}
+
 {% endblock %}
 
 {% set eventMenu = true %}
@@ -12,21 +21,28 @@
 
 
 <div class="col-md-12">
-    <a class="btn btn-primary btn-sm" href="{{ path('addEvent') }}">add</a>
-    <table class="table table-bordered table-striped">
-        <tr>
-            <td>#</td>
-            <td>title</td>
-            <td>Action</td>
-        </tr>
-        {% for event in events %}
-            <tr>
-                <td>{{ event.id }}</td>
-                <td>{{ event.title }}</td>
-                <td></td>
-            </tr>
-        {% endfor %}
-    </table>
+    <div class="panel panel-default">
+        <div style="height: 40px;" class="panel-heading">
+            <h3 style="float: left" class="panel-title">Evènement</h3>
+            <a style="float: right;" href="{{ path('addEvent') }}"><span class="material-icons md-24">add</span></a>
+            <div class="clearfix"></div>
+            </div>
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <td>#</td>
+                    <td>title</td>
+                    <td>Action</td>
+                </tr>
+                {% for event in events %}
+                    <tr>
+                        <td>{{ event.id }}</td>
+                        <td>{{ event.title }}</td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
 </div>
 
 

@@ -47,7 +47,7 @@ class EventController extends AbstractController {
 
         if ($eventForm->isSubmitted() && $eventForm->isValid()) {
 
-            $eventForm->getData()->setStfIdCreat(5);
+            $eventForm->getData()->setStaffIdCreat(7);
 
             $this->getEvent($app)->createEntity($eventForm->getData());
             $app['session']->getFlashBag()->add('success', 'The event was successfully created.');

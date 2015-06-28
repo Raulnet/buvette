@@ -10,10 +10,10 @@ namespace buvette\Controller;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
-use buvette\Domain\CategoriesProduct;
+use buvette\Entity\Generated\CategoriesProducts;
 use buvette\Form\Type\CategoryProductsType;
 
-class CategoriesProductsController {
+class CategoriesProductsController extends AbstractController {
 
     /**
      * @param Application $app
@@ -38,9 +38,9 @@ class CategoriesProductsController {
     public function addAction(Request $request, Application $app){
         // declare Entity Manager
         $catProdsEM = $this->getCatProducts($app);
-        $catProds = new CategoriesProduct();
+        $catProds = new CategoriesProducts();
 
-        $catProdsForm = $app['form.factory']->create(new CategoryProductsType(), $catProds);
+        $catProdsForm = $this->getFormFactory($app)->create(new CategoryProductsType(), $catProds);
 
         $catProdsForm->handleRequest($request);
 
@@ -49,8 +49,8 @@ class CategoriesProductsController {
             $catProdsEM->createEntity($catProdsForm->getData());
             $app['session']->getFlashBag()->add('success', 'The event was successfully created.');
 
-            $catProds = new CategoriesProduct();
-            $catProdsForm = $app['form.factory']->create(new CategoryProductsType(), $catProds);
+            $catProds = new CategoriesProducts();
+            $catProdsForm = $this->getFormFactory($app)->create(new CategoryProductsType(), $catProds);
         }
 
         $categories = $catProdsEM->findAll();
@@ -115,11 +115,11 @@ class CategoriesProductsController {
     /**
      * @param Application $app
      *
-     * @return \buvette\DAO\CatProductZDAO
+     * @return \buvette\ZEM\Generated\CatProductZDAO
      */
     private function getCatProducts(Application $app){
 
-        return $app['zdao.catProducts'] ;
+        return $app['EM']->get('CategoriesProductsZEM');
 
     }
 

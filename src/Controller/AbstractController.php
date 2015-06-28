@@ -16,6 +16,7 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Validator\Validator;
 use Twig_Environment;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 abstract class AbstractController {
 
@@ -48,6 +49,18 @@ abstract class AbstractController {
 
         return $app['twig'];
     }
+
+    /**
+     * @param Application $app
+     *
+     * @return Session
+     */
+    protected function getSession(Application $app){
+
+        return $app['session'];
+    }
+
+    /** ========== EM ========== **/
 
     /**
      * @param ZEM    $em

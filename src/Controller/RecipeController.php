@@ -11,11 +11,11 @@ namespace buvette\Controller;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use buvette\Form\Type\RecipeType;
-use buvette\Domain\Recipe;
+use buvette\Entity\Generated\Recipe;
 use Symfony\Component\Form\Form;
 
 
-class RecipeController {
+class RecipeController extends AbstractController {
 
     /**
      * @param Request     $request
@@ -38,9 +38,9 @@ class RecipeController {
         if($reponse){
             return $app->redirect($app['url_generator']->generate('recipeProduct', array('productId' => $productId)));
         }
-        $primProd = $this->getPrimProds($app)->findOneFullStackById($primProdId);
+        $primProd = $this->getPrimProds($app)->getOneAllDataById($primProdId);
 
-        $recipe = $this->getProducts($app)->getRecipeByIdProduct($productId);
+        $recipe = $this->getProducts($app)->getRecipeByProductId($productId);
 
         return $app['twig']->render('products/recipe.html.twig', array(
             'product'   => $product,
@@ -73,9 +73,9 @@ class RecipeController {
             return $app->redirect($app['url_generator']->generate('recipeProduct', array('productId' => $productId)));
         }
 
-        $primProd = $this->getPrimProds($app)->findOneFullStackById($primProdId);
+        $primProd = $this->getPrimProds($app)->getOneAllDataById($primProdId);
 
-        $recipe = $this->getProducts($app)->getRecipeByIdProduct($productId);
+        $recipe = $this->getProducts($app)->getRecipeByProductId($productId);
 
         return $app['twig']->render('products/recipe.html.twig', array(
             'product'   => $product,
@@ -122,7 +122,7 @@ class RecipeController {
         if(!$recipe){
             $recipe = new Recipe();
             $recipe->setProductId($productId);
-            $recipe->setPrimProdId($primProId);
+            $recipe->setPrimProductId($primProId);
         }
 
         $recipeForm = $app['form.factory']->create(new RecipeType(), $recipe);
@@ -142,7 +142,7 @@ class RecipeController {
         $data = array();
         foreach($categories as $category){
 
-            $products = $this->getPrimProds($app)->find(array('prm_category' => $category->getId()));
+            $products = $this->getPrimProds($app)->find(array('prp_categories_id' => $category->getId()));
             $primProds['title'] = $category->getTitle();
             $primProds['id'] = $category->getId();
             $primProds['count'] = count($products);
@@ -186,41 +186,41 @@ class RecipeController {
     /**
      * @param Application $app
      *
-     * @return \buvette\DAO\RecipeZDAO
+     * @return \buvette\ZEM\Generated\RecipeZEM
      */
     private function getRecipe(Application $app){
 
-        return $app['zdao.recipe'];
+        return $app['EM']->get('RecipeZEM');
     }
 
     /**
      * @param Application $app
      *
-     * @return \buvette\DAO\ProductsZDAO
+     * @return \buvette\ZEM\ProductsZEM
      */
     private function getProducts(Application $app){
 
-        return $app['zdao.products'];
+        return $app['EM']->get('ProductsZEM');
     }
 
     /**
      * @param Application $app
      *
-     * @return \buvette\DAO\PrimaProductsZDAO
+     * @return \buvette\ZEM\PrimProductsZEM
      */
     private function getPrimProds(Application $app){
 
-        return $app['zdao.primaProduct'];
+        return $app['EM']->get('PrimProductsZEM');
     }
 
     /**
      * @param Application $app
      *
-     * @return \buvette\DAO\CatPrimaProductZDAO
+     * @return \buvette\ZEM\Generated\CategoriesPrimProductsZEM
      */
     private function getCatPrimProds(Application $app){
 
-        return $app['zdao.catPrimProds'];
+        return $app['EM']->get('CategoriesPrimProductsZEM');
     }
 
 }

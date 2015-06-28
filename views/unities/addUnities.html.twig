@@ -4,6 +4,15 @@
 
 {% block navbar %}
     {% include "navbar/navbar.html.twig" %}
+    {# ========== BREADSCRUMB ========== #}
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="{{ path('home') }}">Home</a></li>
+            <li><a href="{{ path('unities') }}">Unités</a></li>
+            <li class="active">Ajouter</li>
+        </ol>
+    </div>
+    {# ======== END BREADSCRUMB ======== #}
     {% include "flashMessage/message.html.twig" %}
 {% endblock %}
 

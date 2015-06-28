@@ -4,52 +4,63 @@
 
 {% block navbar %}
     {% include "navbar/navbar.html.twig" %}
-    {% include "flashMessage/message.html.twig" %}
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="{{ path('home') }}">Home</a></li>
+            <li class="active">Categories Product</li>
+            <li><a class="btn btn-default btn-xs pull-right" href="{{ path('addCatProds') }}">+</a></li>
+        </ol>
+        {% include "flashMessage/message.html.twig" %}
+    </div>
 {% endblock %}
 {% set productsNav = true %}
 {% set catProdsMenu = true %}
 
 {% block content %}
-    <a class="btn btn-success" href="{{ 'addCatProds' }}">add</a>
     {% if categories %}
-        <table class="table table-bordered table-striped">
-            <tr>
-                <td>#</td>
-                <td>Catégories</td>
-                <td>Action</td>
-            </tr>
-            {% for category in categories %}
+        <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Categories Products <a class="btn btn-default btn-xs pull-right" href="{{ path('addCatProds') }}">+</a></h4>
+        </div>
+            <table class="table table-bordered table-striped">
                 <tr>
-                    <td>{{ category.id }}</td>
-                    <td>{{ category.title }}</td>
-                    <td>
-                        <div class="btn-group">
-                            <a class="btn btn-success btn-xs" href="{{ path('editCatProds', {'catProdsId': category.id}) }}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                            {# ===== BUTTON MODAL DELET ===== #}
-                            <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#category{{ category.id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-                        </div>
-                        {# ===== MODAL ===== #}
-                        <div class="modal fade" id="category{{ category.id }}" tabindex="-1" role="dialog" aria-labelledby="category" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="myModalLabel">Supprimer Categorie {{ category.title }}</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        Souhaitez vous réellement supprimer {{ category.title }} ?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        <a href="{{ path('deleteCatProds', {'catProdsId': category.id}) }}" type="button" class="btn btn-danger">confirmer</a>
+                    <td>#</td>
+                    <td>Catégories</td>
+                    <td>Action</td>
+                </tr>
+                {% for category in categories %}
+                    <tr>
+                        <td>{{ category.id }}</td>
+                        <td>{{ category.title }}</td>
+                        <td>
+                            <div class="btn-group">
+                                <a class="btn btn-success btn-xs" href="{{ path('editCatProds', {'catProdsId': category.id}) }}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                                {# ===== BUTTON MODAL DELET ===== #}
+                                <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#category{{ category.id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                            </div>
+                            {# ===== MODAL ===== #}
+                            <div class="modal fade" id="category{{ category.id }}" tabindex="-1" role="dialog" aria-labelledby="category" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">Supprimer Categorie {{ category.title }}</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            Souhaitez vous réellement supprimer {{ category.title }} ?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <a href="{{ path('deleteCatProds', {'catProdsId': category.id}) }}" type="button" class="btn btn-danger">confirmer</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
     {% else %}
         <p>no category registered !</p>
     {% endif %}

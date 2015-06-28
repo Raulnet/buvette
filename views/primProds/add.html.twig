@@ -4,6 +4,16 @@
 
 {% block navbar %}
     {% include "navbar/navbar.html.twig" %}
+    {# ========== BREADSCRUMB ========== #}
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="{{ path('home') }}">Home</a></li>
+            <li><a href="{{ path('primProds') }}">Prim products</a></li>
+            <li class="active">ajouter</li>
+        </ol>
+    </div>
+    {# ======== END BREADSCRUMB ======== #}
+    {% include "flashMessage/message.html.twig" %}
 {% endblock %}
 
 {% set primProdMenu = true %}
@@ -19,11 +29,11 @@
             {{ form_widget(primProdForm.title, {'attr': {'class': 'form-control'}}) }}
         </div>
         <div class="form-group">
-            <label for="title_of_category">{{ form_label(primProdForm.title, 'Category : ') }}</label>
-            {{ form_widget(primProdForm.categoryId) }}
+            <label for="title_of_category">{{ form_label(primProdForm.categoriesId, 'Category : ') }}</label>
+            {{ form_widget(primProdForm.categoriesId) }}
         </div><div class="form-group">
-            <label for="title_of_unity">{{ form_label(primProdForm.title, 'Unity : ') }}</label>
-            {{ form_widget(primProdForm.unityId) }}
+            <label for="title_of_unity">{{ form_label(primProdForm.unitiesId, 'Unity : ') }}</label>
+            {{ form_widget(primProdForm.unitiesId) }}
         </div>
         <button type="submit" class="btn btn-success">Submit</button>
         <a href="{{ path('primProds') }}" class="btn btn-danger">Annuler</a>
@@ -50,17 +60,19 @@
                         <td>{{ prod.catTitle }}</td>
                         <td>{{ prod.uniTitle }}</td>
                         <td>
-                            <!-- ===== BUTTON EDIT PRIMA PRODUCT ================================================== -->
-                            <a href="#"
-                               class="btn btn-primary btn-xs"
-                               title="Edit"><span class="glyphicon glyphicon-time"></span></a>
-                            <!-- ===== END BUTTON EDIT PRIMA PRODUCT ============================================== -->
-                            <!-- ===== BUTTON DELET PRIMA PRODUCT ================================================= -->
-                            <button type="button" class="btn btn-danger btn-xs" title="Delete"
-                                    data-toggle="modal" data-target="#primProdDialog{{ prod.id }}"><span
-                                        class="glyphicon glyphicon-remove"></span>
-                            </button>
-                            <!-- ===== END BUTTON DELET PRIMA PRODUCT ============================================= -->
+                            <div class="btn-group">
+                                <!-- ===== BUTTON EDIT PRIMA PRODUCT ================================================== -->
+                                <a href="{{ path('editPrimProd', {'primProdId': prod.id }) }}"
+                                   class="btn btn-success btn-xs"
+                                   title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+                                <!-- ===== END BUTTON EDIT PRIMA PRODUCT ============================================== -->
+                                <!-- ===== BUTTON DELET PRIMA PRODUCT ================================================= -->
+                                <button type="button" class="btn btn-danger btn-xs" title="Delete"
+                                        data-toggle="modal" data-target="#primProdDialog{{ prod.id }}"><span
+                                            class="glyphicon glyphicon-remove"></span>
+                                </button>
+                                <!-- ===== END BUTTON DELET PRIMA PRODUCT ============================================= -->
+                            </div>
                             <!-- ===== START MODAL PRIMA PRODUCT ================================================== -->
                             <div class="modal fade" id="primProdDialog{{ prod.id }}" tabindex="-1" role="dialog"
                                  aria-labelledby="myModalLabel" aria-hidden="true">

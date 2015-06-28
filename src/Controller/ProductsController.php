@@ -10,11 +10,11 @@ namespace buvette\Controller;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
-use buvette\Domain\Products;
+use buvette\Entity\Generated\Products;
 use buvette\Form\Type\ProductType;
 
 
-class ProductsController {
+class ProductsController extends AbstractController {
 
 
     /** ========== ACTION =========  */
@@ -25,7 +25,7 @@ class ProductsController {
      */
     public function indexAction(Application $app){
 
-        $products = $this->getProducts($app)->findAllFullStack();
+        $products = $this->getProducts($app)->getAllData();
 
         return $app['twig']->render('products/index.html.twig', array(
             'products' => $products
@@ -44,20 +44,17 @@ class ProductsController {
         $productsEM = $this->getProducts($app);
         $productEntity = new Products();
 
-        $productForm = $app['form.factory']->create(new ProductType($app), $productEntity);
+        $productForm = $this->getFormFactory($app)->create(new ProductType($app), $productEntity);
 
-        $productForm->handleRequest($request);
+        if ($this->formRequestAction($request, $productsEM, $productForm)) {
 
-        if ($productForm->isSubmitted() && $productForm->isValid()) {
-
-            $productsEM->createEntity($productForm->getData());
-            $app['session']->getFlashBag()->add('success', 'The product was successfully created.');
+            $this->getSession($app)->getFlashBag()->add('success', 'The product was successfully created.');
 
             $productEntity = new Products();
-            $productForm = $app['form.factory']->create(new ProductType($app), $productEntity);
+            $productForm =  $this->getFormFactory($app)->create(new ProductType($app), $productEntity);
         }
 
-        $products = $productsEM->findAllFullStack();
+        $products = $productsEM->getAllData();
         return $app['twig']->render('products/products.html.twig', array(
             'products' => $products,
             'productForm' => $productForm->createView()
@@ -76,16 +73,15 @@ class ProductsController {
         $productsEM = $this->getProducts($app);
         $product = $productsEM->findOneById($productId);
 
-        $productForm = $app['form.factory']->create(new ProductType($app), $product);
+        $productForm = $this->getFormFactory($app)->create(new ProductType($app), $product);
         $productForm->handleRequest($request);
 
-        if ($productForm->isSubmitted() && $productForm->isValid()) {
+        if ($this->formRequestAction($request, $productsEM, $productForm)) {
 
-            $productsEM->updateEntity($productForm->getData());
-            $app['session']->getFlashBag()->add('success', 'The product was successfully created.');
+            $this->getSession($app)->getFlashBag()->add('success', 'The product was successfully created.');
         }
 
-        $products = $productsEM->findAllFullStack();
+        $products = $productsEM->getAllData();
         return $app['twig']->render('products/products.html.twig', array(
             'products' => $products,
             'productForm' => $productForm->createView()
@@ -122,7 +118,7 @@ class ProductsController {
     public function recipeAction(Application $app, $productId){
 
         $product = $this->getProducts($app)->findOneById($productId);
-        $recipe = $this->getProducts($app)->getRecipeByIdProduct($productId);
+        $recipe = $this->getProducts($app)->getRecipeByProductId($productId);
 
         $primProds = $this->getPrimProdsByCategories($app);
 
@@ -147,7 +143,7 @@ class ProductsController {
         $data = array();
         foreach($categories as $category){
 
-            $products = $this->getPrimProds($app)->find(array('prm_category' => $category->getId()));
+            $products = $this->getPrimProds($app)->find(array('prp_categories_id' => $category->getId()));
             $primProds['title'] = $category->getTitle();
             $primProds['id'] = $category->getId();
             $primProds['count'] = count($products);
@@ -163,31 +159,31 @@ class ProductsController {
     /**
      * @param Application $app
      *
-     * @return \buvette\DAO\ProductsZDAO
+     * @return \buvette\ZEM\ProductsZEM
      */
     private function getProducts(Application $app){
 
-        return $app['zdao.products'];
+        return $app['EM']->get('ProductsZEM');
     }
 
     /**
      * @param Application $app
      *
-     * @return \buvette\DAO\PrimaProductsZDAO
+     * @return \buvette\ZEM\PrimaProductsZEM
      */
     private function getPrimProds(Application $app){
 
-        return $app['zdao.primaProduct'];
+        return $app['EM']->get('PrimProductsZEM');
     }
 
     /**
      * @param Application $app
      *
-     * @return \buvette\DAO\CatPrimaProductZDAO
+     * @return \buvette\ZEM\Generated\CategoriesPrimProductsZEM
      */
     private function getCatPrimProds(Application $app){
 
-        return $app['zdao.catPrimProds'];
+        return $app['EM']->get('CategoriesPrimProductsZEM');
     }
 
 }

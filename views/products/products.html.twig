@@ -4,7 +4,16 @@
 
 {% block navbar %}
     {% include "navbar/navbar.html.twig" %}
-    {% include "flashMessage/message.html.twig" %}
+    {# ========== BREADSCRUMB ========== #}
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="{{ path('home') }}">Home</a></li>
+            <li ><a href="{{ path('products') }}">products</a></li>
+            <li class="active">ajouter</li>
+        </ol>
+        {% include "flashMessage/message.html.twig" %}
+    </div>
+    {# ======== END BREADSCRUMB ======== #}
 {% endblock %}
 {% set productsNav = true %}
 {% set productsMenu = true %}

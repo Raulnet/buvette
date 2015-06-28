@@ -55,7 +55,7 @@ class ProductType extends AbstractType {
 
     private function arrayChoices(){
 
-        $categories = $this->app['zdao.catProducts']->findAll();
+        $categories = $this->app['EM']->get('CategoriesProductsZEM')->findAll();
 
         $arrayChoices = array();
         foreach($categories as $category){

@@ -9,11 +9,11 @@
 namespace buvette\Controller;
 
 use buvette\Form\Type\PrimProdType;
-use buvette\Domain\PrimaProducts;
+use buvette\Entity\Generated\PrimProducts;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
-class PrimaProductsController {
+class PrimaProductsController extends AbstractController {
 
     /**
      * @param Application $app
@@ -22,33 +22,61 @@ class PrimaProductsController {
      */
     public function indexAction(Application $app) {
 
-        $primProds = $app['zdao.primaProduct']->findAllData();
+        $primProds = $this->getPrimProduct($app)->getAllData();
 
-        return $app['twig']->render('primProds/index.html.twig', array(
+        return $this->getTwig($app)->render('primProds/index.html.twig', array(
             'primProds'            => $primProds,
 
         ));
     }
 
+    /**
+     * @param Request     $request
+     * @param Application $app
+     *
+     * @return mixed
+     */
     public function addAction(Request $request, Application $app) {
 
-        $primProd = new PrimaProducts();
-        $primProdForm = $app['form.factory']->create(new PrimProdType($app), $primProd);
+        $primProd = new PrimProducts();
+        $em = $this->getPrimProduct($app);
 
-        $primProdForm->handleRequest($request);
-        if ($primProdForm->isSubmitted() && $primProdForm->isValid()) {
+        $primProdForm = $this->getFormFactory($app)->create(new PrimProdType($app), $primProd);
 
-            $app['zdao.primaProduct']->createEntity($primProdForm->getData());
-            $app['session']->getFlashBag()->add('success', 'The prima product was successfully created.');
-
-            /**
-             * reset form to new creating
-             */
-            $primProd = new PrimaProducts();
-            $primProdForm = $app['form.factory']->create(new PrimProdType($app), $primProd);
+        if($this->formRequestAction($request, $em, $primProdForm))
+        {
+            $this->getSession($app)->getFlashBag()->add('success', 'The prima product was successfully created.');
         }
 
-        $primProds = $app['zdao.primaProduct']->findAllData();
+        $primProds = $em->getAllData();
+
+        return $app['twig']->render('primProds/add.html.twig', array(
+            'primProdForm'  => $primProdForm->createView(),
+            'primProds'     => $primProds,
+        ));
+    }
+
+    /**
+     * @param Request     $request
+     * @param Application $app
+     * @param             $primProdId
+     *
+     * @return mixed
+     */
+    public function editAction(Request $request, Application $app, $primProdId)
+    {
+
+        $em = $this->getPrimProduct($app);
+        $primProd = $em->findOneById($primProdId);
+
+        $primProdForm = $this->getFormFactory($app)->create(new PrimProdType($app), $primProd);
+
+        if($this->formRequestAction($request, $em, $primProdForm))
+        {
+            $this->getSession($app)->getFlashBag()->add('success', 'The prima product was successfully created.');
+        }
+
+        $primProds = $em->getAllData();
 
         return $app['twig']->render('primProds/add.html.twig', array(
             'primProdForm'  => $primProdForm->createView(),
@@ -65,10 +93,10 @@ class PrimaProductsController {
     public function deleteAction(Application $app, $primProdId) {
 
 
-        $primProd = $app['zdao.primaProduct']->findOneById($primProdId);
+        $primProd = $this->getPrimProduct($app)->findOneById($primProdId);
         if($primProd){
-            $app['zdao.primaProduct']->deleteEntity($primProd);
-            $app['session']->getFlashBag()->add('success', 'The prima products was succesfully removed.');
+            $this->getPrimProduct($app)->deleteEntity($primProd);
+            $app['session']->getFlashBag()->add('success', 'The prima products '. $primProd->getTitle().' was succesfully removed.');
         }
 
         return $app->redirect('/buvette/web/prima_products/addPrimProds');
@@ -76,6 +104,14 @@ class PrimaProductsController {
     }
 
 
+/** ========== SERVICE ========= **/
+    /**
+     * @param Application $app
+     *
+     * @return \buvette\ZEM\PrimProductsZEM
+     */
+    private function getPrimProduct(Application $app){
+        return $app['EM']->get('PrimProductsZEM');
+    }
 
-
-} // END CLASS !!!!
+}

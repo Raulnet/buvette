@@ -1,17 +1,28 @@
 {% extends "./layout.html.twig" %}
 {% block title %}Matière Première{% endblock %}
 
-
 {% block navbar %}
     {% include "navbar/navbar.html.twig" %}
+    {# ========== BREADSCRUMB ========== #}
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="{{ path('home') }}">Home</a></li>
+            <li class="active">Primary Product</li>
+            <li><a class="btn btn-default btn-xs" href="{{ path('addPrimProd') }}">+</a></li>
+        </ol>
+    </div>
+    {# ======== END BREADSCRUMB ======== #}
+    {% include "flashMessage/message.html.twig" %}
 {% endblock %}
 
 {% set primProdMenu = true %}
 
 {% block content %} {# BLOCK CONTENT #}
 
-    <div class="col-md-12">
-        <a class="btn btn-primary btn-sm" href="{{ path('addPrimProd') }}">add</a>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Primary Products <a class="btn btn-default btn-xs pull-right" href="{{ path('addPrimProd') }}">+</a></h4>
+        </div>
         <table class="table table-bordered table-striped">
             <tr>
                 <td>#</td>
@@ -26,7 +37,13 @@
                     <td>{{ prod.title }}</td>
                     <td>{{ prod.catTitle }}</td>
                     <td>{{ prod.uniTitle }}</td>
-                    <td></td>
+                    <td>
+                        <!-- ===== BUTTON EDIT PRIMA PRODUCT ================================================== -->
+                        <a href="{{ path('editPrimProd', {'primProdId': prod.id }) }}"
+                           class="btn btn-success btn-xs"
+                           title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+                        <!-- ===== END BUTTON EDIT PRIMA PRODUCT ============================================== -->
+                    </td>
                 </tr>
             {% endfor %}
         </table>
